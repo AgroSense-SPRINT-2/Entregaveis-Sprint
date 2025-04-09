@@ -1,0 +1,94 @@
+/* Reset básico */
+body {
+  margin: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-image: url(https://img.freepik.com/fotos-gratis/plantas-verdes-frescas-crescem-na-natureza-vibrante-gerada-pela-ia_188544-151450.jpg); 
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  background-color :#046236;
+  border-radius: 36px;
+  overflow: hidden; /* não sair do container*/
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  width: 850px;
+  height: 500px;
+}
+
+.metadecontainer {
+  flex: 1;
+  padding: 30px;
+  color: white;
+}
+
+.metadecontainer h2 {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.linha {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+  gap: 20px; /*Espaço entre dois campos*/
+}
+
+.inputdupla {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+}
+
+ label {
+  font-size: 14px;
+  margin-bottom: 10px;
+  
+}
+
+ input {
+  height: 15px;
+  padding: 8px 12px;
+  border-radius: 36px;
+  font-size: 14px;
+ 
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.button button {
+  width: 200px;
+  height: 40px;
+  border-radius: 36px;
+  background-color: #fff;
+  color: #046236;
+  font-size: 16px;
+  cursor: pointer;
+  
+}
+
+
+.logo_container {
+  width: 250px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo_container img {
+  max-width: 450px;
+  height: auto;
+}
+
