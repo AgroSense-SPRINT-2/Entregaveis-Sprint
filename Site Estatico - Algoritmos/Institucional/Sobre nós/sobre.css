@@ -1,0 +1,64 @@
+* {
+    margin: 15px;
+    margin-top: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+
+  body{
+    background-color: #315421;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    flex-direction: row;
+    overflow: hidden;
+
+
+  }
+  .structure b {
+    color: #90ee33;
+  }
+
+  .imagens {
+    width: 100%;
+   
+    padding: 70px;
+    margin-left: 150px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .imagem1 {
+    background-image: url('istockphoto-1463452333-612x612.jpg');
+    background-size: cover;
+    width: 200px;
+    height:100px ;
+    border: 2px solid #315421;
+    border-radius: 36px;
+    box-shadow: #fff;
+    
+
+  }
+  .imagem2 {
+    background-image: url('incorporacao-novas-tecnologias.webp');
+    background-size: cover;
+    width: 200px;
+    height:100px ;
+    border: 2px solid #315421;
+    border-radius: 36px;
+    box-shadow: #fff;
+   
+
+  }
+  .imagem3 {
+    background-image: url('agricultura-inteligente.webp');
+    background-size: cover;
+    width:200px;
+    height:100px ;
+    border: 2px solid #315421;
+    border-radius: 36px;
+    box-shadow: #fff;
+
+  }
