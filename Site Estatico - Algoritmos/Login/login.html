@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - AgroSense</title>
   <link rel="stylesheet" href="login.css">
-  <script src="login.js"></script>
 </head>
 
 <body>
@@ -15,7 +14,7 @@
       <div class="form_posição">
         <h2 class="login_título">Login</h2>
         Email <input type="text" id="email" class="input"> <br>
-        Senha <input type="text" id="senha" class="input"> <br>
+        Senha <input type="password" id="senha" class="input"> <br>
 
         <a href="file:///C:/Users/Aluno/Downloads/sprint2/Entreg-veis-2/Site%20Estatico%20-%20Algoritmos/Index/home.html"><button class="login_button" onclick="validar()">Entrar</button></a>
 
@@ -31,5 +30,19 @@
     </div>
   </div>
 </body>
-
 </html>
+
+<script>
+  function validar() {
+    var login = email.value
+    var chave = senha.value
+    var formatação = login.toLowerCase()
+    if (login == "" || chave == "") {
+        alert("Preencha todos os campos!")
+      } else if(formatação == "admin@gmail.com" && chave == "admin1234" || formatação == "macmilan@gmail.com" && chave == "farm1234"){
+        alert("Login realizado com sucesso!!!")
+      } else {
+        alert("Login inválido!")
+      }
+  }
+</script>

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastro - AgroSense</title>
   <link rel="stylesheet" href="cadastro.css">
 </head>
+
 <body>
   <div class="container">
     <div class="metadecontainer">
@@ -13,23 +15,23 @@
 
       <div class="linha">
         <div class="inputdupla">
-          <label>Nome Fantasia</label>
-          <input type="text" id="nome">
+          <label>Nome da Empresa</label>
+          <input type="text" id="nome" placeholder="Ex: MacMilan">
         </div>
         <div class="inputdupla">
           <label>CNPJ</label>
-          <input type="text" id="cnpj">
+          <input type="text" id="cnpj" placeholder="Ex: 00.623.904/0001-73 ">
         </div>
       </div>
 
       <div class="linha">
         <div class="inputdupla">
           <label>Email</label>
-          <input type="email" id="email">
+          <input type="email" id="email" placeholder="Ex: exemplo@gmail.com">
         </div>
         <div class="inputdupla">
           <label>Telefone</label>
-          <input type="tel" id="telefone">
+          <input type="tel" id="telefone" placeholder="Ex: +55 11 9XXXX-YYYY ">
         </div>
       </div>
 
@@ -45,16 +47,41 @@
       </div>
 
       <div class="button">
-       <a href="file:///C:/Users/Aluno/Downloads/sprint2/Entreg-veis-2/Site%20Estatico%20-%20Algoritmos/Login/login.html"><button type="button">Cadastrar</button> 
-        </a>
+        <button type="button" onclick="cadastrar()">Cadastrar</button>
       </div>
 
     </div>
 
     <div class="logo_container">
       <a
-            href="file:///C:/Users/Aluno/Downloads/sprint2/Entreg-veis-2/Site%20Estatico%20-%20Algoritmos/Login/login.html"><img src="Agro__2_-removebg-preview.png" alt="AgroSense Logo"></a> 
+        href="file:///C:/Users/Aluno/Downloads/sprint2/Entreg-veis-2/Site%20Estatico%20-%20Algoritmos/Login/login.html"><img
+          src="Agro__2_-removebg-preview.png" alt="AgroSense Logo"></a>
     </div>
   </div>
 </body>
+
 </html>
+<script>
+  function cadastrar() {
+    var codigoEmp = cnpj.value
+    var endereco = email.value
+    var tel = telefone.value
+    var chave = senha.value
+    var comparar = confirmar.value
+
+    if (nome.value == "" || cnpj.value == "" || email.value == "" | telefone.value == "" || chave == "" || comparar == "") {
+      alert("Preencha todos os campos!!!")
+    } else if (codigoEmp.length < 14) {
+      alert("numero de cnpj errado!!!")
+    } else if (tel.length < 17) {
+      alert("Numero de telefone invalido!!!")
+    } else if (!endereco.endsWith("@gmail.com")) {
+      alert("Email inválido")
+    } else if(chave != comparar){
+      alert("Confirmar senha deve ser igual a senha")
+    }
+    else {
+      alert("Cadastro realizado com sucesso!!!")
+    }
+  }
+</script>
