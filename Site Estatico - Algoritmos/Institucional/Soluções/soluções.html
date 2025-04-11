@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Como Funciona</title>
+  <link rel="stylesheet" href="soluções.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background-color: #121212;
+      color: #ffffff;
+    }
+
+    .como-funciona-container {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #2e4c1e;
+      padding: 40px;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .imagem img {
+      max-width: 400px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      width: 100%;
+      height: auto;
+    }
+
+    .conteudo {
+      max-width: 500px;
+    }
+
+    .conteudo h2 {
+      font-size: 2rem;
+      color: #ffffff;
+      border-bottom: 3px solid #78d63a;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+
+    .conteudo p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #f0f0f0;
+    }
+
+    .destaque {
+      color: #78d63a;
+      font-weight: bold;
+    }
+
+    .botao-saiba-mais {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #78d63a;
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+    }
+
+    .botao-saiba-mais:hover {
+      background-color: #5bb12f;
+    }
+
+    @media (max-width: 768px) {
+      .como-funciona-container {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .conteudo {
+        max-width: 100%;
+      }
+
+      .conteudo h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="como-funciona-container">
+    <div class="imagem">
+      <img src="Captura de tela 2025-04-10 210527.png" alt="Funcionamento do sistema">
+    </div>
+    <div class="conteudo">
+      <h2>Como funciona?</h2>
+      <p>
+        Nosso sistema é baseado no sensor de <span class="destaque">umidade do solo</span>, conectados à plataforma Arduino UNO, que monitora as condições do solo em tempo real.
+        Os dados são processados para fornecer notificações sobre a necessidade de irrigação, garantindo que a planta receba a quantidade exata de água necessária.
+      </p>
+      
+    </div>
+  </div>
+</body>
+</html>
+
