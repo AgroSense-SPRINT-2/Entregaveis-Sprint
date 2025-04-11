@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: white;
+  color: #1c1c1c;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  padding: 30px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.structure {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60%;
+}
+
+.texto {
+  width: 45%;
+}
+
+.texto h2 {
+  color: #315421;
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+
+.texto p {
+  font-size: 20px;
+ 
+}
+
+.mainimagem {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.structure2 {
+  text-align: center;
+  height: 35px;
+}
+
+.structure2 h3 {
+  color: #315421;
+  font-size: 22px;
+  margin-bottom: 25px;
+}
+
+.cards{
+  display: flex;
+  justify-content: space-around;
+}
+
+.card {
+  background-color: #315421;
+  color: rgba(255, 255, 255, 0.753);
+  padding: 25px;
+  border-radius: 22px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+
+.imagem1 {
+  font-size: 40px;
+}
+
+.cardtexto {
+  font-size: 15px;
+  text-align: center;
+}
+
+.saibamais{
+  color: #315421;
+}
