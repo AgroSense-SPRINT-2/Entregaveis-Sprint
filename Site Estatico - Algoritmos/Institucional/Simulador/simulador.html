@@ -1,61 +1,86 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulação - AgroSense</title>
-    <link rel="stylesheet" href="simulador.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulação - AgroSense</title>
+  <link rel="stylesheet" href="simulador.css">
 </head>
+
 <body>
-    <div class="simulador">
-        <h2><span class="destaque">Você</span> <span class="cor">sabia?</span></h2>
-      
-        <p class="texto1">
-          Em agosto de 2024, de <span class="verde">10</span> safras <span class="verde">8</span> foram <span class="verde">perdidas</span> devido a estiagem.
-        </p>
-        <p class="fonte">
-          Fonte: Marcelo Luders, presidente da IBRAFE (Instituto Brasileiro de Feijão e Pulses)
-        </p>
-      
-        <h3 class="texto2">
-          Veja aqui o quanto você pode <span>aproveitar da sua safra</span> com o <strong>AgroSense</strong>
-        </h3>
-      
-        <form class="inputs">
-          <div class="linha">
-            <div class="campos">
-              <label>Qual a área em metros quadrados que deseja implementar nosso sistema:</label>
-              <input type="text" id="area" placeholder="Ex: 10000">
-            </div>
-            <div class="campos">
-              <label>Qual a quantidade de sacas produzidas:</label>
-              <input type="text" id="sacas" placeholder="Ex: 500">
-            </div>
-          </div>
-      
-          <div class="linha">
-            <div class="campos">
-              <label>Qual o peso das sacas:</label>
-              <input type="text" id="peso" placeholder="Ex: 60 kg">
-            </div>
-            <div class="campos">
-              <label>Quanto é investido para produção da safra:</label>
-              <input type="text" id="investimento" placeholder="Ex: R$ 3.000,00">
-            </div>
-          </div>
-      
-          <div class="linha">
-            <div class="campos">
-              <label>Qual valor é vendido a saca:</label>
-              <input type="text" id="valor" placeholder="Ex: R$ 120,00">
-            </div>
-          </div>
-      
-          <div class="botao">
-            <button type="submit">Simular</button>
-          </div>
-        </form>
+  <div class="simulador">
+    <h2><span class="destaque">Você</span> <span class="cor">sabia?</span></h2>
+
+    <p class="texto1">
+      Em agosto de 2024, de <span class="verde">10</span> safras <span class="verde">8</span> foram <span
+        class="verde">perdidas</span> devido a estiagem.
+    </p>
+    <p class="fonte">
+      Fonte: Marcelo Luders, presidente da IBRAFE (Instituto Brasileiro de Feijão e Pulses)
+    </p>
+
+    <h3 class="texto2">
+      Veja aqui o quanto você pode <span>aproveitar da sua safra</span> com o <strong>AgroSense</strong>
+    </h3>
+
+    <form class="inputs">
+      <div class="linha">
+        <div class="campos">
+          <label>Qual a área, em hectares, que deseja implementar nosso sistema:</label>
+          <input type="text" id="area" placeholder="Ex: 50">
+        </div>
+        <div class="campos">
+          <label>Qual a quantidade de sacas produzidas:</label>
+          <input type="text" id="sacas" placeholder="Ex: 500">
+        </div>
       </div>
-      
+
+      <div class="linha">
+        <div class="campos">
+          <label>Qual o peso das sacas:</label>
+          <input type="text" id="peso" placeholder="Ex: 60 kg">
+        </div>
+        <div class="campos">
+          <label>Quanto é investido para produção da safra:</label>
+          <input type="text" id="investimento" placeholder="Ex: R$ 3.000,00">
+        </div>
+      </div>
+
+      <div class="linha">
+        <div class="campos">
+          <label>Qual valor é vendido a saca:</label>
+          <input type="text" id="valor" placeholder="Ex: R$ 120,00">
+        </div>
+      </div>
+
+      <div class="botao">
+        <button type="submit" onclick="resultado()">Simular</button> <br>
+        <div id="div_result"></div>
+      </div>
+    </form>
+  </div>
+
 </body>
+
 </html>
+<script>
+  function resultado() {
+    event.preventDefault();
+    var r_result = document.getElementById("div_result")
+    var r_area = Number(document.getElementById("area").value)
+    var r_saca = Number(document.getElementById("sacas").value)
+    var r_peso = Number(document.getElementById("peso").value)
+    var r_investimento = Number(document.getElementById("investimento").value)
+    var r_valor = Number(document.getElementById("valor").value)
+    var r_perda = (r_saca * r_valor * 0.4)
+    var r_economia = r_perda * 0.8
+
+    r_result.innerHTML = `Olá, iremos te ajudar a calcular quanto você salvará na sua produção utilizando nossos serviços. <br> <br>
+    Levando em conta que na área de ${r_area} hectares, sua produção seria de ${r_saca} sacas, e que o preço médio <br>
+    da saca produzida gira em torno de R$${r_valor}, isso totalizaria uma perda de <br> 
+    <b>APROXIMADAMENTE</b> <span style="color: red;">R$${r_perda}</span> devido à falta de controle de umidade do solo (aproximadamente 40% da produção). <br> <br>
+    Com os nossos serviços, podemos minimizar essa perda em até 80%, dessa forma, economizando <br>
+    <b>APROXIMADAMENTE</b>, <span class="verde">R$${r_economia}</span>!!`
+  }
+</script>
