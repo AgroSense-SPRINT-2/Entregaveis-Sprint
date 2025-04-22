@@ -91,3 +91,18 @@ body {
 .saibamais{
   color: #315421;
 }
+.topo {
+  position: fixed; /* ou absolute, se quiser que role junto */
+  top: 20px;
+  left: 20px;
+  z-index: 1000; /* garante que fique acima de outros elementos */
+}
+
+.topo button {
+  padding: 10px 20px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}

@@ -81,3 +81,18 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 
   }
+  .topo {
+    position: fixed; /* ou absolute, se quiser que role junto */
+    top: 20px;
+    left: 20px;
+    z-index: 1000; /* garante que fique acima de outros elementos */
+  }
+  
+  .topo button {
+    padding: 10px 20px;
+    background-color: white;
+    color: green;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
