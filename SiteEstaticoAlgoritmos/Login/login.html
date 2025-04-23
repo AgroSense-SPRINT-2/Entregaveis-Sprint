@@ -41,7 +41,8 @@
     var formatação = login.toLowerCase()
     if (login == "" || chave == "") {
         alert("Preencha todos os campos!")
-      } else if(formatação == "admin@gmail.com" && chave == "admin1234" || formatação == "macmilan@gmail.com" && chave == "farm1234"){
+      } else if((formatação == "admin@gmail.com" && chave == "admin1234") || (formatação == "macmilan@gmail.com" && chave == "farm1234"))
+      {
         alert("Login realizado com sucesso!!!")
       } else {
         alert("Login inválido!")
