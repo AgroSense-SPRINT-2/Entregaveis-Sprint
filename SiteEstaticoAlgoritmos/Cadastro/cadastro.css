@@ -17,8 +17,8 @@ body {
   border-radius: 36px;
   overflow: hidden; /* não sair do container*/
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  width: 850px;
-  height: 500px;
+  width: 950px;
+  height: 650px;
 }
 
 .metadecontainer {
@@ -91,5 +91,13 @@ body {
 .logo_container img {
   max-width: 450px;
   height: auto;
+}
+
+select {
+  width: 250px; 
+  height: 35px; 
+  border-radius: 36px;
+  padding: 8px 12px;
+  font-size: 14px;
 }
 
