@@ -10,12 +10,12 @@
 <body>
     <div class="sidebar">
         <div class="usuario">
+          <img src="Design_sem_nome-removebg-preview.png" alt="">
             <p>Bem-vindo, <strong>Admin1234</strong></p>
         </div>
         <a href="#">Início</a>
-        <a href="#">Projetos</a>
-        <a href="#">Alunos</a>
-        <a href="#">Representantes</a>
+        <a href="#">Sensores</a>
+        <a href="#">Quadrantes</a>
         <a href="../site.html">Sair</a>
       </div>
       <div class="main">
@@ -29,10 +29,10 @@
               <p>12</p>
             </div>
             <div class="card card-media">
-              <h3>Média das últimas medições</h3>
+              <h3>Alertas Recentes</h3>
               <div class="media-content">
-                <label for="meses">Selecione o mês:</label>
-                <select id="meses" name="meses" onchange="filtro()">
+                <label for="mesesR">Selecione o mês:</label> <br>
+                <select id="mesesR" name="mesesR" onchange="filtro()">
                   <option value="1">Janeiro</option>
                   <option value="2">Fevereiro</option>
                   <option value="3">Março</option>
@@ -40,23 +40,31 @@
                   <option value="5">Maio</option>
                   <option value="6">Junho</option>
                 </select>
-                <div id="resposta"></div>
+                <div id="respostaR"></div>
               </div>
             </div>
           
-            
-            <div class="card">
-              <h3>Alertas recentes</h3>
-              <p>3 alertas críticos</p>
-            </div>
+            <div class="card card-media">
+              <h3>Clima ao longo do semestre</h3>
+              <label for="mesesC">Selecione o mês:</label>
+              <select id="mesesC" name="mesesC" onchange="filtro()">
+                <option value="1">Janeiro</option>
+                <option value="2">Fevereiro</option>
+                <option value="3">Março</option>
+                <option value="4">Abril</option>
+                <option value="5">Maio</option>
+                <option value="6">Junho</option>
+              </select>
+              <div id="respostaC"></div>
+            </div>            
             <div class="card">
               <h3>Última sincronização</h3>
-              <p>22/04/2025 às 14:30</p>
+              <p>28/04/2025 às 09:00</p>
             </div>
           </section>
           
           <section class="content">
-            <h2>Grafico de umidade em (%)</h2>
+            <h2>Gráfico das médias de umidade durante o semestre em (%)</h2>
             <canvas id="graficoResumo" width="400" height="200"></canvas>
           </section>          
       </div>
@@ -70,21 +78,18 @@
           labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
           datasets: [{
               label: 'Média de Umidade (%)',
-              data: [60, 55, 70, 50, 65, 75],
+              data: [60, 55, 70, 50, 45, 55],
               backgroundColor: 'rgb(255, 0, 0)',
               borderColor: 'rgb(255, 0, 0)',
               borderWidth: 1
               
           }, {
               label: 'Umidade ideal (%)',
-              data: [50, 40, 60, 40, 55, 65],
+              data: [50, 40, 60, 40, 35, 65],
               backgroundColor: 'rgb(0, 255, 0)',
               borderColor: 'rgb(0, 255, 0)',
               borderWidth: 1
           }
-        
-        
-        
         ]
       },
       options: {
@@ -101,28 +106,19 @@
           }
       }
   });
- /*   function filtro() {
-        for (var index = 1; index < 100; index++) {
-            if (index % 10 == 0) 
-            {
-                resposta.innerHTML += ``
-            }
-        }
-    }
-*/
     function filtro() {
         var index = 0
         var cont = 0
-        if (meses.value == 2) 
+        if (mesesR.value == 4) 
         {
             while (index <= 31)
         {
             index++
-            resposta.innerHTML += `Dia: ${index}<br>`
+            respostaR.innerHTML += `Dia: ${index}<br>`
             for (var cont = 0; cont <= 100; cont++) {
                 if (cont % 10 == 0) 
                 {
-                    resposta.innerHTML += `Media da porcentagem: ${cont}% <br>`    
+                   respostaR.innerHTML += `Media da porcentagem: ${cont}% <br>`    
                 }
             }
 
