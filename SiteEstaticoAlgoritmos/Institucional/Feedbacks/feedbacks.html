@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feedbacks - AgroSense</title>
     <link rel="stylesheet" href="feedbacks.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -14,12 +15,10 @@
          Home
         </button>
        </a>
-       </div>
+    </div>
+
     <div class="container">
         <div class="structure">
-            <div class="imagem">
-                <img src="Captura de tela 2025-04-10 220556.png" alt="Gráfico de aprovação dos clientes">
-            </div>
             <div class="texto">
                 <p>
                     "Sou produtor de feijão em Minas Gerais e, desde que comecei a usar o AgroSense, minha colheita
@@ -30,7 +29,52 @@
                 <p class="pessoa">— João da Silva, Produtor de Feijão</p>
             </div>
         </div>
+
+        
+        <div class="grafico" style="width: 500px; margin-right: 60px;">
+            <canvas id="donutChart"></canvas>
+        </div>
     </div>
+
+    <script>
+        const ctx = document.getElementById('donutChart').getContext('2d');
+        const donutChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Aprovam', 'Não aprovam'],
+                datasets: [{
+                    label: 'Feedback dos clientes',
+                    data: [95, 5], // Exemplo de dados
+                    backgroundColor: [
+                        '#315421',
+                        '#669c31'
+                    ],
+                    borderColor: [
+                        '#315421',
+                        '#669c31'
+                    ],
+                    borderWidth: 1, 
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Nível de Aprovação dos Clientes',
+                        color: '#fff',
+                        font: {
+                            size: 20
+                        }
+            
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>

@@ -6,9 +6,13 @@
 
   body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    background-color: #ffffff;
+    background-image: url(Design\ sem\ nome\ \(13\).png);
     color: #1c1c1c;
     overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
   }
 
   .container {
@@ -42,7 +46,7 @@
 
   .texto {
     width: 60%;
-    background-color: #d4e9cd;
+    background-color: #9fd48d;
     padding: 30px;
     border-radius: 20px;
     font-size: 17px;
@@ -71,3 +75,5 @@
     font-style: italic;
     color: #444;
   }
+
+ 
