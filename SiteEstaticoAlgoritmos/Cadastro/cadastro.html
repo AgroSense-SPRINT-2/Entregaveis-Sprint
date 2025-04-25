@@ -1,79 +1,70 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro - AgroSense</title>
-  <link rel="stylesheet" href="cadastro.css">
-</head>
-
-<body>
-  <div class="container">
-    <div class="metadecontainer">
-      <h2>Cadastro</h2>
-
-      <div class="linha">
-        <div class="inputdupla">
-          <label>Nome da Empresa</label>
-          <input type="text" id="nome" placeholder="Ex: MacMilan">
-        </div>
-        <div class="inputdupla">
-          <label>CNPJ</label>
-          <input type="text" id="cnpj" placeholder="Ex: 00.623.904/0001-73 ">
-        </div>
-      </div>
-
-      <div class="linha">
-        <div class="inputdupla">
-          <label>Email</label>
-          <input type="email" id="email" placeholder="Ex: exemplo@gmail.com">
-        </div>
-        <div class="inputdupla">
-          <label>Telefone</label>
-          <input type="tel" id="telefone" placeholder="Ex: +55 11 9XXXX-YYYY ">
-        </div>
-      </div>
-
-      <div class="linha">
-        <div class="inputdupla">
-          <label>Defina uma senha</label>
-          <input type="password" id="senha" placeholder="******">
-        </div>
-        <div class="inputdupla">
-          <label>Confirmar senha</label>
-          <input type="password" id="confirmar" placeholder="******">
-        </div>
-      </div>
-
-      <div class="linha">
-        <div class="inputdupla">
-          <label>Selecione seu cargo</label>
-          <select name="select" id="cargo">
-            <option value="gerente">Gestor Agrícola</option>
-            <option value="estagiario">Estagiário Agrícola</option>
-          </select>
-        
-        </div>
-      </div>
-
-      <div class="button">
-        <button type="button" onclick="cadastrar()">Cadastrar</button>
-        <a href="../Login/login.html">
-          <button type="button">Logar</button>
-        </a>
-      </div>
-    </div>
-
-    <div class="logo_container">
-      <a
-        href="../Institucional/Cliente/Cliente.html"><img
-          src="Agro__2_-removebg-preview.png" alt="AgroSense Logo"></a>
-    </div>
-  </div>
-</body>
-
-</html>
+ <html lang="pt-br">
+ 
+ <head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Cadastro - AgroSense</title>
+   <link rel="stylesheet" href="cadastro.css">
+ </head>
+ 
+ <body>
+   <div class="container">
+     <div class="metadecontainer">
+       <h2>Cadastro</h2>
+ 
+       <div class="linha">
+         <div class="inputdupla">
+           <label>Nome da Empresa</label>
+           <input type="text" id="nome" placeholder="Ex: MacMilan">
+         </div>
+         <div class="inputdupla">
+           <label>CNPJ</label>
+           <input type="text" id="cnpj" placeholder="Ex: 00.623.904/0001-73 ">
+         </div>
+       </div>
+ 
+       <div class="linha">
+         <div class="inputdupla">
+           <label>Email</label>
+           <input type="email" id="email" placeholder="Ex: exemplo@gmail.com">
+         </div>
+         <div class="inputdupla">
+           <label>Telefone</label>
+           <input type="tel" id="telefone" placeholder="Ex: +55 11 9XXXX-YYYY ">
+         </div>
+       </div>
+ 
+       <div class="linha">
+         <div class="inputdupla">
+           <label>Defina uma senha</label>
+           <input type="password" id="senha">
+         </div>
+         <div class="inputdupla">
+           <label>Confirmar senha</label>
+           <input type="password" id="confirmar">
+         </div>
+       </div>
+ 
+       <div class="button">
+         <button type="button" onclick="cadastrar()">Cadastrar</button>
+         <a href="../Login/login.html">
+           <button type="button">Logar</button>
+         </a>
+       </div>
+      
+ 
+     </div>
+ 
+     <div class="logo_container">
+       <a
+         href="file:///C:/Users/guelr/Desktop/Sprint2/Entreg-veis-2/Site%20Estatico%20-%20Algoritmos/Institucional/Cliente/Cliente.html"><img
+         href="../Institucional/Cliente/Cliente.html"><img
+           src="Agro__2_-removebg-preview.png" alt="AgroSense Logo"></a>
+     </div>
+   </div>
+ </body>
+ </html>
 <script>
   function cadastrar() {
     var codigoEmp = cnpj.value
