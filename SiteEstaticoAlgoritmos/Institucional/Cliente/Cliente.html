@@ -61,23 +61,141 @@
               <h3>Última sincronização</h3>
               <p>28/04/2025 às 09:00</p>
             </div>
-          </section>
-          
-          <section class="content">
-            <h2>Gráfico das médias de umidade durante o semestre em (%)</h2>
-            <canvas id="graficoResumo" width="400" height="200"></canvas>
-          </section>          
-      </div>
+          </section>    
+            <section class="content">
+              <h2>Gráfico das médias de umidade durante o semestre em (%)</h2>
+              <div class="media-content">
+                <label for="PeriodoR">Selecione o periodo:</label> <br>
+                <select id="PeriodoR" name="PeriodoR" onchange="filtro()">
+                  <option value="1">Diario</option>
+                  <option value="2">Mensal</option>
+                  <option value="3">Semanal</option>
+                  <option value="4">Semestral</option>
+                  <option value="5">Trimestral</option>
+                  <option value="6">Anual</option>
+                </select>
+              </div>
+              <div class="graficos">
+                <div class="grafico-container">
+                  <canvas id="graficoGeral"></canvas>
+                </div>
+                <div class="grafico-container">
+                  <canvas id="graficoEspecifico"></canvas>
+                </div>
+              </div>
+            </section>
+            
 </body>
 </html>
 <script>
-  const ctx = document.getElementById('graficoResumo').getContext('2d');
+const dadosSafra = {
+  1: { // Diário
+    labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+    mediaSafra: [200, 210, 190, 205, 195, 215, 220],
+    safraIdeal: [210, 210, 210, 210, 210, 210, 210]
+  },
+  2: { // Mensal
+    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+    mediaSafra: [1200, 1150, 1300, 1100, 1050, 1250],
+    safraIdeal: [1250, 1200, 1350, 1150, 1100, 1300]
+  },
+  3: { // Semanal
+    labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
+    mediaSafra: [300, 310, 290, 305],
+    safraIdeal: [320, 320, 320, 320]
+  },
+  4: { // Semestral
+    labels: ['1º Sem', '2º Sem'],
+    mediaSafra: [6000, 6200],
+    safraIdeal: [6100, 6100]
+  },
+  5: { // Trimestral
+    labels: ['1º Tri', '2º Tri', '3º Tri', '4º Tri'],
+    mediaSafra: [3000, 3100, 2900, 3050],
+    safraIdeal: [3200, 3200, 3200, 3200]
+  },
+  6: { // Anual
+    labels: ['2023', '2024'],
+    mediaSafra: [12000, 12500],
+    safraIdeal: [12300, 12300]
+  }
+};
+  const dados = {
+    1: { // Diário
+      labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+      mediaUmidade: [60, 62, 59, 63, 58, 65, 61],
+      umidadeIdeal: [55, 55, 55, 55, 55, 55, 55]
+    },
+    2: { // Mensal
+      labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+      mediaUmidade: [60, 55, 70, 50, 45, 55],
+      umidadeIdeal: [50, 40, 60, 40, 35, 65]
+    },
+    3: { // Semanal
+      labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
+      mediaUmidade: [58, 62, 57, 60],
+      umidadeIdeal: [55, 55, 55, 55]
+    },
+    4: { // Semestral
+      labels: ['1º Sem', '2º Sem'],
+      mediaUmidade: [58, 62],
+      umidadeIdeal: [55, 55]
+    },
+    5: { // Trimestral
+      labels: ['1º Tri', '2º Tri', '3º Tri', '4º Tri'],
+      mediaUmidade: [59, 61, 60, 62],
+      umidadeIdeal: [55, 55, 55, 55]
+    },
+    6: { // Anual
+      labels: ['2023', '2024'],
+      mediaUmidade: [60, 62],
+      umidadeIdeal: [55, 55]
+    }
+    
+  };
+  const ctx = document.getElementById('graficoGeral').getContext('2d');
   const grafico = new Chart(ctx, {
       type: 'bar',
       data: {
           labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
           datasets: [{
-              label: 'Média de Umidade (%)',
+              label: 'Safras perdidas',
+              data: [60, 55, 70, 50, 45, 55],
+              backgroundColor: 'rgb(255, 0, 0)',
+              borderColor: 'rgb(255, 0, 0)',
+              borderWidth: 1
+              
+          }, {
+              label: 'Safras plantadas',
+              data: [50, 40, 60, 40, 35, 65],
+              backgroundColor: 'rgb(0, 255, 0)',
+              borderColor: 'rgb(0, 255, 0)',
+              borderWidth: 1
+          }
+        ]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          },
+          plugins: {
+              legend: {
+                  display: true,
+                  position: 'bottom'
+              }
+          }
+      }
+  });
+  const tge = document.getElementById('graficoEspecifico').getContext('2d');
+  const grafico2 = new Chart(tge, {
+      type: 'line',
+      data: {
+          labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+          datasets: [{
+              label: ' Média de Umidade (%)'
+              ,
               data: [60, 55, 70, 50, 45, 55],
               backgroundColor: 'rgb(255, 0, 0)',
               borderColor: 'rgb(255, 0, 0)',
@@ -106,24 +224,25 @@
           }
       }
   });
-    function filtro() {
-        var index = 0
-        var cont = 0
-        if (mesesR.value == 4) 
-        {
-            while (index <= 31)
-        {
-            index++
-            respostaR.innerHTML += `Dia: ${index}<br>`
-            for (var cont = 0; cont <= 100; cont++) {
-                if (cont % 10 == 0) 
-                {
-                   respostaR.innerHTML += `Media da porcentagem: ${cont}% <br>`    
-                }
-            }
+  function filtro() {
+  const periodo = document.getElementById('PeriodoR').value;
+  const infoUmidade = dados[periodo];
+  const infoSafra = dadosSafra[periodo];
 
-        }
-        }
-    }
+  if (infoUmidade && infoSafra) {
+    // Atualizar graficoGeral (dados de umidade)
+    grafico.data.labels = infoUmidade.labels;
+    grafico.data.datasets[0].data = infoUmidade.mediaUmidade;
+    grafico.data.datasets[1].data = infoUmidade.umidadeIdeal;
+    grafico.update();
+
+    // Atualizar graficoEspecifico (dados de safra)
+    grafico2.data.labels = infoSafra.labels;
+    grafico2.data.datasets[0].data = infoSafra.mediaSafra;
+    grafico2.data.datasets[1].data = infoSafra.safraIdeal;
+    grafico2.update();
+  }
+}
+
 </script>
 

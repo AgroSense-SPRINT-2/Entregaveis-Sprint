@@ -11,10 +11,10 @@
 <body>
   <div class="topo">
     <a href="../site.html"><button>
-     Home
-    </button>
-   </a>
-   </div>
+        Home
+      </button>
+    </a>
+  </div>
   <div class="simulador">
     <h2><span class="destaque">Você</span> <span class="cor">sabia?</span></h2>
 
@@ -82,13 +82,33 @@
     var r_peso = Number(document.getElementById("peso").value)
     var r_investimento = Number(document.getElementById("investimento").value)
     var r_valor = Number(document.getElementById("valor").value)
-    var r_perda = (r_saca * r_valor * 0.4)
-    var r_economia = r_perda * 0.8
-
-    r_result.innerHTML = `Olá, iremos te ajudar a calcular quanto você salvará na sua produção utilizando nossos serviços. <br> <br>
+    if (r_area !== "" && !isNaN(r_area) && r_area > 0) {
+      if (r_saca !== "" && !isNaN(r_saca) && r_saca > 0) {
+        if (r_peso !== "" && !isNaN(r_peso) && r_peso > 0) {
+          if (r_investimento !== "" && !isNaN(r_investimento) && r_investimento > 0) {
+            if (r_valor !== "" && !isNaN(r_valor) && r_valor > 0) {
+              var r_perda = (r_saca * r_valor * 0.4)
+              var r_economia = r_perda * 0.8
+              r_result.innerHTML = `Olá, iremos te ajudar a calcular quanto você salvará na sua produção utilizando nossos serviços. <br> <br>
     Levando em conta que na área de ${r_area} hectares, sua produção seria de ${r_saca} sacas, e que o preço médio da saca produzida 
     gira em torno de R$${r_valor}, isso totalizaria uma perda de <b>APROXIMADAMENTE</b> <span style="color: red;">R$${r_perda}</span> 
     devido à falta de controle de umidade do solo (aproximadamente 40% da produção). <br> <br>
     Com os nossos serviços, podemos minimizar essa perda em até 80%, dessa forma, economizando <b>APROXIMADAMENTE</b>, <span class="cor">R$${r_economia}</span>!!`
+            } else {
+              alert("O campo de valor vendido das sacas deve ser preenchido corretamente!")
+            }
+          } else {
+            alert("O campo de investimento deve ser preenchido corretamente!")
+          }
+        } else {
+          alert("O campo de peso das sacas deve ser preenchido corretamente!")
+        }
+      } else {
+        alert("O campo de sacas produzidas deve ser preenchido corretamente!")
+      }
+    } else {
+      alert("O campo área deve ser preenchido corretamente!")
+    }
+
   }
 </script>

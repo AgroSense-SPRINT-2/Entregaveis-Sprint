@@ -118,3 +118,24 @@ select {
     background-color: #315421;
     border-radius: 3px;
 }
+.graficos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 20px;
+  }
+  
+  .grafico-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .grafico-container canvas {
+    width: 740px;
+    height: 600px;
+  }
+  
