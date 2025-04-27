@@ -120,22 +120,21 @@ select {
 }
 .graficos {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-wrap: wrap;
     gap: 30px;
     margin-top: 20px;
-  }
-  
-  .grafico-container {
+}
+
+.grafico-container {
     background: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  }
-  
-  .grafico-container canvas {
-    width: 740px;
-    height: 600px;
-  }
-  
+    flex: 1 1 45%;
+    min-width: 300px; 
+}
+
+.grafico-container canvas {
+    width: 700px !important;  
+    height: auto !important; 
+}

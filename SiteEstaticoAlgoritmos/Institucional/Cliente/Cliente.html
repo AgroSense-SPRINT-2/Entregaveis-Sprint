@@ -31,8 +31,8 @@
             <div class="card card-media">
               <h3>Alertas Recentes</h3>
               <div class="media-content">
-                <label for="mesesR">Selecione o mês:</label> <br>
-                <select id="mesesR" name="mesesR" onchange="filtro()">
+                <label for="Alerta">Selecione o mês:</label> <br>
+                <select id="Alerta" name="Alerta" onchange="filtro2()">
                   <option value="1">Janeiro</option>
                   <option value="2">Fevereiro</option>
                   <option value="3">Março</option>
@@ -45,15 +45,15 @@
             </div>
           
             <div class="card card-media">
-              <h3>Clima ao longo do semestre</h3>
-              <label for="mesesC">Selecione o mês:</label>
-              <select id="mesesC" name="mesesC" onchange="filtro()">
-                <option value="1">Janeiro</option>
-                <option value="2">Fevereiro</option>
-                <option value="3">Março</option>
-                <option value="4">Abril</option>
-                <option value="5">Maio</option>
-                <option value="6">Junho</option>
+              <h3>Clima ao longo do periodo</h3>
+              <label for="Clima">Selecione o mês:</label>
+              <select id="Clima" name="Clima" onchange="filto2()">
+                <option value="1">Diario</option>
+                  <option value="2">Mensal</option>
+                  <option value="3">Semanal</option>
+                  <option value="4">Semestral</option>
+                  <option value="5">Trimestral</option>
+                  <option value="6">Anual</option>
               </select>
               <div id="respostaC"></div>
             </div>            
@@ -82,9 +82,21 @@
                 <div class="grafico-container">
                   <canvas id="graficoEspecifico"></canvas>
                 </div>
+                <div class="grafico-container">
+                  <div class="media-content">
+                    <label for="periodoSelect">Selecione o Período:</label><br>
+                    <select id="periodoSelect" onchange="atualizarGraficoPizza()">
+                      <option value="mensal">Mensal</option>
+                      <option value="semanal">Semanal</option>
+                      <option value="trimestral">Trimestral</option>
+                      <option value="semestral">Semestral</option>
+                      <option value="anual">Anual</option>
+                    </select>
+                  </div>
+                  <canvas id="graficoPizza"></canvas>
+                </div>
               </div>
             </section>
-            
 </body>
 </html>
 <script>
@@ -229,20 +241,77 @@ const dadosSafra = {
   const infoUmidade = dados[periodo];
   const infoSafra = dadosSafra[periodo];
 
-  if (infoUmidade && infoSafra) {
-    // Atualizar graficoGeral (dados de umidade)
+  if (infoUmidade && infoSafra) 
+  {
+    
     grafico.data.labels = infoUmidade.labels;
     grafico.data.datasets[0].data = infoUmidade.mediaUmidade;
     grafico.data.datasets[1].data = infoUmidade.umidadeIdeal;
     grafico.update();
 
-    // Atualizar graficoEspecifico (dados de safra)
+   
     grafico2.data.labels = infoSafra.labels;
     grafico2.data.datasets[0].data = infoSafra.mediaSafra;
     grafico2.data.datasets[1].data = infoSafra.safraIdeal;
     grafico2.update();
   }
 }
+// Dados para o gráfico de pizza (chuva)
+const dadosChuva = {
+  mensal: [12, 10, 8, 15, 5, 20, 10, 5, 10, 8, 12, 15],
+  semanal: [3, 4, 2, 5, 6, 2, 8, 1, 3, 2, 5, 7],
+  trimestral: [30, 20, 25, 25],
+  semestral: [55, 45],
+  anual: [100]
+};
 
+// Função para gerar labels do gráfico de pizza
+function gerarLabelsPizza(periodo) {
+  switch (periodo) {
+    case 'mensal':
+      return ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+    case 'semanal':
+      return ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4', 'Sem 5', 'Sem 6', 'Sem 7', 'Sem 8', 'Sem 9', 'Sem 10', 'Sem 11', 'Sem 12'];
+    case 'trimestral':
+      return ['Jan-Mar', 'Abr-Jun', 'Jul-Set', 'Out-Dez'];
+    case 'semestral':
+      return ['Jan-Jun', 'Jul-Dez'];
+    case 'anual':
+      return ['Ano Completo'];
+    default:
+      return [];
+  }
+}
+
+// Criação inicial do gráfico de pizza
+const ctxPizza = document.getElementById('graficoPizza').getContext('2d');
+let graficoPizza = new Chart(ctxPizza, {
+  type: 'pie',
+  data: {
+    labels: gerarLabelsPizza('mensal'),
+    datasets: [{
+      data: dadosChuva.mensal,
+      backgroundColor: [
+        '#4e73df', '#1cc88a', '#36b9cc', '#f6c23e',
+        '#e74a3b', '#858796', '#5a5c69', '#20c9a6',
+        '#fd7e14', '#6610f2', '#6f42c1', '#1e7e34'
+      ]
+    }]
+  },
+  options: {
+    plugins: {
+      legend: {
+        position: 'bottom'
+      }
+    }
+  }
+});
+
+// Função para atualizar o gráfico de pizza
+function atualizarGraficoPizza() {
+  const periodo = document.getElementById('periodoSelect').value;
+  graficoPizza.data.labels = gerarLabelsPizza(periodo);
+  graficoPizza.data.datasets[0].data = dadosChuva[periodo];
+  graficoPizza.update();
+}
 </script>
-
