@@ -220,12 +220,14 @@
           <h3>Safras perdidas</h3>
           <label for="PeriodoR">Período:</label>
           <select id="PeriodoR" name="PeriodoR" onchange="filtro()">
-            <option value="1">Diário</option>
-            <option value="2">Mensal</option>
-            <option value="3">Semanal</option>
-            <option value="4">Semestral</option>
-            <option value="5">Trimestral</option>
-            <option value="6">Anual</option>
+            <option value="1">Horários</option>
+            <option value="2">Diário</option>
+            <option value="3">Mensal</option>
+            <option value="4">Semanal</option>
+            <option value="5">Semestral</option>
+            <option value="6">Trimestral</option>
+            <option value="7">Anual</option>
+
           </select>
           <canvas id="graficoGeral"></canvas>
         </div>
@@ -272,37 +274,43 @@
     }
   };
   const dados = {
-  1: { // Diário
+  1:{ //Horário
+    labels: ['00h', '03h', '06h', '09h', '12h', '15h', '18h', '21h'],
+    umidadeMaxima: [85, 80, 78, 72, 65, 60, 70, 80],
+    umidadeMedia: [75, 70, 68, 63, 58, 55, 65, 72],
+    umidadeMinima: [65, 60, 58, 53, 48, 45, 55, 62],
+  },
+  2: { // Diário
     labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
     umidadeMaxima: [68, 66, 79, 67, 61, 62, 68],
     umidadeMedia: [60, 62, 59, 63, 58, 55, 61],
     umidadeMinima: [50, 32, 49, 23, 38, 45, 51]
   },
-  2: { // Mensal
+  3: { // Mensal
     labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
     umidadeMaxima: [80, 75, 70, 60, 55, 75],
     umidadeMedia: [70, 65, 60, 50, 45, 65],
     umidadeMinima: [50, 45, 56, 45, 40, 45],
   },
-  3: { // Semanal
+  4: { // Semanal
     labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
     umidadeMaxima: [68, 72, 77, 70],
     umidadeMedia: [68, 62, 67, 60],
     umidadeMinima: [58, 52, 57, 50],
   },
-  4: { // Semestral
+  5: { // Semestral
     labels: ['1º Sem', '2º Sem'],
     umidadeMaxima: [68, 62],
     umidadeMedia: [58, 52],
     umidadeMinima: [48, 42],
   },
-  5: { // Trimestral
+  6: { // Trimestral
     labels: ['1º Tri', '2º Tri', '3º Tri', '4º Tri'],
     umidadeMaxima: [69, 61, 60, 62],
     umidadeMedia: [59, 51, 50, 52],
     umidadeMinima: [49, 41, 40, 42],
   },
-  6: { // Anual
+  7: { // Anual
     labels: ['2023', '2024'],
     umidadeMaxima: [60, 62],
     umidadeMedia: [50, 52],
@@ -314,17 +322,17 @@
   const grafico = new Chart(ctx1, {
     type: 'bar',
     data: {
-      labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+      labels: dadosSafra[1].labels,
       datasets: [{
         label: 'Safras perdidas',
-        data: [60, 55, 70, 50, 45, 55],
+        data:  dadosSafra[1].mediaSafra,
         backgroundColor: 'rgb(255, 0, 0)',
         borderColor: 'rgb(255, 0, 0)',
         borderWidth: 1
 
       }, {
         label: 'Safras plantadas',
-        data: [50, 40, 60, 40, 35, 65],
+        data: dadosSafra[1].safraIdeal,
         backgroundColor: 'rgb(0, 255, 0)',
         borderColor: 'rgb(0, 255, 0)',
         borderWidth: 1
@@ -349,25 +357,24 @@
   const grafico2 = new Chart(tge, {
     type: 'line',
     data: {
-      labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+      labels: dados[1].labels,
       datasets: [{
-        label: 'Maxima (%)'
-        ,
-        data: [75, 60, 70, 67, 59, 78],
+        label: 'Maxima (%)',
+        data: dados[1].umidadeMaxima,
         backgroundColor: 'rgb(255, 0, 0)',
         borderColor: 'rgb(255, 0, 0)',
         borderWidth: 1
 
       }, {
         label: 'Media (%)',
-        data: [55, 45, 60, 50, 40, 70],
+        data: dados[1].umidadeMedia,
         backgroundColor: 'rgb(0, 255, 0)',
         borderColor: 'rgb(0, 255, 0)',
         borderWidth: 1
       },
       {
         label: 'Minima (%)',
-        data: [30, 20, 35, 25, 15, 45],
+        data: dados[1].umidadeMinima,
         backgroundColor: 'rgb(0, 0, 255)',
         borderColor: 'rgb(0, 0, 255)',
         borderWidth: 1
