@@ -1,489 +1,530 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+  <!DOCTYPE html>
+  <html lang="pt-br">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Área do Cliente</title>
-  <link rel="stylesheet" href="Cliente.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
-</head>
-<body>
-  <div class="sidebar">
-    <div class="usuario">
-      <img src="Design_sem_nome-removebg-preview.png" alt="">
-      <p>Bem-vindo, <strong>Admin1234</strong></p>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área do Cliente</title>
+    <link rel="stylesheet" href="Cliente.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="usuario">
+        <img src="Design_sem_nome-removebg-preview.png" alt="">
+        <p>Bem-vindo, <strong>Admin1234</strong></p>
+      </div>
+      <a href="#">Início</a>
+      <a href="#">Sensores</a>
+      <a href="#">Quadrantes</a>
+      <a href="../site.html">Sair</a>
     </div>
-    <a href="#">Início</a>
-    <a href="#">Sensores</a>
-    <a href="#">Quadrantes</a>
-    <a href="../site.html">Sair</a>
-  </div>
-  <div class="main">
-    <section class="cards">
-      <button id="menu-toggle" class="menu-btn">☰</button>
-      <div class="card">
-        <h3>Lista de Sensores:</h3>
-        <div class="sensor-list">
-          <div class="sensor-item">
-            <span><strong>Sensor 1:</strong> Quadrante A - <span class="ativo">Ativo</span></span>
-          </div>
-          <div class="sensor-item">
-            <span><strong>Sensor 2:</strong> Quadrante B - <span class="inativo">Inativo</span></span>
-          </div>
-          <div class="sensor-item">
-            <span><strong>Sensor 3:</strong> Quadrante D - <span class="inativo">Inativo</span></span>
-          </div>
-          <div class="sensor-item">
-            <span><strong>Sensor 4:</strong> Quadrante C - <span class="ativo">Ativo</span></span>
-          </div>
-          <div class="sensor-item">
-            <span><strong>Sensor 5:</strong> Quadrante E - <span class="ativo">Ativo</span></span>
+    <div class="main">
+      <section class="cards">
+        <button id="menu-toggle" class="menu-btn">☰</button>
+        <div class="card">
+          <h3>Lista de Sensores:</h3>
+          <div class="sensor-list">
+            <div class="sensor-item">
+              <span><strong>Sensor 1:</strong> Quadrante A - <span class="ativo">Ativo</span></span>
+            </div>
+            <div class="sensor-item">
+              <span><strong>Sensor 2:</strong> Quadrante B - <span class="inativo">Inativo</span></span>
+            </div>
+            <div class="sensor-item">
+              <span><strong>Sensor 3:</strong> Quadrante D - <span class="inativo">Inativo</span></span>
+            </div>
+            <div class="sensor-item">
+              <span><strong>Sensor 4:</strong> Quadrante C - <span class="ativo">Ativo</span></span>
+            </div>
+            <div class="sensor-item">
+              <span><strong>Sensor 5:</strong> Quadrante E - <span class="ativo">Ativo</span></span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="card">
-        <h3>Lista de Áreas:</h3>
-        <div class="sensor-list">
-          <div class="sensor-item">
-            <div>
-              <strong>Quadrante A:</strong> Sensor 1
-              <br>
-              <small>Máx: 48% | Mín: 32%</small>
+        <div class="card">
+          <h3>Lista de Áreas:</h3>
+          <div class="sensor-list">
+            <div class="sensor-item">
+              <div>
+                <strong>Quadrante A:</strong> Sensor 1
+                <br>
+                <small>Máx: 48% | Mín: 32%</small>
+              </div>
+              <span class="ativo">Ideal 🟢</span>
             </div>
-            <span class="ativo">Ideal 🟢</span>
-          </div>
-        
-          <div class="sensor-item">
-            <div>
-              <strong>Quadrante B:</strong> Sensor 2
-              <br>
-              <small>Máx: 58% | Mín: 18%</small>
+          
+            <div class="sensor-item">
+              <div>
+                <strong>Quadrante B:</strong> Sensor 2
+                <br>
+                <small>Máx: 98% | Mín: 18%</small>
+              </div>
+              <span class="inativo">Encharcado 🌧️</span>
             </div>
-            <span class="inativo">Encharcado 🌧️</span>
-          </div>
-        
-          <div class="sensor-item">
-            <div>
-              <strong>Quadrante D:</strong> Sensor 3
-              <br>
-              <small>Máx: 25% | Mín: 12%</small>
+          
+            <div class="sensor-item">
+              <div>
+                <strong>Quadrante D:</strong> Sensor 3
+                <br>
+                <small>Máx: 25% | Mín: 12%</small>
+              </div>
+              <span class="inativo">Seca 🚨</span>
             </div>
-            <span class="inativo">Seca 🚨</span>
-          </div>
-        
-          <div class="sensor-item">
-            <div>
-              <strong>Quadrante C:</strong> Sensor 4
-              <br>
-              <small>Máx: 42% | Mín: 28%</small>
+          
+            <div class="sensor-item">
+              <div>
+                <strong>Quadrante C:</strong> Sensor 4
+                <br>
+                <small>Máx: 42% | Mín: 28%</small>
+              </div>
+              <span class="ativo">Ideal 🟢</span>
             </div>
-            <span class="ativo">Ideal 🟢</span>
-          </div>
-        
-          <div class="sensor-item">
-            <div>
-              <strong>Quadrante E:</strong> Sensor 5
-              <br>
-              <small>Máx: 49% | Mín: 40%</small>
+          
+            <div class="sensor-item">
+              <div>
+                <strong>Quadrante E:</strong> Sensor 5
+                <br>
+                <small>Máx: 49% | Mín: 40%</small>
+              </div>
+              <span class="ativo">Ideal 🟢</span>
             </div>
-            <span class="ativo">Ideal 🟢</span>
-          </div>
-        </div>
-        
-      </div>
-      <div class="card card-media">
-        <h3>Alertas Recentes</h3>
-        <div class="media-content">
-          <div class="alertas-recentes">
-            <ul class="alert-list">
-              <li class="alert-item warning">
-                <span class="time">14:32</span>
-                <span class="icon">🛑</span> 
-                Seca detectada no Quadrante D
-              </li>
-              <li class="alert-item danger">
-                <span class="time">13:15</span>
-                <span class="icon">⚠️</span>
-                Encharcamento no Quadrante B
-              </li>
-              <li class="alert-item success">
-                <span class="time">12:45</span>
-                <span class="icon">✅</span> 
-                Quadrante E normalizado
-              </li>
-            </ul>
           </div>
           
         </div>
-      </div>
-      <div class="card card-media">
-        <div class="media-content">
-         <h3>Umidade média dos meses</h3>
-        
-            <div class="tabela-umidade">
-              <div class="card-mes">
-                <h3>Janeiro</h3>
-                <p><strong>Umidade:</strong> 45%</p>
-                <p class="estado-ideal">✅ Ideal</p>
-              </div>
+        <div class="card card-media">
+          <h3>Alertas Recentes</h3>
+          <div class="media-content">
+            <div class="alertas-recentes">
+              <ul class="alert-list">
+                <li class="alert-item warning">
+                  <span class="time">14:32</span>
+                  <span class="icon">🛑</span> 
+                  Seca detectada no Quadrante D
+                </li>
+                <li class="alert-item danger">
+                  <span class="time">13:15</span>
+                  <span class="icon">⚠️</span>
+                  Encharcamento no Quadrante B
+                </li>
+                <li class="alert-item success">
+                  <span class="time">12:45</span>
+                  <span class="icon">✅</span> 
+                  Quadrante E normalizado
+                </li>
+              </ul>
+            </div>
             
-              <div class="card-mes">
-                <h3>Fevereiro</h3>
-                <p><strong>Umidade:</strong> 32%</p>
-                <p class="estado-baixo">⚠️ Baixa</p>
-              </div>
-            
-              <div class="card-mes">
-                <h3>Março</h3>
-                <p><strong>Umidade:</strong> 70%</p>
-                <p class="estado-excesso">🚨 Excesso</p>
-              </div>
-            
-              <div class="card-mes">
-                <h3>Abril</h3>
-                <p><strong>Umidade:</strong> 50%</p>
-                <p class="estado-ideal">✅ Ideal</p>
-              </div>
-            
-              <div class="card-mes">
-                <h3>Maio</h3>
-                <p><strong>Umidade:</strong> 38%</p>
-                <p class="estado-baixo">⚠️ Baixa</p>
-              </div>
-            
-              <div class="card-mes">
-                <h3>Junho</h3>
-                <p><strong>Umidade:</strong> 65%</p>
-                <p class="estado-excesso">🚨 Excesso</p>
+          </div>
+        </div>
+        <div class="card card-media">
+          <div class="media-content">
+          <h3>Umidade média dos meses</h3>
+          
+              <div class="tabela-umidade">
+                <div class="card-mes">
+                  <h3>Janeiro</h3>
+                  <p><strong>Umidade:</strong> 65%</p>
+                  <p class="estado-ideal">✅ Ideal</p>
+                </div>
+              
+                <div class="card-mes">
+                  <h3>Fevereiro</h3>
+                  <p><strong>Umidade:</strong> 32%</p>
+                  <p class="estado-baixo">⚠️ Baixa</p>
+                </div>
+              
+                <div class="card-mes">
+                  <h3>Março</h3>
+                  <p><strong>Umidade:</strong> 90%</p>
+                  <p class="estado-excesso">🚨 Excesso</p>
+                </div>
+              
+                <div class="card-mes">
+                  <h3>Abril</h3>
+                  <p><strong>Umidade:</strong> 60%</p>
+                  <p class="estado-ideal">✅ Ideal</p>
+                </div>
+              
+                <div class="card-mes">
+                  <h3>Maio</h3>
+                  <p><strong>Umidade:</strong> 38%</p>
+                  <p class="estado-baixo">⚠️ Baixa</p>
+                </div>
+              
+                <div class="card-mes">
+                  <h3>Junho</h3>
+                  <p><strong>Umidade:</strong> 98%</p>
+                  <p class="estado-excesso">🚨 Excesso</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      <div class="card">
-        <h3>Ultimas sincronizações:</h3>
-        <div class="sincronizacoes-diarias">
-          <div class="linha-tempo">
-            <div class="evento sucesso">
-              <div class="ponto">
+        <div class="card">
+          <h3>Ultimas sincronizações:</h3>
+          <div class="sincronizacoes-diarias">
+            <div class="linha-tempo">
+              <div class="evento sucesso">
+                <div class="ponto">
 
+                </div>
+                <div class="conteudo">
+                  <h4>26/04/2025</h4>
+                  <p>✅ Sincronizado às 23:50</p>
+                </div>
               </div>
-              <div class="conteudo">
-                <h4>26/04/2025</h4>
-                <p>✅ Sincronizado às 23:50</p>
+          
+              <div class="evento atraso">
+                <div class="ponto"></div>
+                <div class="conteudo">
+                  <h4>25/04/2025</h4>
+                  <p>⚠️ Sincronizado com atraso às 01:10</p>
+                </div>
               </div>
-            </div>
-        
-            <div class="evento atraso">
-              <div class="ponto"></div>
-              <div class="conteudo">
-                <h4>25/04/2025</h4>
-                <p>⚠️ Sincronizado com atraso às 01:10</p>
+          
+              <div class="evento sucesso">
+                <div class="ponto"></div>
+                <div class="conteudo">
+                  <h4>24/04/2025</h4>
+                  <p>✅ Sincronizado às 23:45</p>
+                </div>
               </div>
-            </div>
-        
-            <div class="evento sucesso">
-              <div class="ponto"></div>
-              <div class="conteudo">
-                <h4>24/04/2025</h4>
-                <p>✅ Sincronizado às 23:45</p>
-              </div>
-            </div>
-        
-            <div class="evento falha">
-              <div class="ponto"></div>
-              <div class="conteudo">
-                <h4>23/04/2025</h4>
-                <p>🛑 Falha de sincronização</p>
+          
+              <div class="evento falha">
+                <div class="ponto"></div>
+                <div class="conteudo">
+                  <h4>23/04/2025</h4>
+                  <p>🛑 Falha de sincronização</p>
+                </div>
               </div>
             </div>
           </div>
+          
         </div>
-        
-      </div>
-    </section>
-  
-      <h2>Gráficos</h2>
-      <div class="container-graficos-linha">
-        <div class="grafico-item pequeno">
-          <h3>Precipitação</h3>
-          <label for="periodoSelect">Período:</label>
-          <select id="periodoSelect" onchange="atualizarGraficoPizza()">
-            <option value="trimestral">Trimestral</option>
-            <option value="semestral">Semestral</option>
-          </select>
-          <canvas id="graficoPizza"></canvas>
-        </div>
+      </section>
     
-        <div class="grafico-item medio">
-          <h3>Safras perdidas</h3>
-          <label for="PeriodoR">Período:</label>
-          <select id="PeriodoR" name="PeriodoR" onchange="filtro()">
-            <option value="1">Horários</option>
-            <option value="2">Diário</option>
-            <option value="3">Mensal</option>
-            <option value="4">Semanal</option>
-            <option value="5">Semestral</option>
-            <option value="6">Trimestral</option>
-            <option value="7">Anual</option>
+        <h2>Gráficos</h2>
+        <div class="container-graficos-linha">
+          <div class="grafico-item pequeno">
+            <h3>Precipitação</h3>
+            <label for="periodoSelect">Período:</label>
+            <select id="periodoSelect" onchange="atualizarGraficoPizza()">
+              <option value="trimestral">Trimestral</option>
+              <option value="semestral">Semestral</option>
+            </select>
+            <canvas id="graficoPizza"></canvas>
+          </div>
+      
+          <div class="grafico-item medio">
+            <h3>Safras perdidas</h3>
+            <label for="PeriodoR">Período:</label>
+            <select id="PeriodoR" name="PeriodoR" onchange="filtro2()">
+              <option value="1">Horários</option>
+              <option value="2">Diário</option>
+              <option value="3">Mensal</option>
+              <option value="4">Semanal</option>
+              <option value="5">Semestral</option>
+              <option value="6">Trimestral</option>
+              <option value="7">Anual</option>
 
-          </select>
-          <canvas id="graficoGeral"></canvas>
+            </select>
+            <canvas id="graficoGeral"></canvas>
+          </div>
+      
+          <div class="grafico-item grande">
+            <h3>Umidade em (%) </h3>
+            <label for="PeriodoL">Período:</label>
+            <select id="PeriodoL" name="PeriodoL" onchange="filtro()">
+              <option value="1">Diário</option>
+              <option value="2">Mensal</option>
+              <option value="3">Semanal</option>
+              <option value="4">Semestral</option>
+              <option value="5">Trimestral</option>
+              <option value="6">Anual</option>
+            </select>
+            <canvas id="graficoEspecifico"></canvas>
+          </div>
         </div>
-    
-        <div class="grafico-item grande">
-          <h3>Umidade em (%) </h3>
-          <canvas id="graficoEspecifico"></canvas>
-        </div>
-      </div>
-</body>
+  </body>
 
-</html>
-<script>
-  const dadosSafra = {
-    1: { // Diário
+  </html>
+  <script>
+    const dadosSafra = {
+      1: { // Diário
+        labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+        mediaSafra: [150, 100, 170, 100, 120, 50, 220],
+        safraIdeal: [210, 300, 400, 199, 500, 140, 600]
+      },
+      2: { // Mensal
+        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+        mediaSafra: [500, 600, 400, 500, 1000, 850],
+        safraIdeal: [1250, 1200, 1350, 1150, 2100, 1300]
+      },
+      3: { // Semanal
+        labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
+        mediaSafra: [220, 150, 190, 280],
+        safraIdeal: [320, 320, 320, 320]
+      },
+      4: { // Semestral
+        labels: ['1º Sem', '2º Sem'],
+        mediaSafra: [2500, 1200],
+        safraIdeal: [6100, 6100]
+      },
+      5: { // Trimestral
+        labels: ['1º Tri', '2º Tri', '3º Tri', '4º Tri'],
+        mediaSafra: [1000, 900, 1200, 800],
+        safraIdeal: [3200, 3200, 3200, 3200]
+      },
+      6: { // Anual
+        labels: ['2023', '2024'],
+        mediaSafra: [12000, 20000],
+        safraIdeal: [50000, 100000]
+      }
+    };
+    const dados = {
+    1:{ //Horário
+      labels: ['00h', '03h', '06h', '09h', '12h', '15h', '18h', '21h'],
+      umidadeMaxima: [55, 50, 48, 32, 55, 44, 40, 30],
+      umidadeMinima: [21, 43, 25, 29, 47, 39, 35, 22],
+      MaximaIdeal: [60],
+      MiminaIdeal: [20],
+    },
+    2: { // Diário
       labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-      mediaSafra: [150, 100, 170, 100, 120, 50, 220],
-      safraIdeal: [210, 300, 400, 199, 500, 140, 600]
+      umidadeMaxima: [55, 56, 39, 44, 51, 32, 48],
+      umidadeMedia: [60, 62, 59, 63, 58, 55, 61],
+      umidadeMinima: [20, 42, 39, 33, 28, 25, 11],
+      MaximaIdeal: [60],
+      MinimaIdeal: [20],
     },
-    2: { // Mensal
+    3: { // Mensal
       labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
-      mediaSafra: [500, 600, 400, 500, 1000, 850],
-      safraIdeal: [1250, 1200, 1350, 1150, 2100, 1300]
+      umidadeMaxima: [56, 55, 50, 20, 35, 45],
+      umidadeMedia: [70, 65, 60, 50, 45, 65],
+      umidadeMinima: [30, 25, 36, 35, 30, 25],
+      MaximaIdeal: [60],
+      MinimaIdeal: [20],
     },
-    3: { // Semanal
+    4: { // Semanal
       labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
-      mediaSafra: [220, 150, 190, 280],
-      safraIdeal: [320, 320, 320, 320]
+      umidadeMaxima: [58, 42, 37, 40],
+      umidadeMedia: [68, 62, 67, 60],
+      umidadeMinima: [28, 32, 47, 50],
+      MaximaIdeal: [60],
+      MinimaIdeal: [20],
     },
-    4: { // Semestral
+    5: { // Semestral
       labels: ['1º Sem', '2º Sem'],
-      mediaSafra: [2500, 1200],
-      safraIdeal: [6100, 6100]
+      umidadeMaxima: [57, 32],
+      umidadeMedia: [58, 52],
+      umidadeMinima: [38, 22],
+      MaximaIdeal: [60],
+      MinimaIdeal: [20],
     },
-    5: { // Trimestral
+    6: { // Trimestral
       labels: ['1º Tri', '2º Tri', '3º Tri', '4º Tri'],
-      mediaSafra: [1000, 900, 1200, 800],
-      safraIdeal: [3200, 3200, 3200, 3200]
+      umidadeMaxima: [59, 51, 42, 52],
+      umidadeMedia: [59, 51, 50, 52],
+      umidadeMinima: [39, 31, 30, 42],
+      MaximaIdeal: [60],
+      MinimaIdeal: [20],
     },
-    6: { // Anual
+    7: { // Anual
       labels: ['2023', '2024'],
-      mediaSafra: [12000, 20000],
-      safraIdeal: [50000, 100000]
+      umidadeMaxima: [60, 62],
+      umidadeMedia: [50, 52],
+      umidadeMinima: [40, 42],
+      MaximaIdeal: [60],
+      MinimaIdeal: [20],
     }
   };
-  const dados = {
-  1:{ //Horário
-    labels: ['00h', '03h', '06h', '09h', '12h', '15h', '18h', '21h'],
-    umidadeMaxima: [85, 80, 78, 72, 65, 60, 70, 80],
-    umidadeMedia: [75, 70, 68, 63, 58, 55, 65, 72],
-    umidadeMinima: [65, 60, 58, 53, 48, 45, 55, 62],
-  },
-  2: { // Diário
-    labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-    umidadeMaxima: [68, 66, 79, 67, 61, 62, 68],
-    umidadeMedia: [60, 62, 59, 63, 58, 55, 61],
-    umidadeMinima: [50, 32, 49, 23, 38, 45, 51]
-  },
-  3: { // Mensal
-    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
-    umidadeMaxima: [80, 75, 70, 60, 55, 75],
-    umidadeMedia: [70, 65, 60, 50, 45, 65],
-    umidadeMinima: [50, 45, 56, 45, 40, 45],
-  },
-  4: { // Semanal
-    labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
-    umidadeMaxima: [68, 72, 77, 70],
-    umidadeMedia: [68, 62, 67, 60],
-    umidadeMinima: [58, 52, 57, 50],
-  },
-  5: { // Semestral
-    labels: ['1º Sem', '2º Sem'],
-    umidadeMaxima: [68, 62],
-    umidadeMedia: [58, 52],
-    umidadeMinima: [48, 42],
-  },
-  6: { // Trimestral
-    labels: ['1º Tri', '2º Tri', '3º Tri', '4º Tri'],
-    umidadeMaxima: [69, 61, 60, 62],
-    umidadeMedia: [59, 51, 50, 52],
-    umidadeMinima: [49, 41, 40, 42],
-  },
-  7: { // Anual
-    labels: ['2023', '2024'],
-    umidadeMaxima: [60, 62],
-    umidadeMedia: [50, 52],
-    umidadeMinima: [40, 42],
-  }
-};
 
-  const ctx1 = document.getElementById('graficoGeral').getContext('2d');
-  const grafico = new Chart(ctx1, {
-    type: 'bar',
-    data: {
-      labels: dadosSafra[1].labels,
-      datasets: [{
-        label: 'Safras perdidas',
-        data:  dadosSafra[1].mediaSafra,
-        backgroundColor: 'rgb(255, 0, 0)',
-        borderColor: 'rgb(255, 0, 0)',
-        borderWidth: 1
+    const ctx1 = document.getElementById('graficoGeral').getContext('2d');
+    const grafico = new Chart(ctx1, {
+      type: 'bar',
+      data: {
+        labels: dadosSafra[1].labels,
+        datasets: [{
+          label: 'Safras perdidas',
+          data:  dadosSafra[1].mediaSafra,
+          backgroundColor: 'rgb(255, 0, 0)',
+          borderColor: 'rgb(255, 0, 0)',
+          borderWidth: 1
 
-      }, {
-        label: 'Safras plantadas',
-        data: dadosSafra[1].safraIdeal,
-        backgroundColor: 'rgb(0, 255, 0)',
-        borderColor: 'rgb(0, 255, 0)',
-        borderWidth: 1
-      }
-      ]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
+        }, {
+          label: 'Safras plantadas',
+          data: dadosSafra[1].safraIdeal,
+          backgroundColor: 'rgb(0, 255, 0)',
+          borderColor: 'rgb(0, 255, 0)',
+          borderWidth: 1
         }
+        ]
       },
-      plugins: {
-        legend: {
-          display: true,
-          position: 'bottom'
-        }
-      }
-    }
-  });
-  const tge = document.getElementById('graficoEspecifico').getContext('2d');
-  const grafico2 = new Chart(tge, {
-    type: 'line',
-    data: {
-      labels: dados[1].labels,
-      datasets: [{
-        label: 'Maxima (%)',
-        data: dados[1].umidadeMaxima,
-        backgroundColor: 'rgb(255, 0, 0)',
-        borderColor: 'rgb(255, 0, 0)',
-        borderWidth: 1
-
-      }, {
-        label: 'Media (%)',
-        data: dados[1].umidadeMedia,
-        backgroundColor: 'rgb(0, 255, 0)',
-        borderColor: 'rgb(0, 255, 0)',
-        borderWidth: 1
-      },
-      {
-        label: 'Minima (%)',
-        data: dados[1].umidadeMinima,
-        backgroundColor: 'rgb(0, 0, 255)',
-        borderColor: 'rgb(0, 0, 255)',
-        borderWidth: 1
-      }
-      ]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      },
-      plugins: {
-        legend: {
-          display: true,
-          position: 'bottom'
-        }
-      }
-    }
-  });
-  function filtro() {
-    const periodo = document.getElementById('PeriodoR').value;
-    const infoUmidade = dados[periodo];
-    const infoSafra = dadosSafra[periodo];
-
-    if (infoUmidade && infoSafra) {
-
-      grafico2.data.labels = infoUmidade.labels;
-      grafico2.data.datasets[0].data = infoUmidade.umidadeMaxima;
-      grafico2.data.datasets[1].data = infoUmidade.umidadeMedia;
-      grafico2.data.datasets[2].data = infoUmidade.umidadeMinima;
-      grafico2.update();
-
-
-      grafico.data.labels = infoSafra.labels;
-      grafico.data.datasets[0].data = infoSafra.mediaSafra;
-      grafico.data.datasets[1].data = infoSafra.safraIdeal;
-      grafico.update();
-    }
-  }
-  // Dados para o gráfico de pizza (chuva)
-  const dadosChuva = {
-    trimestral: [45, 35, 15, 10],
-    semestral: [75, 25],
-    anual: [100]
-  };
-
-  // Função para gerar labels do gráfico de pizza
-  function gerarLabelsPizza(periodo) {
-    switch (periodo) {
-      case 'trimestral':
-        return ['Jan-Mar', 'Abr-Jun', 'Jul-Set', 'Out-Dez'];
-      case 'semestral':
-        return ['Jan-Jun', 'Jul-Dez'];
-      default:
-        return [];
-    }
-  }
-
-
-  // Criação inicial do gráfico de pizza
-  const ctxPizza = document.getElementById('graficoPizza').getContext('2d');
-let graficoPizza = new Chart(ctxPizza, {
-  type: 'pie',
-  data: {
-    labels: gerarLabelsPizza('trimestral'),
-    datasets: [{
-      data: dadosChuva.trimestral,
-      backgroundColor: [
-        '#4e73df', '#1cc88a', '#36b9cc', '#f6c23e',
-        '#e74a3b', '#858796', '#5a5c69', '#20c9a6',
-        '#fd7e14', '#6610f2', '#6f42c1', '#1e7e34'
-      ]
-    }]
-  },
-  options: {
-    plugins: {
-      legend: {
-        position: 'bottom'
-      },
-      datalabels: {
-        color: '#fff', // Cor da porcentagem
-        formatter: (value, context) => {
-          let total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
-          let percentage = (value / total * 100).toFixed(1) + "%";
-          return percentage;
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
         },
-        font: {
-          weight: 'bold',
-          size: 14
+        plugins: {
+          legend: {
+            display: true,
+            position: 'bottom'
+          }
         }
       }
-    }
-  },
-  plugins: [ChartDataLabels] // ATENÇÃO: precisa registrar aqui também
-});
-  // Função para atualizar o gráfico de pizza
-  function atualizarGraficoPizza() {
-    const periodo = document.getElementById('periodoSelect').value;
-    graficoPizza.data.labels = gerarLabelsPizza(periodo);
-    graficoPizza.data.datasets[0].data = dadosChuva[periodo];
-    graficoPizza.update();
-  }
-  const menuToggle = document.getElementById('menu-toggle');
-const sidebar = document.querySelector('.sidebar');
-const mainContent = document.querySelector('.main');
+    });
+    const tge = document.getElementById('graficoEspecifico').getContext('2d');
+    const grafico2 = new Chart(tge, {
+      type: 'line',
+      data: {
+        labels: dados[1].labels,
+        datasets: [{
+          label: 'Maxima (%)',
+          data: dados[1].umidadeMaxima,
+          backgroundColor: 'rgb(255, 0, 0)',
+          borderColor: 'rgb(255, 0, 0)',
+          borderWidth: 1
 
-menuToggle.addEventListener('click', () => {
-    sidebar.classList.toggle('active');
-    mainContent.classList.toggle('shifted');
-});
-</script>
+        }, {
+          label: 'Media (%)',
+          data: dados[1].umidadeMedia,
+          backgroundColor: 'rgb(0, 255, 0)',
+          borderColor: 'rgb(0, 255, 0)',
+          borderWidth: 1
+        },
+        {
+          label: 'Minima (%)',
+          data: dados[1].umidadeMinima,
+          backgroundColor: 'rgb(0, 0, 255)',
+          borderColor: 'rgb(0, 0, 255)',
+          borderWidth: 1
+        },
+        {
+          label: 'Umidade Maxima ideal (%)',
+          data: new Array(dados[1].labels.length).fill(60),
+          backgroundColor: 'rgb(255, 165, 0)',
+          borderColor: 'rgb(255, 165, 0)', 
+          borderWidth: 1
+        }, 
+        {
+          label: 'Umidade Minima ideal (%)',
+          data: new Array(dados[1].labels.length).fill(20),
+          backgroundColor: 'rgb(135, 175, 199)',
+          borderColor: 'rgb(135,175, 199)',
+          borderWidth: 1
+        }
+        ]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'bottom'
+          }
+        }
+      }
+    });
+    function filtro() {
+      const periodo = document.getElementById('PeriodoL').value;
+      const infoUmidade = dados[periodo];
+      if (infoUmidade) 
+      {
+        grafico2.data.labels = infoUmidade.labels;
+        grafico2.data.datasets[0].data = infoUmidade.umidadeMaxima;
+        grafico2.data.datasets[1].data = infoUmidade.umidadeMedia;
+        grafico2.data.datasets[2].data = infoUmidade.umidadeMinima;
+        grafico2.update();
+
+      }
+    }
+    function filtro2()
+    { 
+    const periodo = document.getElementById('PeriodoR').value;
+    const infoSafra = dadosSafra[periodo];
+      if (infoSafra) 
+      {
+        grafico.data.labels = infoSafra.labels;
+        grafico.data.datasets[0].data = infoSafra.mediaSafra;
+        grafico.data.datasets[1].data = infoSafra.safraIdeal;
+        grafico.update(); 
+      }
+    }
+    // Dados para o gráfico de pizza (chuva)
+    const dadosChuva = {
+      trimestral: [45, 35, 15, 10],
+      semestral: [75, 25],
+      anual: [100]
+    };
+
+    // Função para gerar labels do gráfico de pizza
+    function gerarLabelsPizza(periodo) {
+      switch (periodo) {
+        case 'trimestral':
+          return ['Jan-Mar', 'Abr-Jun', 'Jul-Set', 'Out-Dez'];
+        case 'semestral':
+          return ['Jan-Jun', 'Jul-Dez'];
+        default:
+          return [];
+      }
+    }
+
+
+    // Criação inicial do gráfico de pizza
+    const ctxPizza = document.getElementById('graficoPizza').getContext('2d');
+  let graficoPizza = new Chart(ctxPizza, {
+    type: 'pie',
+    data: {
+      labels: gerarLabelsPizza('trimestral'),
+      datasets: [{
+        data: dadosChuva.trimestral,
+        backgroundColor: [
+          '#4e73df', '#1cc88a', '#36b9cc', '#f6c23e',
+          '#e74a3b', '#858796', '#5a5c69', '#20c9a6',
+          '#fd7e14', '#6610f2', '#6f42c1', '#1e7e34'
+        ]
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          position: 'bottom'
+        },
+        datalabels: {
+          color: '#fff', // Cor da porcentagem
+          formatter: (value, context) => {
+            let total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+            let percentage = (value / total * 100).toFixed(1) + "%";
+            return percentage;
+          },
+          font: {
+            weight: 'bold',
+            size: 14
+          }
+        }
+      }
+    },
+    plugins: [ChartDataLabels] // ATENÇÃO: precisa registrar aqui também
+  });
+    // Função para atualizar o gráfico de pizza
+    function atualizarGraficoPizza() {
+      const periodo = document.getElementById('periodoSelect').value;
+      graficoPizza.data.labels = gerarLabelsPizza(periodo);
+      graficoPizza.data.datasets[0].data = dadosChuva[periodo];
+      graficoPizza.update();
+    }
+    const menuToggle = document.getElementById('menu-toggle');
+  const sidebar = document.querySelector('.sidebar');
+  const mainContent = document.querySelector('.main');
+
+  menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+      mainContent.classList.toggle('shifted');
+  });
+  </script>
