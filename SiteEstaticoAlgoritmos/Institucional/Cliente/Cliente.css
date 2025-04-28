@@ -1,26 +1,36 @@
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
 body {
     font-family: 'Segoe UI', sans-serif;
-    background-color: #f4f4f4;
+    background-color: #F5F2EB; /* bege neutro */
+    overflow-y: hidden;
 }
+
 .sidebar {
     position: fixed;
     top: 0;
-    left: 0;
+    left: -220px; /* Escondido inicialmente */
     width: 220px;
     height: 100vh;
-    background-color: green;
+    background-color: #4F7942; /* verde oliva */
     padding: 20px;
     color: white;
+    transition: left 0.3s ease;
+    z-index: 1000;
 }
+
+.sidebar.active {
+    left: 0;
+}
+
 .sidebar h2 {
     margin-bottom: 20px;
 }
+
 .usuario {
     display: flex;
     flex-direction: column;
@@ -32,6 +42,7 @@ body {
     font-weight: bold;
     margin-left: -18px;
 }
+
 .usuario img {
     width: 80px; 
     height: auto;
@@ -48,93 +59,293 @@ body {
     transition: background 0.3s;
     margin-left: -19px;
 }
+
 .sidebar a:hover {
-    background-color: #2c3e2a;
+    background-color: #3b5b34; /* verde escuro no hover */
 }
+
 .main {
-    margin-left: 220px;
+    margin-left: 0;
     padding: 20px;
+    transition: margin-left 0.3s ease;
 }
+
+.main.shifted {
+    margin-left: 220px;
+}
+
 header h1 {
     margin-bottom: 20px;
+    color: #4F7942; /* Verde oliva */
 }
+
 .cards {
+    margin-top: -20px;
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
     margin-bottom: 30px;
+    justify-content: flex-start;
+    margin-left: 50px;
 }
+
 .card {
-    flex: 1 1 200px;
-    background-color: white;
-    padding: 20px;
+    flex: 0 0 350px;
+    height: 180px;
+    background-color: #A9CBB7; /* verde pastel claro */
+    padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-.card h3 {
-    margin-bottom: 10px;
-    color: #333;
-}
-.card p {
-    font-size: 1.5rem;
-    color: black;
-}
-.content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-.card-media {
-    max-height: 200px;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
+
+.card h3 {
+    margin-bottom: 10px;
+    color: #4F7942; /* verde oliva */
+}
+
+.card p {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.content {
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    margin-top: -20px;
+}
+
+.card-media {
+    display: flex;
+    flex-direction: column;
+}
+
 .card-media .media-content {
-    overflow-y: auto;
-    max-height: 120px;
-    padding-right: 10px;
+    flex-grow: 1;
+    overflow: auto;
 }
-.card-media .media-content::-webkit-scrollbar {
-    width: 6px;
-}
-.card-media .media-content::-webkit-scrollbar-thumb {
-    background-color: #315421;
-    border-radius: 3px;
-}
+
 select {
     padding: 8px 12px;
     border-radius: 5px;
-    border: 1px solid black;
+    border: 1px solid #4F7942;
     font-size: 1rem;
-    color: black;
+    color: #4F7942;
 }
-.card-media .media-content::-webkit-scrollbar {
-    width: 6px;
-}
-.card-media .media-content::-webkit-scrollbar-thumb {
-    background-color: #315421;
-    border-radius: 3px;
-}
-.graficos {
+
+.container-graficos-linha {
     display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
     flex-wrap: wrap;
-    gap: 30px;
     margin-top: 20px;
 }
 
-.grafico-container {
-    background: white;
-    padding: 20px;
+.grafico-item {
+    background: #FFFFFF;
+    padding: 15px;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    flex: 1 1 45%;
-    min-width: 300px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex: 1 1 300px;
+    height: 400px;
+    min-width: 300px;
+    max-width: 800px;
 }
 
-.grafico-container canvas {
-    width: 700px !important;  
-    height: auto !important; 
+.grafico-item h3 {
+    margin-bottom: 10px;
+    color: #4F7942;
 }
+
+.grafico-item select {
+    margin-bottom: 10px;
+}
+
+.grafico-item.pequeno {
+    min-width: 300px;
+    max-width: 300px;
+    height: 645px;
+}
+
+.grafico-item.medio {
+    min-width: 550px;
+    max-width: 750px;
+    height: 450px;
+    width: 650px;
+    margin-left: 10px;
+    margin-top: 195px;
+}
+
+.grafico-item.grande {
+    min-width: 700px;
+    max-width: 1000px;
+    height: 450px;
+    width: 850px;
+    margin-right: 10px;
+    margin-top: 195px;
+    margin-left: 30px;
+}
+
+.table-container {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 10px;
+}
+
+#tabelaUmidade {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#tabelaUmidade th, #tabelaUmidade td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+#tabelaUmidade th {
+    background-color: #F5F2EB;
+    font-weight: bold;
+    color: #4F7942;
+}
+
+.sensor-card {
+    height: 300px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.sensor-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sensor-item {
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ativo {
+    color: #4D90FE; /* azul para status ativo */
+    font-weight: bold;
+}
+
+.inativo {
+    color: #FF5C5C; /* vermelho para sensor inativo */
+    font-weight: bold;
+}
+
+.menu-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.card-alertas {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.alertas-lista {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.alertas-lista ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.alert-item {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.alert-item.danger {
+    background-color: #ffe5e5; /* alerta crítico */
+}
+
+.alert-item.warning {
+    background-color: #fff7e6; /* alerta de aviso */
+}
+.tabela-umidade {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
+    overflow-y: auto;
+  }
+  
+  .card-mes {
+    background: #e8f5e9; /* verde clarinho */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  
+  .sincronizacoes-diarias {
+    background: #e8f5e9; /* verde clarinho */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+  .dia-item {
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .dia-item.sucesso {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .dia-item.atraso {
+    color: orange;
+    font-weight: bold;
+  }
+  
+  .dia-item.falha {
+    color: red;
+    font-weight: bold;
+  }
+  /* Estilizando a faixa */
+
+  
