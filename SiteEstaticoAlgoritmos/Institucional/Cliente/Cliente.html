@@ -11,7 +11,7 @@
   </head>
   <body>
     <header>
-      <h1>Monitoramento de Umidade das Safras de Feijao</h1>
+      <h1>Monitoramento de Umidade das Safras de Feijão</h1>
     </header>
     <div class="sidebar">
       <div class="usuario">
@@ -33,20 +33,20 @@
   </div>
 
   <div class="card">
-    <h3>Volume total (últimos 30 dias)</h3>
-    <p>120 mm</p>
-    <small>Acumulado de chuva recente.</small>
+    <h3>Umidade crítica no Quadrante C</h3>
+    <p style="color: red;">15%</p>
+    <small>Nível de umidade em quadrante específico.</small>
   </div>
 
   <div class="card">
     <h3>Dias sem chuva</h3>
-    <p>5 dias</p>
+    <p style="color: orange;">5 dias</p>
     <small>Período seco consecutivo registrado.</small>
   </div>
 
   <div class="card">
     <h3>Sensor com falha</h3>
-    <p>2 unidades</p>
+    <p style="color: red;">2 unidades</p>
     <small>Equipamentos sem sinal nas últimas 24h.</small>
   </div>
 
@@ -56,10 +56,6 @@
     <small>Percentual de safras abaixo do ideal de umidade.</small>
   </div>
 
-  <div class="card">
-    <h3>Visualização detalhada</h3>
-    <a href="precipitacao.html" style="margin-top:10px; display:inline-block; padding:8px 12px; background-color:#4F7942; color:#fff; border-radius:5px; text-decoration:none;">Ver gráfico completo</a>
-  </div>
 </section>
      
         <div class="container-graficos-linha">
@@ -77,13 +73,12 @@
     <h3>Safras: Produção e Perdas</h3>
     <label for="PeriodoR">Período:</label>
     <select id="PeriodoR" name="PeriodoR" onchange="filtro2()">
-      <option value="1">Horários</option>
-      <option value="2">Diário</option>
-      <option value="3">Mensal</option>
-      <option value="4">Semanal</option>
-      <option value="5">Semestral</option>
-      <option value="6">Trimestral</option>
-      <option value="7">Anual</option>
+      <option value="1">Diário</option>
+      <option value="2">Mensal</option>
+      <option value="3">Semanal</option>
+      <option value="4">Semestral</option>
+      <option value="5">Trimestral</option>
+      <option value="6">Anual</option>
     </select>
     <canvas id="graficoGeral"></canvas>
   </div>
@@ -138,54 +133,54 @@
       }
     };
     const dados = {
-    1:{ //Horário
+    /* 1:{ //Horário
       labels: ['00h', '03h', '06h', '09h', '12h', '15h', '18h', '21h'],
       umidadeMaxima: [55, 50, 48, 32, 55, 44, 40, 30],
       umidadeMinima: [21, 43, 25, 29, 47, 39, 35, 22],
       MaximaIdeal: [60],
       MiminaIdeal: [20],
-    },
-    2: { // Diário
+    }, */
+    1: { // Diário
       labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
       umidadeMaxima: [55, 56, 39, 44, 51, 32, 48],
-      umidadeMedia: [60, 62, 59, 63, 58, 55, 61],
+      umidadeMedia: [42, 49, 39, 40, 45, 28, 40],
       umidadeMinima: [20, 42, 39, 33, 28, 25, 11],
       MaximaIdeal: [60],
       MinimaIdeal: [20],
     },
-    3: { // Mensal
+    2: { // Mensal
       labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
-      umidadeMaxima: [56, 55, 50, 20, 35, 45],
-      umidadeMedia: [70, 65, 60, 50, 45, 65],
+      umidadeMaxima: [56, 55, 50, 50, 35, 45],
+      umidadeMedia: [40, 42, 45, 42, 31, 37],
       umidadeMinima: [30, 25, 36, 35, 30, 25],
       MaximaIdeal: [60],
       MinimaIdeal: [20],
     },
-    4: { // Semanal
+    3: { // Semanal
       labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
-      umidadeMaxima: [58, 42, 37, 40],
-      umidadeMedia: [68, 62, 67, 60],
-      umidadeMinima: [28, 32, 47, 50],
+      umidadeMaxima: [58, 42, 47, 50],
+      umidadeMedia: [48, 35, 41, 45],
+      umidadeMinima: [28, 32, 37, 40],
       MaximaIdeal: [60],
       MinimaIdeal: [20],
     },
-    5: { // Semestral
+    4: { // Semestral
       labels: ['1º Sem', '2º Sem'],
       umidadeMaxima: [57, 32],
-      umidadeMedia: [58, 52],
+      umidadeMedia: [45, 28],
       umidadeMinima: [38, 22],
       MaximaIdeal: [60],
       MinimaIdeal: [20],
     },
-    6: { // Trimestral
+    5: { // Trimestral
       labels: ['1º Tri', '2º Tri', '3º Tri', '4º Tri'],
       umidadeMaxima: [59, 51, 42, 52],
-      umidadeMedia: [59, 51, 50, 52],
+      umidadeMedia: [49, 41, 40, 45],
       umidadeMinima: [39, 31, 30, 42],
       MaximaIdeal: [60],
       MinimaIdeal: [20],
     },
-    7: { // Anual
+    6: { // Anual
       labels: ['2023', '2024'],
       umidadeMaxima: [60, 62],
       umidadeMedia: [50, 52],
