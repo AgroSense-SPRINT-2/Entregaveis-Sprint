@@ -10,6 +10,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
   </head>
   <body>
+    <header>
+      <h1>Monitoramento de Umidade das Safras de Feijao</h1>
+    </header>
     <div class="sidebar">
       <div class="usuario">
         <img src="Design_sem_nome-removebg-preview.png" alt="">
@@ -23,231 +26,83 @@
     <div class="main">
       <section class="cards">
         <button id="menu-toggle" class="menu-btn">☰</button>
-        <div class="card">
-          <h3>Lista de Sensores:</h3>
-          <div class="sensor-list">
-            <div class="sensor-item">
-              <span><strong>Sensor 1:</strong> Quadrante A - <span class="ativo">Ativo</span></span>
-            </div>
-            <div class="sensor-item">
-              <span><strong>Sensor 2:</strong> Quadrante B - <span class="inativo">Inativo</span></span>
-            </div>
-            <div class="sensor-item">
-              <span><strong>Sensor 3:</strong> Quadrante D - <span class="inativo">Inativo</span></span>
-            </div>
-            <div class="sensor-item">
-              <span><strong>Sensor 4:</strong> Quadrante C - <span class="ativo">Ativo</span></span>
-            </div>
-            <div class="sensor-item">
-              <span><strong>Sensor 5:</strong> Quadrante E - <span class="ativo">Ativo</span></span>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <h3>Lista de Áreas:</h3>
-          <div class="sensor-list">
-            <div class="sensor-item">
-              <div>
-                <strong>Quadrante A:</strong> Sensor 1
-                <br>
-                <small>Máx: 48% | Mín: 32%</small>
-              </div>
-              <span class="ativo">Ideal 🟢</span>
-            </div>
-          
-            <div class="sensor-item">
-              <div>
-                <strong>Quadrante B:</strong> Sensor 2
-                <br>
-                <small>Máx: 98% | Mín: 18%</small>
-              </div>
-              <span class="inativo">Encharcado 🌧️</span>
-            </div>
-          
-            <div class="sensor-item">
-              <div>
-                <strong>Quadrante D:</strong> Sensor 3
-                <br>
-                <small>Máx: 25% | Mín: 12%</small>
-              </div>
-              <span class="inativo">Seca 🚨</span>
-            </div>
-          
-            <div class="sensor-item">
-              <div>
-                <strong>Quadrante C:</strong> Sensor 4
-                <br>
-                <small>Máx: 42% | Mín: 28%</small>
-              </div>
-              <span class="ativo">Ideal 🟢</span>
-            </div>
-          
-            <div class="sensor-item">
-              <div>
-                <strong>Quadrante E:</strong> Sensor 5
-                <br>
-                <small>Máx: 49% | Mín: 40%</small>
-              </div>
-              <span class="ativo">Ideal 🟢</span>
-            </div>
-          </div>
-          
-        </div>
-        <div class="card card-media">
-          <h3>Alertas Recentes</h3>
-          <div class="media-content">
-            <div class="alertas-recentes">
-              <ul class="alert-list">
-                <li class="alert-item warning">
-                  <span class="time">14:32</span>
-                  <span class="icon">🛑</span> 
-                  Seca detectada no Quadrante D
-                </li>
-                <li class="alert-item danger">
-                  <span class="time">13:15</span>
-                  <span class="icon">⚠️</span>
-                  Encharcamento no Quadrante B
-                </li>
-                <li class="alert-item success">
-                  <span class="time">12:45</span>
-                  <span class="icon">✅</span> 
-                  Quadrante E normalizado
-                </li>
-              </ul>
-            </div>
-            
-          </div>
-        </div>
-        <div class="card card-media">
-          <div class="media-content">
-          <h3>Umidade média dos meses</h3>
-          
-              <div class="tabela-umidade">
-                <div class="card-mes">
-                  <h3>Janeiro</h3>
-                  <p><strong>Umidade:</strong> 65%</p>
-                  <p class="estado-ideal">✅ Ideal</p>
-                </div>
-              
-                <div class="card-mes">
-                  <h3>Fevereiro</h3>
-                  <p><strong>Umidade:</strong> 32%</p>
-                  <p class="estado-baixo">⚠️ Baixa</p>
-                </div>
-              
-                <div class="card-mes">
-                  <h3>Março</h3>
-                  <p><strong>Umidade:</strong> 90%</p>
-                  <p class="estado-excesso">🚨 Excesso</p>
-                </div>
-              
-                <div class="card-mes">
-                  <h3>Abril</h3>
-                  <p><strong>Umidade:</strong> 60%</p>
-                  <p class="estado-ideal">✅ Ideal</p>
-                </div>
-              
-                <div class="card-mes">
-                  <h3>Maio</h3>
-                  <p><strong>Umidade:</strong> 38%</p>
-                  <p class="estado-baixo">⚠️ Baixa</p>
-                </div>
-              
-                <div class="card-mes">
-                  <h3>Junho</h3>
-                  <p><strong>Umidade:</strong> 98%</p>
-                  <p class="estado-excesso">🚨 Excesso</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        <div class="card">
-          <h3>Ultimas sincronizações:</h3>
-          <div class="sincronizacoes-diarias">
-            <div class="linha-tempo">
-              <div class="evento sucesso">
-                <div class="ponto">
+   <div class="card">
+    <h3>Precipitação acumulada</h3>
+    <p>65%</p>
+    <small>Volume registrado em relação ao esperado no mês atual.</small>
+  </div>
 
-                </div>
-                <div class="conteudo">
-                  <h4>26/04/2025</h4>
-                  <p>✅ Sincronizado às 23:50</p>
-                </div>
-              </div>
-          
-              <div class="evento atraso">
-                <div class="ponto"></div>
-                <div class="conteudo">
-                  <h4>25/04/2025</h4>
-                  <p>⚠️ Sincronizado com atraso às 01:10</p>
-                </div>
-              </div>
-          
-              <div class="evento sucesso">
-                <div class="ponto"></div>
-                <div class="conteudo">
-                  <h4>24/04/2025</h4>
-                  <p>✅ Sincronizado às 23:45</p>
-                </div>
-              </div>
-          
-              <div class="evento falha">
-                <div class="ponto"></div>
-                <div class="conteudo">
-                  <h4>23/04/2025</h4>
-                  <p>🛑 Falha de sincronização</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-        </div>
-      </section>
-    
-        <h2>Gráficos</h2>
+  <div class="card">
+    <h3>Volume total (últimos 30 dias)</h3>
+    <p>120 mm</p>
+    <small>Acumulado de chuva recente.</small>
+  </div>
+
+  <div class="card">
+    <h3>Dias sem chuva</h3>
+    <p>5 dias</p>
+    <small>Período seco consecutivo registrado.</small>
+  </div>
+
+  <div class="card">
+    <h3>Sensor com falha</h3>
+    <p>2 unidades</p>
+    <small>Equipamentos sem sinal nas últimas 24h.</small>
+  </div>
+
+  <div class="card">
+    <h3>Safras comprometidas</h3>
+    <p>18%</p>
+    <small>Percentual de safras abaixo do ideal de umidade.</small>
+  </div>
+
+  <div class="card">
+    <h3>Visualização detalhada</h3>
+    <a href="precipitacao.html" style="margin-top:10px; display:inline-block; padding:8px 12px; background-color:#4F7942; color:#fff; border-radius:5px; text-decoration:none;">Ver gráfico completo</a>
+  </div>
+</section>
+     
         <div class="container-graficos-linha">
-          <div class="grafico-item pequeno">
-            <h3>Precipitação</h3>
-            <label for="periodoSelect">Período:</label>
-            <select id="periodoSelect" onchange="atualizarGraficoPizza()">
-              <option value="trimestral">Trimestral</option>
-              <option value="semestral">Semestral</option>
-            </select>
-            <canvas id="graficoPizza"></canvas>
-          </div>
-      
-          <div class="grafico-item medio">
-            <h3>Safras perdidas</h3>
-            <label for="PeriodoR">Período:</label>
-            <select id="PeriodoR" name="PeriodoR" onchange="filtro2()">
-              <option value="1">Horários</option>
-              <option value="2">Diário</option>
-              <option value="3">Mensal</option>
-              <option value="4">Semanal</option>
-              <option value="5">Semestral</option>
-              <option value="6">Trimestral</option>
-              <option value="7">Anual</option>
+  <div class="grafico-item">
+    <h3>Distribuição de Precipitação (%)</h3>
+    <label for="periodoSelect">Período:</label>
+    <select id="periodoSelect" onchange="atualizarGraficoPizza()">
+      <option value="trimestral">Trimestral</option>
+      <option value="semestral">Semestral</option>
+    </select>
+    <canvas id="graficoPizza"></canvas>
+  </div>
 
-            </select>
-            <canvas id="graficoGeral"></canvas>
-          </div>
-      
-          <div class="grafico-item grande">
-            <h3>Umidade em (%) </h3>
-            <label for="PeriodoL">Período:</label>
-            <select id="PeriodoL" name="PeriodoL" onchange="filtro()">
-              <option value="1">Diário</option>
-              <option value="2">Mensal</option>
-              <option value="3">Semanal</option>
-              <option value="4">Semestral</option>
-              <option value="5">Trimestral</option>
-              <option value="6">Anual</option>
-            </select>
-            <canvas id="graficoEspecifico"></canvas>
-          </div>
-        </div>
+  <div class="grafico-item">
+    <h3>Safras: Produção e Perdas</h3>
+    <label for="PeriodoR">Período:</label>
+    <select id="PeriodoR" name="PeriodoR" onchange="filtro2()">
+      <option value="1">Horários</option>
+      <option value="2">Diário</option>
+      <option value="3">Mensal</option>
+      <option value="4">Semanal</option>
+      <option value="5">Semestral</option>
+      <option value="6">Trimestral</option>
+      <option value="7">Anual</option>
+    </select>
+    <canvas id="graficoGeral"></canvas>
+  </div>
+
+  <div class="grafico-item">
+    <h3>Umidade (%) — Medições e Faixa Ideal</h3>
+    <label for="PeriodoL">Período:</label>
+    <select id="PeriodoL" name="PeriodoL" onchange="filtro()">
+      <option value="1">Diário</option>
+      <option value="2">Mensal</option>
+      <option value="3">Semanal</option>
+      <option value="4">Semestral</option>
+      <option value="5">Trimestral</option>
+      <option value="6">Anual</option>
+    </select>
+    <canvas id="graficoEspecifico"></canvas>
+  </div>
+</div>
   </body>
-
   </html>
   <script>
     const dadosSafra = {
