@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroSense</title>
+   <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Menu de Navegação -->
+    <header>
+        <div class="logo">
+            <img src="./Imagens/logo.png" >
+        </div>
+        <div class="menu">
+            <a href="./cadastro.html">Área do Cliente</a>
+            <a href="#funciona">Como Funciona</a>
+            <a href="#solucoes">Soluções</a>
+            <a href="#sobre">Sobre Nós</a>
+            <a href="#simulacao">Simulação</a>
+            <a href="#contato">Contato</a>
+        </div>
+    </header>
+
+ 
+    <!--Home-->
+    <section id="home">
+        <div class="bg-pattern"></div>
+        <div class="center2">
+            <div class="texto">
+                <h1>Transforme sua plantação com tecnologia!</h1>
+                <p>Conheça nosso sistema Inteligente para Produção, Irrigação e Armazenamento de Feijão.</p>
+                <a href="#contato" class="btn">Entrar em contato</a>
+            </div>
+        </div>
+    </section>
+
+    <!--Como Funciona -->
+    <section id="funciona">
+        <div class="container">
+            <div class="imagem">
+                <img src="./Imagens/comofunciona.png" alt="">
+            </div>
+            <div class="texto">
+                <h1>Como funciona?</h1>
+                <p>
+                    Nosso sistema é baseado no sensor de <span class="cor">umidade do solo</span>,
+                    conectados à plataforma Arduino UNO, que monitora as condições do solo em tempo real.
+                    Os dados são processados para fornecer notificações sobre a necessidade de irrigação,
+                    garantindo que a planta receba a quantidade exata de água necessária.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Soluções -->
+    <section id="solucoes">
+        <div class="structure">
+            <div class="texto">
+                <h2>O que é o sistema AgroSense?</h2>
+                <p>AgroSense é um sistema inovador que visa otimizar a produção de feijão no Brasil,
+                utilizando tecnologia de monitoramento para garantir a irrigação eficiente e aumentar a produtividade,
+                enfrentando desafios como a seca e as pragas.</p>
+                <p>A escassez de água e os períodos de seca prejudicam diretamente as safras de feijão, afetando a qualidade da colheita.
+                O AgroSense ajuda a otimizar o uso da água, evitando desperdícios e perdas nas plantações.</p>
+                <a href="#funciona" class="saibamais">Saiba mais</a>
+            </div>
+            <div class="mainimagem">
+                <img src="./Imagens/rsoluções.avif" alt="">
+            </div>
+        </div>
+        
+        <div class="structure2">
+            <h3><strong>Com o AgroSense você tem</strong></h3>
+            <div class="cards">
+                <div class="card">
+                    <div class="imagem">📊</div>
+                    <div class="cardtexto">Maior precisão de dados no controle da sua safra.</div>
+                </div>
+                <div class="card">
+                    <div class="imagem">🌱</div>
+                    <div class="cardtexto">Maior aproveitamento da sua safra.</div>
+                </div>
+                <div class="card">
+                    <div class="imagem">♻️</div>
+                    <div class="cardtexto">Mais sustentabilidade para seu negócio.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--Sobre Nós -->
+    <section id="sobre">
+        <div class="structure">
+            <h2>Sobre nós</h2>
+            <p>A <span>AgroSense</span> é uma empresa de tecnologia voltada ao mercado de Agricultura, trabalhamos com o propósito de trazer soluções práticas e acessíveis para <span>otimizar suas produções e aproveitamento</span>.</p>
+            <p>Com foco em resultados práticos, nossas soluções são projetadas para aumentar a eficiência das colheitas, reduzir custos e garantir a sustentabilidade do negócio.</p>
+            <p><span>AgroSense está aqui para apoiar os produtores</span> na maximização de sua produtividade, enfrentando desafios como a escassez de recursos naturais e as condições climáticas adversas.</p>
+            
+            <div class="imagens">
+                <div class="imagem1"></div>
+                <div class="imagem2"></div>
+                <div class="imagem3"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simulação -->
+    <section id="simulacao">
+        <div class="simulador">
+            <h2><span class="destaque">Você</span> <span class="cor">sabia?</span></h2>
+
+            <p class="textol">
+                Em agosto de 2024, de <span class="verde">10</span> safras <span class="verde">8</span> foram <span class="verde">perdidas</span> devido a estiagem.
+            </p>
+            <p class="fonte">
+                Fonte: Marcelo Luders, presidente da IBRAFE (Instituto Brasileiro de Feijão e Pulses)
+            </p>
+
+            <h3 class="texto2">
+                Veja aqui o quanto você pode <span>aproveitar da sua safra</span> com o <strong>AgroSense</strong>
+            </h3>
+
+            <form class="inputs">
+                <div class="linha">
+                    <div class="campos">
+                        <label>Qual a área, em hectares, que deseja implementar nosso sistema:</label>
+                        <input type="text" id="area" placeholder="Ex: 50">
+                    </div>
+                    <div class="campos">
+                        <label>Qual a quantidade de sacas produzidas:<br><br></label>
+                        <input type="text" id="sacas" placeholder="Ex: 500">
+                    </div>
+                </div>
+
+                <div class="linha">
+                    <div class="campos">
+                        <label>Qual o peso das sacas:</label>
+                        <input type="text" id="peso" placeholder="Ex: 60 kg">
+                    </div>
+                    <div class="campos">
+                        <label>Quanto é investido para produção da safra:</label>
+                        <input type="text" id="investimento" placeholder="Ex: R$ 3.000,00">
+                    </div>
+                </div>
+
+                <div class="linha">
+                    <div class="campos">
+                        <label>Qual valor é vendido a saca:</label>
+                        <input type="text" id="valor" placeholder="Ex: R$ 120,00">
+                    </div>
+                </div>
+
+                <div class="botao">
+                    <button type="button" onclick="resultado()">Simular</button>
+                </div>
+            </form>
+            
+            <div class="result" id="div_result"></div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato">
+        <div class="container">
+            <div class="ladoesquerdo">
+                <img src="./Imagens/logo2.png" style="width: 200px;">
+                <div class="info">
+                    <p class="titulo">Fale conosco!</p>
+                    <p class="label">Email</p>
+                    <p class="texto">ContatoAgroSense@agrosense.com</p>
+                    <p class="label">Telefone</p>
+                    <p class="texto">(11) 4002-8922</p>
+                    <p class="label">LinkedIn</p>
+                    <p class="texto">AgroSense inc.</p>
+                </div>
+            </div>
+            <div class="ladodireito">
+                <label>Nome</label>
+                <input type="text" id="nome">
+                <label>Email</label>
+                <input type="email" id="email">
+                <label>Mensagem</label>
+                <textarea id="mensagem"></textarea>
+                <button onclick="enviar()">Enviar</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Função para simulação
+  function resultado() {
+    event.preventDefault();
+    var r_result = document.getElementById("div_result")
+    var r_area = Number(document.getElementById("area").value)
+    var r_saca = Number(document.getElementById("sacas").value)
+    var r_peso = Number(document.getElementById("peso").value)
+    var r_investimento = Number(document.getElementById("investimento").value)
+    var r_valor = Number(document.getElementById("valor").value)
+    if (r_area !== "" && !isNaN(r_area) && r_area > 0) {
+      if (r_saca !== "" && !isNaN(r_saca) && r_saca > 0) {
+        if (r_peso !== "" && !isNaN(r_peso) && r_peso > 0) {
+          if (r_investimento !== "" && !isNaN(r_investimento) && r_investimento > 0) {
+            if (r_valor !== "" && !isNaN(r_valor) && r_valor > 0) {
+              var r_perda = (r_saca * r_valor * 0.4)
+              var r_economia = r_perda * 0.8
+              r_result.innerHTML = `Olá, iremos te ajudar a calcular quanto você salvará na sua produção utilizando nossos serviços. <br> <br>
+    Levando em conta que na área de ${r_area} hectares, sua produção seria de ${r_saca} sacas, e que o preço médio da saca produzida 
+    gira em torno de R$${r_valor}, isso totalizaria uma perda de <b>APROXIMADAMENTE</b> <span style="color: red;">R$${r_perda}</span> 
+    devido à falta de controle de umidade do solo (aproximadamente 40% da produção). <br> <br>
+    Com os nossos serviços, podemos minimizar essa perda em até 80%, dessa forma, economizando <b>APROXIMADAMENTE</b>, <span class="cor">R$${r_economia}</span>!!`
+            } else {
+              alert("O campo de valor vendido das sacas deve ser preenchido corretamente!")
+            }
+          } else {
+            alert("O campo de investimento deve ser preenchido corretamente!")
+          }
+        } else {
+          alert("O campo de peso das sacas deve ser preenchido corretamente!")
+        }
+      } else {
+        alert("O campo de sacas produzidas deve ser preenchido corretamente!")
+      }
+    } else {
+      alert("O campo área deve ser preenchido corretamente!")
+    }
+
+  }
+
+  function enviar() {
+    if (nome.value == '' || email.value == '' || mensagem.value == '') {
+        alert('Preencha todos os campos')
+    } else {
+        alert('Solicitação enviada com sucesso! Entraremos em contato via e-mail')
+    }
+  }
+        
+        
+        // Atualizar o menu ativo durante a rolagem
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const menuItems = document.querySelectorAll('.menu a');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if(pageYOffset >= (sectionTop - sectionHeight/3)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            menuItems.forEach(item => {
+                item.classList.remove('active');
+                if(item.getAttribute('href').substring(1) === current) {
+                    item.classList.add('active');
+                }
+            });
+        });
+        
+        // Adicionar classe ativa ao item do menu quando clicado - conteúdo apronfudado
+        document.querySelectorAll('.menu a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Atualizar classe ativa - conteúdo aprofundado
+                document.querySelectorAll('.menu a').forEach(item => {
+                    item.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
