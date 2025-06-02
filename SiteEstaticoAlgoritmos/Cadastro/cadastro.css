@@ -24,6 +24,7 @@ body {
   flex: 1;
   padding: 30px;
   color: white;
+  margin-top: 20px;
 }
 
 .metadecontainer h2 {
@@ -36,7 +37,7 @@ body {
 .linha {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 50px;
+  margin-bottom: 70px;
   gap: 20px; /*Espaço entre dois campos*/
 }
 
