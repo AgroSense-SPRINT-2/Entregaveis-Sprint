@@ -56,7 +56,6 @@ function cadastrar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
     var cnpj = req.body.cnpjServer;
-    var telefone = req.body.telefoneServer;
     
     // Faça as validações dos valores
     if (nome == undefined) {
@@ -67,13 +66,11 @@ function cadastrar(req, res) {
         res.status(400).send("Sua senha está undefined!");
     } else if (cnpj == undefined) {
         res.status(400).send("Sua empresa a vincular está undefined!");
-    } else if (telefone == undefined) {
-        res.status(400).send("Sua empresa a vincular está undefined!");
-    }
+    } 
      else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, cnpj, email, senha, telefone)
+        usuarioModel.cadastrar(nome, cnpj, email, senha)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -89,8 +86,9 @@ function cadastrar(req, res) {
                 }
             );
     }
+
+}
 module.exports = {
     autenticar,
     cadastrar
-}
 }

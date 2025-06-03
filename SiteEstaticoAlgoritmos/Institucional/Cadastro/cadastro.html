@@ -1,59 +1,61 @@
 <!DOCTYPE html>
- <html lang="pt-br">
- 
- <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Cadastro - AgroSense</title>
-   <link rel="stylesheet" href="cadastro.css">
- </head>
- 
- <body>
-   <div class="container">
-     <div class="metadecontainer">
-       <h2>Cadastro</h2>
- 
-       <div class="linha">
-         <div class="inputdupla">
-           <label>Nome da Empresa</label>
-           <input type="text" id="nome" placeholder="Ex: MacMilan">
-         </div>
-         <div class="inputdupla">
-           <label>CNPJ</label>
-           <input type="text" id="cnpj" placeholder="Ex: 00.623.904/0001-73 ">
-         </div>
-       </div>
- 
-       <div class="linha">
-         <div class="inputdupla">
-           <label>Email</label>
-           <input type="email" id="email" placeholder="Ex: exemplo@gmail.com">
-         </div>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro - AgroSense</title>
+  <link rel="stylesheet" href="cadastro.css">
+  <script src="/js/sessao.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="metadecontainer">
+      <h2>Cadastro</h2>
+
+      <div class="linha">
         <div class="inputdupla">
-           <label>Defina uma senha</label>
-           <input type="password" id="senha">
-         </div>
-       </div>
- 
- 
-       <div class="button">
-         <button type="button" onclick="cadastrar()">Cadastrar</button>
-         <a href="../Login/login.html">
-           <button type="button">Logar</button>
-         </a>
-       </div>
-      
- 
-     </div>
- 
-     <div class="logo_container">
-        <img src="Agro__2_-removebg-preview.png" alt="">
-     </div>
-   </div>
- </body>
- </html>
+          <label>Nome da Empresa</label>
+          <input type="text" id="nome" placeholder="Ex: MacMilan">
+        </div>
+        <div class="inputdupla">
+          <label>CNPJ</label>
+          <input type="text" id="cnpj" placeholder="Ex: 00.623.904/0001-73 ">
+        </div>
+      </div>
+
+      <div class="linha">
+        <div class="inputdupla">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="Ex: exemplo@gmail.com">
+        </div>
+        <div class="inputdupla">
+          <label>Defina uma senha</label>
+          <input type="password" id="senha">
+        </div>
+      </div>
+      <div class="alerta_erro">
+        <div class="card_erro" id="cardErro">
+          <span id="mensagem_erro"></span>
+        </div>
+      </div>
+      <div class="button">
+        <button type="button" onclick="cadastrar()">Cadastrar</button>
+        <a href="../Login/login.html">
+          <button type="button">Logar</button>
+        </a>
+      </div>
+    </div>
+    <div class="logo_container">
+      <img src="Agro__2_-removebg-preview.png" alt="">
+    </div>
+  </div>
+</body>
+
+</html>
 <script>
- function cadastrar() {
+  function cadastrar() {
     // aguardar();
 
     //Recupere o valor da nova input pelo nome do id
@@ -61,7 +63,6 @@
     var nomeVar = nome.value;
     var cnpjVar = cnpj.value;
     var emailVar = email.value;
-    var telefoneVar = telefone.value;
     var senhaVar = senha.value;
 
     // Verificando se há algum campo em branco
@@ -69,8 +70,7 @@
       nomeVar == "" ||
       emailVar == "" ||
       senhaVar == "" ||
-      cnpjVar == "" ||
-      telefoneVar == ""
+      cnpjVar == ""
     ) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
@@ -82,7 +82,7 @@
       setInterval(sumirMensagem, 5000);
     }
 
-  
+
 
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
@@ -95,7 +95,6 @@
         // Agora vá para o arquivo routes/usuario.js
         nomeServer: nomeVar,
         cnpjServer: cnpjVar,
-        telefoneServer: telefoneVar,        
         emailServer: emailVar,
         senhaServer: senhaVar
       }),
