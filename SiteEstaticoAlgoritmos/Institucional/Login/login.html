@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - AgroSense</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="login_box">
+      <div class="form_posição">
+        <h2 class="login_título">Login</h2>
+        Email <input type="text" id="email" class="input"> <br>
+        Senha <input type="password" id="senha" class="input"> <br>
+        <div id="resposta"></div>
+        <button class="login_button" onclick="validar()">Entrar</button>
+        <p class="cadastro_texto">
+          Não tem uma conta ainda? <a
+            href="../Cadastro/cadastro.html">Cadastre-se</a>
+            <div id="esqueceu"></div>
+        </p>
+      </div>
+      <div class="logo_posição">
+      
+        <img src="Imagem_do_WhatsApp_de_2025-04-04_à_s__21.07.32_ade422d3-removebg-preview.png" alt="Logo AgroSense"
+          class="logo-img">
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+<script>
+  var contador = 0; 
+  function validar() 
+  {
+    var login = email.value
+    var chave = senha.value
+    var formatação = login.toLowerCase()
+ 
+      if (login == "" || chave == "") 
+    {
+        alert("Preencha todos os campos!")
+      } else if((formatação == "admin@gmail.com" && chave == "admin1234") || (formatação == "macmilan@gmail.com" && chave == "farm1234"))
+      {
+        alert("Login realizado com sucesso!!!")
+        window.location.href = '../Institucional/Cliente/Cliente.html'
+      } else {
+        contador++
+        alert("Senha inválida. Tentativa " + contador + " de 3.")
+    
+        if (contador >= 3) 
+        {
+        alert("Você errou muitas vezes! Deseja alterar a senha?")
+        esqueceu.innerHTML + "Esqueceu a senha ?"
+        
+        }
+      }
+  }
+</script>
