@@ -16,12 +16,12 @@
     <div class="sidebar">
       <div class="usuario">
         <img src="Design_sem_nome-removebg-preview.png" alt="">
-        <p>Bem-vindo, <strong>Admin1234</strong></p>
+        <p>Bem-vindo, <strong id="nomeUsuario">Admin1234</strong></p>
       </div>
       <a href="../index.html">Início</a>
       <a href="#">Sensores</a>
       <a href="#">Quadrantes</a>
-      <a href="../site.html">Sair</a>
+      <a href="/index.html">Sair</a>
     </div>
     <div class="main">
       <section class="cards">
@@ -100,7 +100,7 @@
   </body>
   </html>
   <script>
-    const dadosSafra = {
+     const dadosSafra = {
       1: { // Diário
         labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
         mediaSafra: [150, 100, 170, 100, 120, 50, 220],
@@ -133,13 +133,13 @@
       }
     };
     const dados = {
-    /* 1:{ //Horário
+     1:{ //Horário
       labels: ['00h', '03h', '06h', '09h', '12h', '15h', '18h', '21h'],
       umidadeMaxima: [55, 50, 48, 32, 55, 44, 40, 30],
       umidadeMinima: [21, 43, 25, 29, 47, 39, 35, 22],
       MaximaIdeal: [60],
       MiminaIdeal: [20],
-    }, */
+    }, 
     1: { // Diário
       labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
       umidadeMaxima: [55, 56, 39, 44, 51, 32, 48],
@@ -377,4 +377,295 @@
       sidebar.classList.toggle('active');
       mainContent.classList.toggle('shifted');
   });
+  const nomeSalvo = sessionStorage.getItem('NOME_USUARIO');
+
+// Se tiver nome salvo, atualiza o conteúdo do elemento no HTML
+if (nomeSalvo) {
+  document.getElementById('nomeUsuario').textContent = nomeSalvo;
+} 
+
+/*   var idUsuario = sessionStorage.getItem('ID_USUARIO');
+    console.log("ID_USUARIO:", sessionStorage.getItem("ID_USUARIO"));
+
+    function exibirGrafico(idUsuario) {
+
+        obterDadosGrafico(idUsuario)
+        let todosOsGraficos = JSON.parse(sessionStorage.GRAFICOS_USUARIO)
+
+        for (i = 0; i < todosOsGraficos.length; i++) {
+            // exibindo - ou não - o gráfico
+            if (todosOsGraficos[i].id != idUsuario) {
+                let elementoAtual = document.getElementById(`grafico${todosOsGraficos[i].id}`)
+                if (elementoAtual.classList.contains("display-block")) {
+                    elementoAtual.classList.remove("display-block")
+                }
+                elementoAtual.classList.add("display-none")
+
+                // alterando estilo do botão
+                let btnAtual = document.getElementById(`btnAquario${todosOsGraficos[i].id}`)
+                if (btnAtual.classList.contains("btn-pink")) {
+                    btnAtual.classList.remove("btn-pink")
+                }
+                btnAtual.classList.add("btn-white")
+            }
+        }
+
+        // exibindo - ou não - o gráfico
+        let graficoExibir = document.getElementById(`grafico${idUsuario}`)
+        graficoExibir.classList.remove("display-none")
+        graficoExibir.classList.add("display-block")
+
+        // alterando estilo do botão
+        let btnExibir = document.getElementById(`btnAquario${idUsuario}`)
+        btnExibir.classList.remove("btn-white")
+        btnExibir.classList.add("btn-pink")
+
+    }
+    let proximaAtualizacao;
+    if (idUsuario) {
+        // Exibir o nome do usuário na interface
+        b_usuario.innerHTML = sessionStorage.getItem('NOME_USUARIO');
+
+        // Chama a função para obter dados de gráfico, passando o idUsuario
+        obterDadosGrafico(idUsuario);
+    } else {
+        console.error("Usuário não autenticado ou ID do usuário não encontrado.");
+    }
+    // O gráfico é construído com três funções:
+    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
+    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
+    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
+    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
+    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
+    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    function obterDadosGrafico(idUsuario) {
+        fetch(`/medidas/ultimas/${idUsuario}`)  // Chama a API com o ID do usuário
+            .then(response => response.json())  // Converte a resposta para JSON
+            .then(tentativas => {
+                if (tentativas.length > 0) {
+                    sessionStorage.setItem("TENTATIVAS_USUARIO", JSON.stringify(tentativas));
+                    atualizarKPIs(tentativas);  // Atualiza KPIs
+                    plotarGrafico(tentativas, idUsuario);
+                    plotarGraficoDispersao(tentativas, idUsuario);
+                } else {
+                    console.error("Nenhuma tentativa encontrada.");
+                }
+            })
+            .catch(error => console.error("Erro ao obter dados de gráfico: ", error));
+    }
+    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+    function plotarGrafico(resposta, idUsuario) {
+        console.log('iniciando plotagem do gráfico...');
+
+        let labels = [];
+        let dadosAcertos = [];
+        let dadosErros = [];
+        let tempos = [];
+
+        for (let i = 0; i < resposta.length; i++) {
+            let registro = resposta[i];
+            labels.push(registro.idTentativa);          // Label eixo X = idTentativa
+            dadosAcertos.push(registro.Acertos);
+            dadosErros.push(registro.erros);
+            tempos.push(registro.tempo_minutos_segundos); // Guarda o tempo para tooltip
+        }
+
+        let dados = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Acertos',
+                    data: dadosAcertos,
+                    backgroundColor: 'rgba(0, 255, 0, 0.6)',
+                    borderColor: 'rgb(0, 255, 0)',
+                    tension: 0.1,
+                    // Vamos adicionar tooltip customizado abaixo
+                },
+                {
+                    label: 'Erros',
+                    data: dadosErros,
+                    backgroundColor: 'rgba(255, 0, 0, 0.6)',
+                    borderColor: 'rgb(255, 0, 0)',
+                    tension: 0.1,
+                }
+            ]
+        };
+
+        // Cria canvas se não existir
+        let divGraficos = document.getElementById('graficos');
+        let graficoExistente = document.getElementById(`myChartCanvas${idUsuario}`);
+        if (!graficoExistente) {
+            let canvas = document.createElement('canvas');
+            canvas.id = `myChartCanvas${idUsuario}`;
+            divGraficos.appendChild(canvas);
+        }
+
+        const config = {
+            type: 'bar',
+            data: dados,
+            options: {
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                let label = context.dataset.label || '';
+                                let idx = context.dataIndex;
+                                let tempo = tempos[idx] || '';
+                                return `${label}: ${context.parsed.y} (${tempo})`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Tentativa'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Quantidade'
+                        }
+                    }
+                }
+            }
+        };
+
+        let myChart = new Chart(
+            document.getElementById(`myChartCanvas${idUsuario}`),
+            config
+        );
+
+        setTimeout(() => atualizarGrafico(idUsuario, dados, myChart), 2000);
+    }
+    function plotarGraficoDispersao(resposta, idUsuario) {
+        console.log('Plotando gráfico de dispersão...');
+
+        const dadosDispersao = resposta.map(registro => {
+            const tempoSegundos = converterTempoParaSegundos(registro.tempo_minutos_segundos);
+            return {
+                x: tempoSegundos,
+                y: registro.Acertos
+            };
+        });
+        const divGraficos = document.getElementById('graficosDispersao');
+
+        // Evita duplicação ao recarregar
+        const canvasId = `scatterChart${idUsuario}`;
+        let canvasExistente = document.getElementById(canvasId);
+        if (canvasExistente) {
+            canvasExistente.remove();
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.id = canvasId; // <<--- IMPORTANTE!
+        divGraficos.appendChild(canvas);
+        const ctx = canvas.getContext('2d');
+
+        new Chart(ctx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'Tempo vs Acertos',
+                    data: dadosDispersao,
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                    borderColor: 'rgb(54, 162, 235)',
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Tempo de Resposta (segundos)'
+                        },
+                        beginAtZero: true
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Número de Acertos'
+                        },
+                        beginAtZero: true,
+                        precision: 0
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                return `Tempo: ${context.parsed.x}s, Acertos: ${context.parsed.y}`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+    function converterTempoParaSegundos(tempoStr) {
+        // Exemplo: "0m 9s", "2m 35s", etc
+        let regex = /(\d+)m\s*(\d+)s/;
+        let match = tempoStr.match(regex);
+        if (match) {
+            let minutos = parseInt(match[1], 10);
+            let segundos = parseInt(match[2], 10);
+            return minutos * 60 + segundos;
+        }
+        return NaN; // caso não bata no formato esperado
+    }
+    function atualizarKPIs(tentativas) {
+        if (!tentativas || tentativas.length === 0) return;
+
+        // Total tentativas
+        document.getElementById('kpiTentativas').textContent = tentativas.length;
+
+        // Média acertos e erros
+        let somaAcertos = 0;
+        let somaErros = 0;
+        let somaTempoSegundos = 0;
+        let contadorTempoValido = 0;
+        let totalPerguntasRespondidas = 0;
+        let tentativasSemErro = 0;
+
+        tentativas.forEach(t => {
+            somaAcertos += t.Acertos;
+            somaErros += t.erros;
+
+            totalPerguntasRespondidas += (t.Acertos + t.erros);
+
+            // Contar tentativas sem erro
+            if (t.erros === 0) {
+                tentativasSemErro++;
+            }
+            if (t.tempo_minutos_segundos) {
+                let tempoSegundos = converterTempoParaSegundos(t.tempo_minutos_segundos);
+                if (!isNaN(tempoSegundos)) {
+                    somaTempoSegundos += tempoSegundos;
+                    contadorTempoValido++;
+                }
+            }
+        });
+        document.getElementById('kpiRPerguntasE').textContent = totalPerguntasRespondidas;
+        document.getElementById('kpiRPerguntasA').textContent = tentativasSemErro;
+        document.getElementById('kpiAcertos').textContent = (somaAcertos / tentativas.length).toFixed(2);
+        document.getElementById('kpiErros').textContent = (somaErros / tentativas.length).toFixed(2);
+
+        let tempoMedioSegundos = somaTempoSegundos / tentativas.length;
+        let minutos = Math.floor(tempoMedioSegundos / 60);
+        let segundos = Math.floor(tempoMedioSegundos % 60);
+        document.getElementById('kpiTempoMedio').textContent = `${minutos}m ${segundos}s`;
+    }   */
   </script>

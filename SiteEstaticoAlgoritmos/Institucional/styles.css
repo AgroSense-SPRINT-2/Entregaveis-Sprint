@@ -74,7 +74,7 @@
         /*  HOME */
         #home {
             text-align: center;
-            background-image: url('./Imagens/instucional.png');
+            background-image: url('./Assets/instucional.png');
             background-size: cover;
             background-position: center;
         }
@@ -317,17 +317,17 @@
         
         .imagem1 {
             background-color: #3e6d2b;
-            background-image: url('./Imagens/sobre1.webp');
+            background-image: url('./Assets/sobre1.webp');
         }
         
         .imagem2 {
             background-color: #4a7f34;
-            background-image: url('./Imagens/sobre2.webp');
+            background-image: url('./Assets/sobre2.webp');
         }
         
         .imagem3 {
             background-color: #558f3d;
-            background-image: url('./Imagens/sobre3.jpg');
+            background-image: url('./Assets/sobre3.jpg');
         }
         
         /* SEÇÃO SIMULAÇÃO */

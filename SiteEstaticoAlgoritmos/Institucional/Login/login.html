@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - AgroSense</title>
   <link rel="stylesheet" href="login.css">
+  <script src="/js/sessao.js"></script>
 </head>
 
 <body>
@@ -16,7 +17,12 @@
         Email <input type="text" id="email" class="input"> <br>
         Senha <input type="password" id="senha" class="input"> <br>
         <div id="resposta"></div>
-        <button class="login_button" onclick="validar()">Entrar</button>
+        <button class="login_button" onclick="entrar()">Entrar</button>
+        <div class="alerta_erro">
+        <div class="card_erro" id="cardErro">
+          <span id="mensagem_erro"></span>
+        </div>
+      </div>
         <p class="cadastro_texto">
           Não tem uma conta ainda? <a
             href="../Cadastro/cadastro.html">Cadastre-se</a>
@@ -31,34 +37,80 @@
       </div>
     </div>
   </div>
+  <div id="div_aguardar" style="display:none; /* estilos para loading */">
+  Carregando...
+</div>
 </body>
 </html>
 
 <script>
-  var contador = 0; 
-  function validar() 
-  {
-    var login = email.value
-    var chave = senha.value
-    var formatação = login.toLowerCase()
- 
-      if (login == "" || chave == "") 
-    {
-        alert("Preencha todos os campos!")
-      } else if((formatação == "admin@gmail.com" && chave == "admin1234") || (formatação == "macmilan@gmail.com" && chave == "farm1234"))
-      {
-        alert("Login realizado com sucesso!!!")
-        window.location.href = '../Institucional/Cliente/Cliente.html'
-      } else {
-        contador++
-        alert("Senha inválida. Tentativa " + contador + " de 3.")
-    
-        if (contador >= 3) 
-        {
-        alert("Você errou muitas vezes! Deseja alterar a senha?")
-        esqueceu.innerHTML + "Esqueceu a senha ?"
-        
+   function entrar() {
+    aguardar()
+
+        var emailVar = email.value;
+        var senhaVar = senha.value;
+
+        if (emailVar == "" || senhaVar == "") {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+            finalizarAguardar();
+            return false;
         }
-      }
-  }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+
+        console.log("FORM LOGIN: ", emailVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.ID_USUARIO = json.id;
+                 
+
+                    setTimeout(function () {
+                        window.location = "/Cliente/cliente.html";
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    function sumirMensagem() {
+        cardErro.style.display = "none"
+    }
+
 </script>
