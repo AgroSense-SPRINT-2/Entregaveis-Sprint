@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BobIA</title>
+    <link rel="stylesheet" href="bob.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h2><img src="bob_logo.png"></h2>
+            <h2>Admin</h2>
+            <div>
+                Suporte - N3
+            </div>
+        </aside>
+        <main class="conteudo">
+            <header>
+                <h1>Pergunte para o BobIA!!</h1>
+            </header>
+            <div class="container-resp">
+                <textarea id="pergunta" type="text" placeholder="Digite a pergunta..."></textarea>
+                <br><br>
+                <button onclick="gerarResposta()">Gerar Resposta</button>
+                <h3>Resposta da IA:</h3>
+                <div id="resposta"></div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+
+        async function gerarResposta() {
+            const pergunta = document.getElementById('pergunta').value;
+
+            const response = await fetch('/perguntar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ pergunta })
+            });
+
+            const data = await response.json();
+
+            resposta.style.display = 'block';
+            document.getElementById('resposta').innerText = data.resultado;
+        }
+
+    </script>
+
+</body>
+
+</html>
