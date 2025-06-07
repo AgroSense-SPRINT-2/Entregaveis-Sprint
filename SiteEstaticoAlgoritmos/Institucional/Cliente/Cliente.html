@@ -1,671 +1,341 @@
-  <!DOCTYPE html>
-  <html lang="pt-br">
+<!DOCTYPE html>
+<html lang="pt-br">
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Área do Cliente</title>
-    <link rel="stylesheet" href="Cliente.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
-  </head>
-  <body>
-    <header>
-      <h1>Monitoramento de Umidade das Safras de Feijão</h1>
-    </header>
-    <div class="sidebar">
-      <div class="usuario">
-        <img src="Design_sem_nome-removebg-preview.png" alt="">
-        <p>Bem-vindo, <strong id="nomeUsuario">Admin1234</strong></p>
-      </div>
-      <a href="../index.html">Início</a>
-      <a href="#">Sensores</a>
-      <a href="#">Quadrantes</a>
-      <a href="/index.html">Sair</a>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Área do Cliente</title>
+  <link rel="stylesheet" href="Cliente.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+</head>
+
+<body>
+  <header>
+    <h1>Monitoramento de Umidade das Safras de Feijão</h1>
+  </header>
+  <div class="sidebar">
+    <div class="usuario">
+      <img src="Design_sem_nome-removebg-preview.png" alt="">
+      <p>Bem-vindo, <strong id="nomeUsuario">Admin1234</strong></p>
     </div>
-    <div class="main">
-      <section class="cards">
-        <button id="menu-toggle" class="menu-btn">☰</button>
-   <div class="card">
-    <h3>Precipitação acumulada</h3>
-    <p>65%</p>
-    <small>Volume registrado em relação ao esperado no mês atual.</small>
+    <a href="../index.html">Início</a>
+    <a href="#">Quadrantes</a>
+    <a href="/index.html">Sair</a>
   </div>
+  <div class="main">
+    <section class="cards">
+      <button id="menu-toggle" class="menu-btn">☰</button>
+      <div class="card">
+        <h3>Precipitação acumulada</h3>
+        <p>65%</p>
+        <small>Volume registrado em relação ao esperado no mês atual.</small>
+      </div>
 
-  <div class="card">
-    <h3>Umidade crítica no Quadrante C</h3>
-    <p style="color: red;">15%</p>
-    <small>Nível de umidade em quadrante específico.</small>
+      <div class="card">
+        <h3>Umidade crítica no Quadrante C</h3>
+        <p style="color: red;">15%</p>
+        <small>Nível de umidade em quadrante específico.</small>
+      </div>
+
+      <div class="card">
+        <h3>Dias sem chuva</h3>
+        <p style="color: orange;">5 dias</p>
+        <small>Período seco consecutivo registrado.</small>
+      </div>
+
+      <div class="card">
+        <h3>Sensor com falha</h3>
+        <p style="color: red;">2 unidades</p>
+        <small>Equipamentos sem sinal nas últimas 24h.</small>
+      </div>
+
+      <div class="card">
+        <h3>Safras comprometidas</h3>
+        <p>18%</p>
+        <small>Percentual de safras abaixo do ideal de umidade.</small>
+      </div>
+
+    </section>
+
+    <div class="container-graficos-linha">
+      <div class="grafico-item">
+        <h3>Distribuição de Precipitação (%)</h3>
+        <label for="periodoSelect">Período:</label>
+        <select id="periodoSelect" onchange="atualizarGraficoPizza()">
+          <option value="trimestral">Trimestral</option>
+          <option value="semestral">Semestral</option>
+        </select>
+        <canvas id="graficoPizza"></canvas>
+      </div>
+
+      <div class="grafico-item">
+        <h3>Safras: Produção e Perdas</h3>
+        <label for="PeriodoR">Período:</label>
+        <select id="PeriodoR" name="PeriodoR" onchange="filtro2()">
+          <option value="1">Diário</option>
+          <option value="2">Mensal</option>
+          <option value="3">Semanal</option>
+          <option value="4">Semestral</option>
+          <option value="5">Trimestral</option>
+          <option value="6">Anual</option>
+        </select>
+        <canvas id="graficoGeral"></canvas>
+      </div>
+
+      <div class="grafico-item">
+        <h3>Umidade (%) — Medições e Faixa Ideal</h3>
+        <label for="PeriodoL">Período:</label>
+        <select id="PeriodoL" name="PeriodoL" onchange="filtro()">
+          <option value="1">Diário</option>
+          <option value="2">Mensal</option>
+          <option value="3">Semanal</option>
+          <option value="4">Semestral</option>
+          <option value="5">Trimestral</option>
+          <option value="6">Anual</option>
+        </select>
+        <canvas id="graficoEspecifico"></canvas>
+      </div>
+    </div>
   </div>
+</body>
 
-  <div class="card">
-    <h3>Dias sem chuva</h3>
-    <p style="color: orange;">5 dias</p>
-    <small>Período seco consecutivo registrado.</small>
-  </div>
+</html>
+<script>
 
-  <div class="card">
-    <h3>Sensor com falha</h3>
-    <p style="color: red;">2 unidades</p>
-    <small>Equipamentos sem sinal nas últimas 24h.</small>
-  </div>
+  let proximaAtualizacao;
+  nomeUsuario.innerHTML = sessionStorage.NOME_USUARIO;
+  const fkSensor = 2
+  const idUsuario = sessionStorage.ID_USUARIO
 
-  <div class="card">
-    <h3>Safras comprometidas</h3>
-    <p>18%</p>
-    <small>Percentual de safras abaixo do ideal de umidade.</small>
-  </div>
+  function exibirAquario(idUsuario) {
+    let todosOsGraficos = JSON.parse(sessionStorage.AQUARIOS);
 
-</section>
-     
-        <div class="container-graficos-linha">
-  <div class="grafico-item">
-    <h3>Distribuição de Precipitação (%)</h3>
-    <label for="periodoSelect">Período:</label>
-    <select id="periodoSelect" onchange="atualizarGraficoPizza()">
-      <option value="trimestral">Trimestral</option>
-      <option value="semestral">Semestral</option>
-    </select>
-    <canvas id="graficoPizza"></canvas>
-  </div>
-
-  <div class="grafico-item">
-    <h3>Safras: Produção e Perdas</h3>
-    <label for="PeriodoR">Período:</label>
-    <select id="PeriodoR" name="PeriodoR" onchange="filtro2()">
-      <option value="1">Diário</option>
-      <option value="2">Mensal</option>
-      <option value="3">Semanal</option>
-      <option value="4">Semestral</option>
-      <option value="5">Trimestral</option>
-      <option value="6">Anual</option>
-    </select>
-    <canvas id="graficoGeral"></canvas>
-  </div>
-
-  <div class="grafico-item">
-    <h3>Umidade (%) — Medições e Faixa Ideal</h3>
-    <label for="PeriodoL">Período:</label>
-    <select id="PeriodoL" name="PeriodoL" onchange="filtro()">
-      <option value="1">Diário</option>
-      <option value="2">Mensal</option>
-      <option value="3">Semanal</option>
-      <option value="4">Semestral</option>
-      <option value="5">Trimestral</option>
-      <option value="6">Anual</option>
-    </select>
-    <canvas id="graficoEspecifico"></canvas>
-  </div>
-</div>
-  </body>
-  </html>
-  <script>
-     const dadosSafra = {
-      1: { // Diário
-        labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-        mediaSafra: [150, 100, 170, 100, 120, 50, 220],
-        safraIdeal: [210, 300, 400, 199, 500, 140, 600]
-      },
-      2: { // Mensal
-        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
-        mediaSafra: [500, 600, 400, 500, 1000, 850],
-        safraIdeal: [1250, 1200, 1350, 1150, 2100, 1300]
-      },
-      3: { // Semanal
-        labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
-        mediaSafra: [220, 150, 190, 280],
-        safraIdeal: [320, 320, 320, 320]
-      },
-      4: { // Semestral
-        labels: ['1º Sem', '2º Sem'],
-        mediaSafra: [2500, 1200],
-        safraIdeal: [6100, 6100]
-      },
-      5: { // Trimestral
-        labels: ['1º Tri', '2º Tri', '3º Tri', '4º Tri'],
-        mediaSafra: [1000, 900, 1200, 800],
-        safraIdeal: [3200, 3200, 3200, 3200]
-      },
-      6: { // Anual
-        labels: ['2023', '2024'],
-        mediaSafra: [12000, 20000],
-        safraIdeal: [50000, 100000]
-      }
-    };
-    const dados = {
-     1:{ //Horário
-      labels: ['00h', '03h', '06h', '09h', '12h', '15h', '18h', '21h'],
-      umidadeMaxima: [55, 50, 48, 32, 55, 44, 40, 30],
-      umidadeMinima: [21, 43, 25, 29, 47, 39, 35, 22],
-      MaximaIdeal: [60],
-      MiminaIdeal: [20],
-    }, 
-    1: { // Diário
-      labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-      umidadeMaxima: [55, 56, 39, 44, 51, 32, 48],
-      umidadeMedia: [42, 49, 39, 40, 45, 28, 40],
-      umidadeMinima: [20, 42, 39, 33, 28, 25, 11],
-      MaximaIdeal: [60],
-      MinimaIdeal: [20],
-    },
-    2: { // Mensal
-      labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
-      umidadeMaxima: [56, 55, 50, 50, 35, 45],
-      umidadeMedia: [40, 42, 45, 42, 31, 37],
-      umidadeMinima: [30, 25, 36, 35, 30, 25],
-      MaximaIdeal: [60],
-      MinimaIdeal: [20],
-    },
-    3: { // Semanal
-      labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
-      umidadeMaxima: [58, 42, 47, 50],
-      umidadeMedia: [48, 35, 41, 45],
-      umidadeMinima: [28, 32, 37, 40],
-      MaximaIdeal: [60],
-      MinimaIdeal: [20],
-    },
-    4: { // Semestral
-      labels: ['1º Sem', '2º Sem'],
-      umidadeMaxima: [57, 32],
-      umidadeMedia: [45, 28],
-      umidadeMinima: [38, 22],
-      MaximaIdeal: [60],
-      MinimaIdeal: [20],
-    },
-    5: { // Trimestral
-      labels: ['1º Tri', '2º Tri', '3º Tri', '4º Tri'],
-      umidadeMaxima: [59, 51, 42, 52],
-      umidadeMedia: [49, 41, 40, 45],
-      umidadeMinima: [39, 31, 30, 42],
-      MaximaIdeal: [60],
-      MinimaIdeal: [20],
-    },
-    6: { // Anual
-      labels: ['2023', '2024'],
-      umidadeMaxima: [60, 62],
-      umidadeMedia: [50, 52],
-      umidadeMinima: [40, 42],
-      MaximaIdeal: [60],
-      MinimaIdeal: [20],
-    }
-  };
-
-    const ctx1 = document.getElementById('graficoGeral').getContext('2d');
-    const grafico = new Chart(ctx1, {
-      type: 'bar',
-      data: {
-        labels: dadosSafra[1].labels,
-        datasets: [{
-          label: 'Safras perdidas',
-          data:  dadosSafra[1].mediaSafra,
-          backgroundColor: 'rgb(255, 0, 0)',
-          borderColor: 'rgb(255, 0, 0)',
-          borderWidth: 1
-
-        }, {
-          label: 'Safras plantadas',
-          data: dadosSafra[1].safraIdeal,
-          backgroundColor: 'rgb(0, 255, 0)',
-          borderColor: 'rgb(0, 255, 0)',
-          borderWidth: 1
+    for (i = 0; i < todosOsGraficos.length; i++) {
+      // exibindo - ou não - o gráfico
+      if (todosOsGraficos[i].id != idUsuario) {
+        let elementoAtual = document.getElementById(`grafico${todosOsGraficos[i].id}`)
+        if (elementoAtual.classList.contains("display-block")) {
+          elementoAtual.classList.remove("display-block")
         }
-        ]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        },
-        plugins: {
-          legend: {
-            display: true,
-            position: 'bottom'
-          }
-        }
-      }
-    });
-    const tge = document.getElementById('graficoEspecifico').getContext('2d');
-    const grafico2 = new Chart(tge, {
-      type: 'line',
-      data: {
-        labels: dados[1].labels,
-        datasets: [{
-          label: 'Maxima (%)',
-          data: dados[1].umidadeMaxima,
-          backgroundColor: 'rgb(255, 0, 0)',
-          borderColor: 'rgb(255, 0, 0)',
-          borderWidth: 1
-
-        }, {
-          label: 'Media (%)',
-          data: dados[1].umidadeMedia,
-          backgroundColor: 'rgb(0, 255, 0)',
-          borderColor: 'rgb(0, 255, 0)',
-          borderWidth: 1
-        },
-        {
-          label: 'Minima (%)',
-          data: dados[1].umidadeMinima,
-          backgroundColor: 'rgb(0, 0, 255)',
-          borderColor: 'rgb(0, 0, 255)',
-          borderWidth: 1
-        },
-        {
-          label: 'Umidade Maxima ideal (%)',
-          data: new Array(dados[1].labels.length).fill(60),
-          backgroundColor: 'rgb(255, 165, 0)',
-          borderColor: 'rgb(255, 165, 0)', 
-          borderWidth: 1
-        }, 
-        {
-          label: 'Umidade Minima ideal (%)',
-          data: new Array(dados[1].labels.length).fill(20),
-          backgroundColor: 'rgb(135, 175, 199)',
-          borderColor: 'rgb(135,175, 199)',
-          borderWidth: 1
-        }
-        ]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        },
-        plugins: {
-          legend: {
-            display: true,
-            position: 'bottom'
-          }
-        }
-      }
-    });
-    function filtro() {
-      const periodo = document.getElementById('PeriodoL').value;
-      const infoUmidade = dados[periodo];
-      if (infoUmidade) 
-      {
-        grafico2.data.labels = infoUmidade.labels;
-        grafico2.data.datasets[0].data = infoUmidade.umidadeMaxima;
-        grafico2.data.datasets[1].data = infoUmidade.umidadeMedia;
-        grafico2.data.datasets[2].data = infoUmidade.umidadeMinima;
-        grafico2.update();
-
-      }
-    }
-    function filtro2()
-    { 
-    const periodo = document.getElementById('PeriodoR').value;
-    const infoSafra = dadosSafra[periodo];
-      if (infoSafra) 
-      {
-        grafico.data.labels = infoSafra.labels;
-        grafico.data.datasets[0].data = infoSafra.mediaSafra;
-        grafico.data.datasets[1].data = infoSafra.safraIdeal;
-        grafico.update(); 
-      }
-    }
-    // Dados para o gráfico de pizza (chuva)
-    const dadosChuva = {
-      trimestral: [45, 35, 15, 10],
-      semestral: [75, 25],
-      anual: [100]
-    };
-
-    // Função para gerar labels do gráfico de pizza
-    function gerarLabelsPizza(periodo) {
-      switch (periodo) {
-        case 'trimestral':
-          return ['Jan-Mar', 'Abr-Jun', 'Jul-Set', 'Out-Dez'];
-        case 'semestral':
-          return ['Jan-Jun', 'Jul-Dez'];
-        default:
-          return [];
-      }
-    }
-
-
-    // Criação inicial do gráfico de pizza
-    const ctxPizza = document.getElementById('graficoPizza').getContext('2d');
-  let graficoPizza = new Chart(ctxPizza, {
-    type: 'pie',
-    data: {
-      labels: gerarLabelsPizza('trimestral'),
-      datasets: [{
-        data: dadosChuva.trimestral,
-        backgroundColor: [
-          '#4e73df', '#1cc88a', '#36b9cc', '#f6c23e',
-          '#e74a3b', '#858796', '#5a5c69', '#20c9a6',
-          '#fd7e14', '#6610f2', '#6f42c1', '#1e7e34'
-        ]
-      }]
-    },
-    options: {
-      plugins: {
-        legend: {
-          position: 'bottom'
-        },
-        datalabels: {
-          color: '#fff', // Cor da porcentagem
-          formatter: (value, context) => {
-            let total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
-            let percentage = (value / total * 100).toFixed(1) + "%";
-            return percentage;
-          },
-          font: {
-            weight: 'bold',
-            size: 14
-          }
-        }
-      }
-    },
-    plugins: [ChartDataLabels] // ATENÇÃO: precisa registrar aqui também
-  });
-    // Função para atualizar o gráfico de pizza
-    function atualizarGraficoPizza() {
-      const periodo = document.getElementById('periodoSelect').value;
-      graficoPizza.data.labels = gerarLabelsPizza(periodo);
-      graficoPizza.data.datasets[0].data = dadosChuva[periodo];
-      graficoPizza.update();
-    }
-    const menuToggle = document.getElementById('menu-toggle');
-  const sidebar = document.querySelector('.sidebar');
-  const mainContent = document.querySelector('.main');
-
-  menuToggle.addEventListener('click', () => {
-      sidebar.classList.toggle('active');
-      mainContent.classList.toggle('shifted');
-  });
-  const nomeSalvo = sessionStorage.getItem('NOME_USUARIO');
-
-// Se tiver nome salvo, atualiza o conteúdo do elemento no HTML
-if (nomeSalvo) {
-  document.getElementById('nomeUsuario').textContent = nomeSalvo;
-} 
-
-/*   var idUsuario = sessionStorage.getItem('ID_USUARIO');
-    console.log("ID_USUARIO:", sessionStorage.getItem("ID_USUARIO"));
-
-    function exibirGrafico(idUsuario) {
-
-        obterDadosGrafico(idUsuario)
-        let todosOsGraficos = JSON.parse(sessionStorage.GRAFICOS_USUARIO)
-
-        for (i = 0; i < todosOsGraficos.length; i++) {
-            // exibindo - ou não - o gráfico
-            if (todosOsGraficos[i].id != idUsuario) {
-                let elementoAtual = document.getElementById(`grafico${todosOsGraficos[i].id}`)
-                if (elementoAtual.classList.contains("display-block")) {
-                    elementoAtual.classList.remove("display-block")
-                }
-                elementoAtual.classList.add("display-none")
-
-                // alterando estilo do botão
-                let btnAtual = document.getElementById(`btnAquario${todosOsGraficos[i].id}`)
-                if (btnAtual.classList.contains("btn-pink")) {
-                    btnAtual.classList.remove("btn-pink")
-                }
-                btnAtual.classList.add("btn-white")
-            }
-        }
-
-        // exibindo - ou não - o gráfico
-        let graficoExibir = document.getElementById(`grafico${idUsuario}`)
-        graficoExibir.classList.remove("display-none")
-        graficoExibir.classList.add("display-block")
+        elementoAtual.classList.add("display-none")
 
         // alterando estilo do botão
-        let btnExibir = document.getElementById(`btnAquario${idUsuario}`)
-        btnExibir.classList.remove("btn-white")
-        btnExibir.classList.add("btn-pink")
-
-    }
-    let proximaAtualizacao;
-    if (idUsuario) {
-        // Exibir o nome do usuário na interface
-        b_usuario.innerHTML = sessionStorage.getItem('NOME_USUARIO');
-
-        // Chama a função para obter dados de gráfico, passando o idUsuario
-        obterDadosGrafico(idUsuario);
-    } else {
-        console.error("Usuário não autenticado ou ID do usuário não encontrado.");
-    }
-    // O gráfico é construído com três funções:
-    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
-    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
-    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
-    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
-    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
-    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
-    function obterDadosGrafico(idUsuario) {
-        fetch(`/medidas/ultimas/${idUsuario}`)  // Chama a API com o ID do usuário
-            .then(response => response.json())  // Converte a resposta para JSON
-            .then(tentativas => {
-                if (tentativas.length > 0) {
-                    sessionStorage.setItem("TENTATIVAS_USUARIO", JSON.stringify(tentativas));
-                    atualizarKPIs(tentativas);  // Atualiza KPIs
-                    plotarGrafico(tentativas, idUsuario);
-                    plotarGraficoDispersao(tentativas, idUsuario);
-                } else {
-                    console.error("Nenhuma tentativa encontrada.");
-                }
-            })
-            .catch(error => console.error("Erro ao obter dados de gráfico: ", error));
-    }
-    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-    function plotarGrafico(resposta, idUsuario) {
-        console.log('iniciando plotagem do gráfico...');
-
-        let labels = [];
-        let dadosAcertos = [];
-        let dadosErros = [];
-        let tempos = [];
-
-        for (let i = 0; i < resposta.length; i++) {
-            let registro = resposta[i];
-            labels.push(registro.idTentativa);          // Label eixo X = idTentativa
-            dadosAcertos.push(registro.Acertos);
-            dadosErros.push(registro.erros);
-            tempos.push(registro.tempo_minutos_segundos); // Guarda o tempo para tooltip
+        let btnAtual = document.getElementById(`btnAquario${todosOsGraficos[i].id}`)
+        if (btnAtual.classList.contains("btn-pink")) {
+          btnAtual.classList.remove("btn-pink")
         }
-
-        let dados = {
-            labels: labels,
-            datasets: [
-                {
-                    label: 'Acertos',
-                    data: dadosAcertos,
-                    backgroundColor: 'rgba(0, 255, 0, 0.6)',
-                    borderColor: 'rgb(0, 255, 0)',
-                    tension: 0.1,
-                    // Vamos adicionar tooltip customizado abaixo
-                },
-                {
-                    label: 'Erros',
-                    data: dadosErros,
-                    backgroundColor: 'rgba(255, 0, 0, 0.6)',
-                    borderColor: 'rgb(255, 0, 0)',
-                    tension: 0.1,
-                }
-            ]
-        };
-
-        // Cria canvas se não existir
-        let divGraficos = document.getElementById('graficos');
-        let graficoExistente = document.getElementById(`myChartCanvas${idUsuario}`);
-        if (!graficoExistente) {
-            let canvas = document.createElement('canvas');
-            canvas.id = `myChartCanvas${idUsuario}`;
-            divGraficos.appendChild(canvas);
-        }
-
-        const config = {
-            type: 'bar',
-            data: dados,
-            options: {
-                interaction: {
-                    mode: 'index',
-                    intersect: false,
-                },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function (context) {
-                                let label = context.dataset.label || '';
-                                let idx = context.dataIndex;
-                                let tempo = tempos[idx] || '';
-                                return `${label}: ${context.parsed.y} (${tempo})`;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Tentativa'
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Quantidade'
-                        }
-                    }
-                }
-            }
-        };
-
-        let myChart = new Chart(
-            document.getElementById(`myChartCanvas${idUsuario}`),
-            config
-        );
-
-        setTimeout(() => atualizarGrafico(idUsuario, dados, myChart), 2000);
+        btnAtual.classList.add("btn-white")
+      }
     }
-    function plotarGraficoDispersao(resposta, idUsuario) {
-        console.log('Plotando gráfico de dispersão...');
 
-        const dadosDispersao = resposta.map(registro => {
-            const tempoSegundos = converterTempoParaSegundos(registro.tempo_minutos_segundos);
-            return {
-                x: tempoSegundos,
-                y: registro.Acertos
-            };
+    // exibindo - ou não - o gráfico
+    let graficoExibir = document.getElementById(`grafico${idUsuario}`)
+    graficoExibir.classList.remove("display-none")
+    graficoExibir.classList.add("display-block")
+
+    // alterando estilo do botão
+    let btnExibir = document.getElementById(`btnAquario${idUsuario}`)
+    btnExibir.classList.remove("btn-white")
+    btnExibir.classList.add("btn-pink")
+  }
+
+  // O gráfico é construído com três funções:
+  // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
+  // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
+  // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
+
+  // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
+  // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
+  // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
+
+  //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+  //     Para ajustar o "select", ajuste o comando sql em src/models
+  function obterDadosGrafico(fkSensor, idUsuario) {
+
+
+
+    if (proximaAtualizacao != undefined) {
+      clearTimeout(proximaAtualizacao);
+    }
+ console.log("fkSensor antes do fetch:", fkSensor);
+
+    fetch(`/leituras/${fkSensor}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+          resposta.reverse();
+
+          plotarGrafico(resposta, idUsuario, fkSensor);
+
+
         });
-        const divGraficos = document.getElementById('graficosDispersao');
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
 
-        // Evita duplicação ao recarregar
-        const canvasId = `scatterChart${idUsuario}`;
-        let canvasExistente = document.getElementById(canvasId);
-        if (canvasExistente) {
-            canvasExistente.remove();
-        }
+  // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+  // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+  // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+  function plotarGrafico(resposta, idUsuario, fkSensor) {
 
-        const canvas = document.createElement('canvas');
-        canvas.id = canvasId; // <<--- IMPORTANTE!
-        divGraficos.appendChild(canvas);
-        const ctx = canvas.getContext('2d');
+    console.log('iniciando plotagem do gráfico...');
 
-        new Chart(ctx, {
-            type: 'scatter',
-            data: {
-                datasets: [{
-                    label: 'Tempo vs Acertos',
-                    data: dadosDispersao,
-                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
-                    borderColor: 'rgb(54, 162, 235)',
-                    pointRadius: 6,
-                    pointHoverRadius: 8
-                }]
-            },
-            options: {
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Tempo de Resposta (segundos)'
-                        },
-                        beginAtZero: true
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Número de Acertos'
-                        },
-                        beginAtZero: true,
-                        precision: 0
-                    }
-                },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function (context) {
-                                return `Tempo: ${context.parsed.x}s, Acertos: ${context.parsed.y}`;
-                            }
-                        }
-                    }
-                }
-            }
-        });
+    // Criando estrutura para plotar gráfico - labels
+    let labels = [];
+    let umidadeMinIdeal = 30;
+    let umidadeMaxIdeal = 70;
+
+    // Criando estrutura para plotar gráfico - dados
+    let dados = {
+      labels: labels,
+      datasets: [{
+        label: 'Umidade do solo',
+        data: [],
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
+      },
+      {
+        label: 'Temperatura',
+        data: [],
+        fill: false,
+        borderColor: 'rgb(199, 52, 52)',
+        tension: 0.1,
+      
+      },
+      {
+        label: 'Umidade Ideal Mínima',
+        data: [],
+        borderColor: 'orange',
+        borderDash: [5, 5],
+        fill: false,
+        pointRadius: 0,
+        tension: 0.1
+      },
+      {
+        label: 'Umidade Ideal Máxima',
+        data: [],
+        borderColor: 'red',
+        borderDash: [5, 5],
+        fill: false,
+        pointRadius: 0,
+        tension: 0.1
+      }]
+    };
+  const config = {
+  type: 'line',
+  data: dados,
+  options: {
+    plugins: {
+      legend: {
+        labels: {
+          filter: function (legendItem, data) {
+            // Aqui você filtra a legenda para esconder o label "Temperatura"
+            return legendItem.text !== 'Temperatura';
+          },
+        },
+      },
+    },
+  },
+};
+
+    console.log('----------------------------------------------')
+    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+    console.log(resposta)
+
+    // Inserindo valores recebidos em estrutura para plotar o gráfico
+    for (i = 0; i < resposta.length; i++) {
+      var registro = resposta[i];
+      labels.push(registro.momento_grafico);
+      dados.datasets[0].data.push(registro.UmidadeSolo);
+      dados.datasets[1].data.push(registro.fkSensor);
+      dados.datasets[2].data.push(umidadeMinIdeal);
+      dados.datasets[3].data.push(umidadeMaxIdeal);
     }
-    function converterTempoParaSegundos(tempoStr) {
-        // Exemplo: "0m 9s", "2m 35s", etc
-        let regex = /(\d+)m\s*(\d+)s/;
-        let match = tempoStr.match(regex);
-        if (match) {
-            let minutos = parseInt(match[1], 10);
-            let segundos = parseInt(match[2], 10);
-            return minutos * 60 + segundos;
-        }
-        return NaN; // caso não bata no formato esperado
-    }
-    function atualizarKPIs(tentativas) {
-        if (!tentativas || tentativas.length === 0) return;
 
-        // Total tentativas
-        document.getElementById('kpiTentativas').textContent = tentativas.length;
+    console.log('----------------------------------------------')
+    console.log('O gráfico será plotado com os respectivos valores:')
+    console.log('Labels:')
+    console.log(labels)
+    console.log('Dados:')
+    console.log(dados.datasets)
+    console.log('----------------------------------------------')
 
-        // Média acertos e erros
-        let somaAcertos = 0;
-        let somaErros = 0;
-        let somaTempoSegundos = 0;
-        let contadorTempoValido = 0;
-        let totalPerguntasRespondidas = 0;
-        let tentativasSemErro = 0;
+    // Criando estrutura para plotar gráfico - config
+   
+    // Adicionando gráfico criado em div na tela
+    let myChart = new Chart(
+      document.getElementById(`graficoEspecifico`),
+      config
+    );
 
-        tentativas.forEach(t => {
-            somaAcertos += t.Acertos;
-            somaErros += t.erros;
+    setTimeout(() => atualizarGrafico(idUsuario, dados, myChart, fkSensor), 2000);
+  }
 
-            totalPerguntasRespondidas += (t.Acertos + t.erros);
 
-            // Contar tentativas sem erro
-            if (t.erros === 0) {
-                tentativasSemErro++;
-            }
-            if (t.tempo_minutos_segundos) {
-                let tempoSegundos = converterTempoParaSegundos(t.tempo_minutos_segundos);
-                if (!isNaN(tempoSegundos)) {
-                    somaTempoSegundos += tempoSegundos;
-                    contadorTempoValido++;
-                }
-            }
+  // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+  // buscando a última medida inserida em tabela contendo as capturas, 
+
+  //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+  //     Para ajustar o "select", ajuste o comando sql em src/models
+  function atualizarGrafico(idUsuario, dados, myChart, fkSensor) {
+  
+    fetch(`/leituras-real/${fkSensor}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (novoRegistro) {
+
+         
+          console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+          console.log(`Dados atuais do gráfico:`);
+          console.log(dados);
+
+          let avisoCaptura = document.getElementById(`avisoCaptura${idUsuario}`)
+          avisoCaptura.innerHTML = ""
+
+
+          if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
+            console.log("---------------------------------------------------------------")
+            console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+            avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+            console.log("Horário do novo dado capturado:")
+            console.log(novoRegistro[0].momento_grafico)
+            console.log("Horário do último dado capturado:")
+            console.log(dados.labels[dados.labels.length - 1])
+            console.log("---------------------------------------------------------------")
+          } else {
+            // tirando e colocando valores no gráfico
+            dados.labels.shift(); // apagar o primeiro
+            dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
+
+            dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+            dados.datasets[0].data.push(novoRegistro[0].UmidadeSolo); // incluir uma nova medida de umidade
+
+            dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
+            dados.datasets[1].data.push(novoRegistro[0].fkSensor); // incluir uma nova medida de temperatura
+
+            myChart.update();
+          }
+
+          // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+          proximaAtualizacao = setTimeout(() => atualizarGrafico(fkSensor, idUsuario, dados, myChart), 2000);
         });
-        document.getElementById('kpiRPerguntasE').textContent = totalPerguntasRespondidas;
-        document.getElementById('kpiRPerguntasA').textContent = tentativasSemErro;
-        document.getElementById('kpiAcertos').textContent = (somaAcertos / tentativas.length).toFixed(2);
-        document.getElementById('kpiErros').textContent = (somaErros / tentativas.length).toFixed(2);
-
-        let tempoMedioSegundos = somaTempoSegundos / tentativas.length;
-        let minutos = Math.floor(tempoMedioSegundos / 60);
-        let segundos = Math.floor(tempoMedioSegundos % 60);
-        document.getElementById('kpiTempoMedio').textContent = `${minutos}m ${segundos}s`;
-    }   */
-  </script>
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+        proximaAtualizacao = setTimeout(() => atualizarGrafico(fkSensor, idUsuario, dados, myChart), 2000);
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
+  window.onload = () => {
+    obterDadosGrafico(fkSensor, idUsuario);
+  };
+</script>

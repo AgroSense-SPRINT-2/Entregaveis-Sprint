@@ -6,13 +6,12 @@ IdEndereco int primary key auto_increment,
 logradouro varchar(45) not null,
 numero char(7) not null,
 CEP char (9) not null,
-UF char (2) not null,
+UF char (2) not null,   
 complemento varchar(45)
 );
 
 create table Empresa (
 IdEmpresa int primary key auto_increment,
-CodAtivação varchar(45),
 NomeFantasia varchar(100) not null,
 CNPJ char(14) not null,
 fkEndereco int unique not null,

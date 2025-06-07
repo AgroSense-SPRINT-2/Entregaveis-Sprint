@@ -18,6 +18,7 @@ app.use(express.static(path.join(__dirname, "SiteEstaticoAlgoritmos", "instituci
 app.use(express.static(path.join(__dirname, 'SiteEstaticoAlgoritmos', 'src')));
 var indexRouter = require("./SiteEstaticoAlgoritmos/src/routes/index");
 var usuarioRouter = require("./SiteEstaticoAlgoritmos/src/routes/usuarios");
+var medidas = require("./SiteEstaticoAlgoritmos/src/routes/medidas");
 
 
 app.use(express.json());
@@ -28,7 +29,7 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
-
+app.use("/", medidas); 
 
 app.listen(PORTA_APP, function () {
     console.log(`
