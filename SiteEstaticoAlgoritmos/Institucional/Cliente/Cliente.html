@@ -27,9 +27,9 @@
   <div class="main">
     <section class="cards">
       <div class="card">
-        <h3>Precipitação acumulada</h3>
-        <p>65%</p>
-        <small>Volume registrado em relação ao esperado no mês atual.</small>
+        <h3>Quadrantes Criticos</h3>
+        <p>5 - Quadrantes (A,B,C,D,E)</p>
+        <small>Quadrantes em que a umidade se encontra abaixo de 20%.</small>
       </div>
 
       <div class="card">
@@ -50,7 +50,19 @@
         <small>Equipamentos sem sinal nas últimas 24h.</small>
       </div>
 
+           <div class="card">
+        <h3>Alertas</h3>
+        <p style="color: red;">Alerta - Quadrante C</p>
+        <small>Nível de umidade em quadrante específico.</small>
+      </div>
+
     </section>
+  <div class="faixa-umidade">
+  <div class="faixa seco">Seco (&lt; 20%)</div>
+  <div class="faixa ideal">Ideal (20–60%)</div>
+  <div class="faixa umido">Úmido (&gt; 60%)</div>
+  <div id="indicador-umidade"></div>
+</div>
 
     <div class="container-graficos-linha">
       <div class="grafico-item">
@@ -182,8 +194,8 @@
 
     // Criando estrutura para plotar gráfico - labels
     let labels = [];
-    let umidadeMinIdeal = 30;
-    let umidadeMaxIdeal = 70;
+    let umidadeMinIdeal = 20;
+    let umidadeMaxIdeal = 60;
 
     // Criando estrutura para plotar gráfico - dados
     let dados = {
@@ -332,4 +344,32 @@
   window.onload = () => {
     obterDadosGrafico(fkSensor, idUsuario);
   };
+  // Umidade atual — você pode puxar de API ou variável
+  const umidadeAtual = 35; // Exemplo: pode vir de sensores
+
+  function posicionarIndicador(umidade) {
+    const faixa = document.querySelector(".faixa-umidade");
+    const indicador = document.getElementById("indicador-umidade");
+
+    // Limite entre 0 e 100%
+    const umidadeLimitada = Math.max(0, Math.min(umidade, 100));
+    
+    // Calcula a posição percentual da umidade na barra
+    const posicaoPercentual = umidadeLimitada; // já em porcentagem
+    const larguraFaixa = faixa.offsetWidth;
+
+    const posicaoPixel = (posicaoPercentual / 100) * larguraFaixa;
+
+    indicador.style.left = `${posicaoPixel - 8}px`; // -8 para centralizar a seta
+  }
+
+  // Chama a função quando a página carrega
+  window.addEventListener("load", () => {
+    posicionarIndicador(umidadeAtual);
+  });
+
+  // Você também pode atualizar dinamicamente quando quiser:
+  // posicionarIndicador(novaUmidade);
+
+
 </script>
