@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Área do Cliente</title>
+  <link rel="stylesheet" href="quadrante.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+</head>
+
+<body>
+  <header>
+    <h1>Monitoramento de Umidade das Safras de Feijão</h1>
+  </header>
+  <div class="sidebar">
+    <div class="usuario">
+      <img src="usuario.png" alt="">
+      <p>Bem-vindo, <strong id="nomeUsuario">Admin1234</strong></p>
+    </div>
+    <a href="../index.html">Início</a>
+    <a href="./Cliente.html">Geral</a>
+    <a href="./quadrante.html">Quadrantes</a>
+    <a href="/index.html">Sair</a>
+  </div>
+
+  <div class="main">
+    <div style="margin-bottom: 20px; padding: 0 20px;">
+      <label for="seletorQuadrante" style="font-weight: bold; color: #36502c;">Selecionar Quadrante:</label>
+      <select id="seletorQuadrante"
+        style="padding: 8px 12px; border-radius: 5px; border: 1px solid #4F7942; margin-left: 10px; color: #4F7942;">
+        <option value="A" selected>Quadrante A</option>
+        <option value="B">Quadrante B</option>
+        <option value="C">Quadrante C</option>
+        <option value="D">Quadrante D</option>
+      </select>
+    </div>
+
+    <section class="cards">
+      <button id="menu-toggle" class="menu-btn">☰</button>
+      <div class="card">
+        <h3>Quadrante</h3>
+        <p>Quadrante A</p>
+        <small>Quadrante selecionado para visualização</small>
+      </div>
+      <div class="card">
+        <h3>Umidade Atual</h3>
+        <p style="color: rgb(210, 210, 36);">40%</p>
+        <small>Umidade atual neste quadrante</small>
+      </div>
+      <div class="card">
+        <h3>Sensores Ativos neste Quadrante</h3>
+        <p style="color: green;">3/3</p>
+        <small>Sensores com sinal neste quadrante</small>
+      </div>
+      <div class="card">
+        <h3>Alertas neste Quadrante</h3>
+        <p style="color: red;">2</p>
+        <small>Número de sensores no quadrante com leitura fora do ideal.</small>
+      </div>
+    </section>
+    <div class="faixa-umidade">
+      <div class="faixa seco">Seco (<20%)</div>
+      <div class="faixa ideal">Ideal (20%-60%)</div>
+      <div class="faixa umido">Úmido (>60%)</div>
+      <div id="indicador-umidade"></div>
+    </div>
+
+    <section class="container-graficos-linha" style="margin: 40px;">
+      <div class="grafico-item">
+        <h3>Histórico de Umidade na Última Semana</h3>
+        <canvas id="graficoLinha"></canvas>
+      </div>
+
+
+      <div class="grafico-item">
+        <h3>Umidade Atual por Sensor</h3>
+        <canvas id="graficoBarras"></canvas>
+      </div>
+
+    </section>
+  </div>
+
+  <script>
+    document.getElementById('seletorQuadrante').addEventListener('change', function () {
+      const quadranteSelecionado = this.value;
+      alert('Quadrante selecionado: ' + quadranteSelecionado);
+      // atualizarDashboard quando o quadrante for selecionado um exemplo;
+    });
+    // Gráfico de Linha coloquei por semana
+    const ctxLinha = document.getElementById('graficoLinha').getContext('2d');
+    const graficoLinha = new Chart(ctxLinha, {
+      type: 'line',
+      data: {
+        labels: ['01/06', '02/06', '03/06', '04/06', '05/06', '06/06', '07/06'],
+        datasets: [{
+          label: 'Umidade (%)',
+          data: [35, 38, 40, 37, 42, 39, 40],
+          borderColor: 'blue',
+          backgroundColor: 'rgba(0, 0, 255, 0.1)',
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: true
+          },
+          datalabels: {
+            display: false
+          }
+        },
+        scales: {
+          y: {
+            min: 0,
+            max: 100,
+            title: {
+              display: true,
+              text: 'Umidade (%)'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Data'
+            }
+          }
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
+
+    // Gráfico de Barras umidade por sensor 
+    const ctxBarra = document.getElementById('graficoBarras').getContext('2d');
+    const graficoBarras = new Chart(ctxBarra, {
+      type: 'bar',
+      data: {
+        labels: ['Sensor 1', 'Sensor 2', 'Sensor 3'],
+        datasets: [{
+          label: 'Umidade (%)',
+          data: [42, 38, 40],
+          backgroundColor: ['#3498db', '#f1c40f', '#2ecc71']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false
+          },
+          datalabels: {
+            anchor: 'end',
+            align: 'top',
+            formatter: Math.round, //ex
+            color: '#000'
+          }
+        },
+        scales: {
+          y: {
+            min: 0,
+            max: 100,
+            title: {
+              display: true,
+              text: 'Umidade (%)'
+            }
+          }
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
+  </script>
+</body>
+
+</html>
