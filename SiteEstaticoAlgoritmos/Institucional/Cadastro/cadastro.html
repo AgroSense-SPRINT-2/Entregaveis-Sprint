@@ -18,22 +18,22 @@
       <div class="linha">
         <div class="inputdupla">
           <label>Nome da Empresa</label>
-          <input type="text" id="nome" placeholder="Ex: MacMilan">
+          <input type="text" id="nome" placeholder=" MacMilan">
         </div>
         <div class="inputdupla">
           <label>CNPJ</label>
-          <input type="text" id="cnpj" placeholder="Ex: 00.623.904/0001-73 ">
+          <input type="text" id="cnpj" placeholder=" 00.623.904/0001-73 ">
         </div>
       </div>
 
       <div class="linha">
         <div class="inputdupla">
           <label>Email</label>
-          <input type="email" id="email" placeholder="Ex: exemplo@gmail.com">
+          <input type="email" id="email" placeholder="exemplo@gmail.com">
         </div>
         <div class="inputdupla">
           <label>Defina uma senha</label>
-          <input type="password" id="senha">
+          <input type="password" id="senha" placeholder="***">
         </div>
       </div>
       <div class="alerta_erro">
@@ -75,7 +75,7 @@
     ) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
+        "Campo(s) em Branco!";
 
       finalizarAguardar();
       return false;

@@ -99,4 +99,27 @@
     font-weight: bold;
     text-decoration: none; /* sem o sublinhado no texto*/
   }
+
+  .alerta_erro{
+  display: flex;
+  justify-content: flex-end;
+}
   
+  .card_erro {
+  display: none;
+  background-color: #fff;
+  color: black;
+  width: 230px;
+  position: fixed;
+  border-radius: 20px;
+  border: #1aae0f 4px solid;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  margin-right: 40%;
+  margin-top: -500px;
+}
+
+.card_erro #mensagem_erro{
+  font-weight: 500;
+  font-size: 20px;
+}
