@@ -19,7 +19,7 @@ body {
     left: 0;
     width: 240px;
     height: 100vh;
-    background-color: rgba(49, 84, 33, 1);
+    background-color: #1e560c;
     color: white;
     padding: 20px 10px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
@@ -56,12 +56,12 @@ body {
 }
 
 .sidebar a:hover {
-    background-color: rgba(34, 61, 22, 0.95);
+    background-color: #124401;
 }
 
 /* HEADER */
 header {
-    background-color: rgba(34, 61, 22, 0.95);
+    background-color: #124401;
     padding: 20px;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -308,47 +308,50 @@ header h1 {
 .alert-item.warning {
     background-color: #fff7e6;
 }
+
 .faixa-umidade {
-  position: relative;
-  display: flex;
-  height: 80px;
-  margin: 20px 0;
-  border-radius: 10px;
-  overflow: hidden;
-  font-weight: bold;
-  color: white;
-  text-align: center;
-  font-size: 0.9rem;
-  margin-bottom: -80px;
-  margin-top: -30px;
+    position: relative;
+    display: flex;
+    height: 40px;
+    margin: 20px 0;
+    border-radius: 10px;
+    overflow: hidden;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    font-size: 0.9rem;
+    margin-bottom: -80px;
 }
 
 .faixa {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .faixa.seco {
-  background-color: #dc2626; /* vermelho */
+    background-color: #dc2626;
+    /* vermelho */
 }
 
 .faixa.ideal {
-  background-color: #16a34a; /* verde */
+    background-color: #16a34a;
+    /* verde */
 }
 
 .faixa.umido {
-  background-color: #2563eb; /* azul */
+    background-color: #2563eb;
+    /* azul */
 }
 
 #indicador-umidade {
-  position: absolute;
-  top: -8px;
-  width: 0;
-  height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 12px solid black;
-  transition: left 0.5s ease-in-out;
+    position: absolute;
+    top: -8px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 12px solid black;
+    transition: left 0.5s ease-in-out;
 }

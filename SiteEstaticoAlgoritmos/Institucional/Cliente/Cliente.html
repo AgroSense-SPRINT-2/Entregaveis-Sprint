@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Área do Cliente</title>
   <link rel="stylesheet" href="cliente.css">
-  <link rel="icon" href="./Assets/icone.png" >
+  <link rel="icon" href="./Assets/icone.png">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 </head>
@@ -17,10 +17,11 @@
   </header>
   <div class="sidebar">
     <div class="usuario">
-      <img src="Design_sem_nome-removebg-preview.png" alt="">
+      <img src="usuario.png" alt="">
       <p>Bem-vindo, <strong id="nomeUsuario">Admin1234</strong></p>
     </div>
     <a href="../index.html">Início</a>
+    <a href="./Cliente.html">Geral</a>
     <a href="./quadrante.html">Quadrantes</a>
     <a href="/index.html">Sair</a>
   </div>
@@ -50,19 +51,19 @@
         <small>Equipamentos sem sinal nas últimas 24h.</small>
       </div>
 
-           <div class="card">
+      <div class="card">
         <h3>Alertas</h3>
         <p style="color: red;">Alerta - Quadrante C</p>
         <small>Nível de umidade em quadrante específico.</small>
       </div>
 
     </section>
-  <div class="faixa-umidade">
-  <div class="faixa seco">Seco (&lt; 20%)</div>
-  <div class="faixa ideal">Ideal (20–60%)</div>
-  <div class="faixa umido">Úmido (&gt; 60%)</div>
-  <div id="indicador-umidade"></div>
-</div>
+    <div class="faixa-umidade">
+      <div class="faixa seco">Seco (<20%)</div>
+      <div class="faixa ideal">Ideal (20%-60%)</div>
+      <div class="faixa umido">Úmido (>60%)</div>
+      <div id="indicador-umidade"></div>
+    </div>
 
     <div class="container-graficos-linha">
       <div class="grafico-item">
@@ -164,7 +165,7 @@
     if (proximaAtualizacao != undefined) {
       clearTimeout(proximaAtualizacao);
     }
- console.log("fkSensor antes do fetch:", fkSensor);
+    console.log("fkSensor antes do fetch:", fkSensor);
 
     fetch(`/leituras/${fkSensor}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
@@ -213,7 +214,7 @@
         fill: false,
         borderColor: 'rgb(199, 52, 52)',
         tension: 0.1,
-      
+
       },
       {
         label: 'Umidade Ideal Mínima',
@@ -234,22 +235,22 @@
         tension: 0.1
       }]
     };
-  const config = {
-  type: 'line',
-  data: dados,
-  options: {
-    plugins: {
-      legend: {
-        labels: {
-          filter: function (legendItem, data) {
-            // Aqui você filtra a legenda para esconder o label "Temperatura"
-            return legendItem.text !== 'Temperatura';
+    const config = {
+      type: 'line',
+      data: dados,
+      options: {
+        plugins: {
+          legend: {
+            labels: {
+              filter: function (legendItem, data) {
+                // Aqui você filtra a legenda para esconder o label "Temperatura"
+                return legendItem.text !== 'Temperatura';
+              },
+            },
           },
         },
       },
-    },
-  },
-};
+    };
 
     console.log('----------------------------------------------')
     console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
@@ -274,7 +275,7 @@
     console.log('----------------------------------------------')
 
     // Criando estrutura para plotar gráfico - config
-   
+
     // Adicionando gráfico criado em div na tela
     let myChart = new Chart(
       document.getElementById(`graficoEspecifico`),
@@ -291,12 +292,12 @@
   //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
   //     Para ajustar o "select", ajuste o comando sql em src/models
   function atualizarGrafico(idUsuario, dados, myChart, fkSensor) {
-  
+
     fetch(`/leituras-real/${fkSensor}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
         response.json().then(function (novoRegistro) {
 
-         
+
           console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
           console.log(`Dados atuais do gráfico:`);
           console.log(dados);
@@ -353,7 +354,7 @@
 
     // Limite entre 0 e 100%
     const umidadeLimitada = Math.max(0, Math.min(umidade, 100));
-    
+
     // Calcula a posição percentual da umidade na barra
     const posicaoPercentual = umidadeLimitada; // já em porcentagem
     const larguraFaixa = faixa.offsetWidth;

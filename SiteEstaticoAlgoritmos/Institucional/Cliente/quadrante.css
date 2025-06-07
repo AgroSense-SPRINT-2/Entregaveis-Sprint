@@ -7,7 +7,8 @@
 
 body {
   font-family: 'Segoe UI', sans-serif;
-  background-color: #F5F2EB; /* bege neutro */
+  background-color: #F5F2EB;
+  /* bege neutro */
   overflow-y: hidden;
 }
 
@@ -55,24 +56,12 @@ body {
 }
 
 .sidebar a:hover {
-  background-color: #34495e;
-}
-
-/* BOTÃO MENU */
-.menu-btn {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 1000;
-  background-color: transparent;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
+  background-color: #124401;
 }
 
 /* HEADER */
 header {
-  background-color: #155101;
+  background-color: #124401;
   padding: 20px;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -136,7 +125,8 @@ header h1 {
   flex-direction: column;
   justify-content: space-between;
   height: 140px;
-  margin: 0; /* remove offsets que atrapalham o alinhamento */
+  margin: 0;
+  /* remove offsets que atrapalham o alinhamento */
 }
 
 .card h3 {
