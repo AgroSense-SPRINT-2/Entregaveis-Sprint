@@ -22,7 +22,8 @@ create table Usuario (
 IdUsuario int primary key auto_increment,
 Nome varchar(45) not null,
 Email varchar(45) not null,
-Senha varchar(45) not null
+Senha varchar(45) not null,
+CNPJ char(14) not null
 );
 
 create table Terreno (
