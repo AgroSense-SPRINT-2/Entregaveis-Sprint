@@ -80,6 +80,8 @@ body {
   padding: 8px 12px;
   border-radius: 36px;
   font-size: 14px;
+  border: none;
+   background: #ddd;
  
 }
 
