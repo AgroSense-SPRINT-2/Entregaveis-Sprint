@@ -14,7 +14,7 @@ create table Empresa (
 IdEmpresa int primary key auto_increment,
 NomeFantasia varchar(100) not null,
 CNPJ char(14) not null,
-fkEndereco int unique not null,
+fkEndereco int not null,
 constraint EmpresaEndereco foreign key (FkEndereco) references Endereco(IdEndereco) 
 );
 
@@ -28,13 +28,13 @@ Senha varchar(45) not null
 create table Terreno (
 IdTerreno int primary key auto_increment,
 TamanhoHectares float,
-FkEmpresa int unique not null, 
+FkEmpresa int not null, 
 constraint TerrenoEmpresa foreign key (FkEmpresa) references Empresa(IdEmpresa) 
 );
 
 create table Quadrante (
 IdQuadrante int auto_increment,
-FkTerreno int unique not null,
+FkTerreno int not null,
 constraint TerrenoQuadrante primary key (IdQuadrante, FkTerreno),
 quadrante varchar(45) not null
 );
