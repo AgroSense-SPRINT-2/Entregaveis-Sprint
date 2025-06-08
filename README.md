@@ -39,14 +39,18 @@
 
 
 <h2>🛠 Tecnologias e Ferramentas</h2>
-[... resto do conteúdo anterior ...]
+<p align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=git,vscode,nodejs,html,css,js,discord" />
+  </a>
+</p>
 
 
 
 <!-- Rodapé Institucional -->
 <div align="center" style="margin-top: 40px; padding: 20px; background: #f0f0f0; border-radius: 10px;">
   <h3>🏛️ Apoio Institucional</h3>
-  <img src="https://via.placeholder.com/200x60?text=SPTech+School" alt="SPTech School" style="margin: 15px;">
+ 
   <p>
     Projeto desenvolvido no âmbito do programa de Pesquisa e Inovação da São Paulo Tech School<br>
    
