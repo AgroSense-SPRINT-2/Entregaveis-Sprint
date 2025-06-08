@@ -21,7 +21,6 @@
       <p>Bem-vindo, <strong id="nomeUsuario">Admin1234</strong></p>
     </div>
     <a href="../index.html">Início</a>
-    <a href="./Cliente.html">Geral</a>
     <a href="./quadrante.html">Quadrantes</a>
     <a href="/index.html">Sair</a>
   </div>
@@ -33,16 +32,10 @@
         <small>Quadrantes em que a umidade se encontra abaixo de 20%.</small>
       </div>
 
-      <!-- <div class="card">
-        <h3>Umidade crítica no Quadrante C</h3>
-        <p style="color: red;">15%</p>
-        <small>Nível de umidade em quadrante específico.</small>
-      </div> -->
-
       <div class="card">
-        <h3>Quadrantes com umidade média dentro da faixa ideal</h3>
-        <p style="color: orange;">1/2</p>
-        <small>Número de quadrantes com umidade ideal em relação ao total de quadrantes.</small>
+        <h3>Quadrantes com Umidade ideal</h3>
+        <p style="color: orange;">3/5</p>
+        <small>Período seco consecutivo registrado.</small>
       </div>
 
       <div class="card">
@@ -53,54 +46,37 @@
 
       <div class="card">
         <h3>Alertas</h3>
-        <p style="color: red;">Alerta - Quadrante C</p>
+        <p style="color: red; cursor: pointer;" id="btnAbrirModal">Alerta - Quadrante C 
+          <br> (clique para detalhes)</p>
         <small>Nível de umidade em quadrante específico.</small>
       </div>
 
+      <div id="modalAlertas" class="modal">
+  <div class="modal-conteudo">
+    <span class="fechar" id="btnFecharModal">&times;</span>
+    <h2>Lista de Alertas</h2>
+    <ul id="listaAlertas">
+    </ul>
+  </div>
+</div>
+
+
     </section>
     <div class="faixa-umidade">
-      <div class="faixa seco">Seco (<20%)</div>
-      <div class="faixa ideal">Ideal (20%-60%)</div>
-      <div class="faixa umido">Úmido (>60%)</div>
+      <div class="faixa seco">Seco (&lt; 20%)</div>
+      <div class="faixa ideal">Ideal (20–60%)</div>
+      <div class="faixa umido">Úmido (&gt; 60%)</div>
       <div id="indicador-umidade"></div>
     </div>
 
     <div class="container-graficos-linha">
       <div class="grafico-item">
-        <h3>Distribuição de Precipitação (%)</h3>
-        <label for="periodoSelect">Período:</label>
-        <select id="periodoSelect" onchange="atualizarGraficoPizza()">
-          <option value="trimestral">Trimestral</option>
-          <option value="semestral">Semestral</option>
-        </select>
-        <canvas id="graficoPizza"></canvas>
-      </div>
-
-      <div class="grafico-item">
         <h3>Safras: Produção e Perdas</h3>
-        <label for="PeriodoR">Período:</label>
-        <select id="PeriodoR" name="PeriodoR" onchange="filtro2()">
-          <option value="1">Diário</option>
-          <option value="2">Mensal</option>
-          <option value="3">Semanal</option>
-          <option value="4">Semestral</option>
-          <option value="5">Trimestral</option>
-          <option value="6">Anual</option>
-        </select>
         <canvas id="graficoGeral"></canvas>
       </div>
 
       <div class="grafico-item">
         <h3>Umidade (%) — Medições e Faixa Ideal</h3>
-        <label for="PeriodoL">Período:</label>
-        <select id="PeriodoL" name="PeriodoL" onchange="filtro()">
-          <option value="1">Diário</option>
-          <option value="2">Mensal</option>
-          <option value="3">Semanal</option>
-          <option value="4">Semestral</option>
-          <option value="5">Trimestral</option>
-          <option value="6">Anual</option>
-        </select>
         <canvas id="graficoEspecifico"></canvas>
       </div>
     </div>
@@ -343,6 +319,7 @@
       });
   }
   window.onload = () => {
+    carregarGraficoSafra()
     obterDadosGrafico(fkSensor, idUsuario);
   };
   // Umidade atual — você pode puxar de API ou variável
@@ -368,9 +345,121 @@
   window.addEventListener("load", () => {
     posicionarIndicador(umidadeAtual);
   });
+  function carregarGraficoSafra() {
+    fetch('/safras')
+      .then(function (resposta) {
+        if (!resposta.ok) {
+          throw new Error('Erro na resposta da API');
+        }
+        return resposta.json();
+      })
+      .then(function (dadosSafra) {
+        // Monta os labels com o período de plantio formatado
+        const labels = dadosSafra.map(function (safra) {
+          const data = new Date(safra.Periodo);
+          return `${data.getDate().toString().padStart(2, '0')}/${(data.getMonth() + 1).toString().padStart(2, '0')}/${data.getFullYear()}`;
+        });
 
-  // Você também pode atualizar dinamicamente quando quiser:
-  // posicionarIndicador(novaUmidade);
+        // Dados para produção e perda
+        const dadosProduzidos = dadosSafra.map(safra => safra.QuantidadeProduzidaKg);
+        const dadosPerdidos = dadosSafra.map(safra => safra.QuantidadePerdidaKg);
 
+        const ctxLinha = document.getElementById('graficoGeral').getContext('2d');
+        const graficoLinha = new Chart(ctxLinha, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: 'Quantidade Produzida (kg)',
+                data: dadosProduzidos,
+                borderColor: 'green',
+                backgroundColor: 'rgba(0, 128, 0, 0.9)',
+                fill: true,
+                tension: 0.3
+              },
+              {
+                label: 'Quantidade Perdida (kg)',
+                data: dadosPerdidos,
+                borderColor: 'red',
+                backgroundColor: 'rgba(255, 0, 0, 0.9)',
+                fill: true,
+                tension: 0.3
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                display: true
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: 'Quantidade (kg)'
+                }
+              },
+              x: {
+                title: {
+                  display: true,
+                  text: 'Período de Plantio'
+                }
+              }
+            }
+          }
+        });
+      })
+      .catch(function (erro) {
+        console.error('Erro ao carregar dados da safra:', erro);
+      });
+  }
+  window.onload = () => {
+    carregarGraficoSafra();
+    obterDadosGrafico(fkSensor, idUsuario);
+  };
+  const btnAbrirModal = document.getElementById('btnAbrirModal');
+  const modal = document.getElementById('modalAlertas');
+  const btnFecharModal = document.getElementById('btnFecharModal');
+  const listaAlertas = document.getElementById('listaAlertas');
+
+  // Dados exemplo de alertas — você pode puxar do seu backend
+  const alertas = [
+    "Alerta no Quadrante C: Umidade crítica!",
+    "Alerta no Quadrante B: Temperatura elevada.",
+    "Alerta no Quadrante D: Sensor offline.",
+    "Alerta no Quadrante A: Nível de água baixo."
+  ];
+
+  // Função para preencher a lista dentro do modal
+  function preencherAlertas() {
+    listaAlertas.innerHTML = ''; // limpa antes
+    alertas.forEach(alerta => {
+      const li = document.createElement('li');
+      li.textContent = alerta;
+      listaAlertas.appendChild(li);
+    });
+  }
+
+  // Abrir modal e preencher lista
+  btnAbrirModal.addEventListener('click', () => {
+    preencherAlertas();
+    modal.style.display = 'block';
+  });
+
+  // Fechar modal ao clicar no X
+  btnFecharModal.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+
+  // Fechar modal ao clicar fora do conteúdo
+  window.addEventListener('click', (event) => {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  });
 
 </script>

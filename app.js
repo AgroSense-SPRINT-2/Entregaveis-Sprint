@@ -19,10 +19,12 @@ app.use(express.static(path.join(__dirname, 'SiteEstaticoAlgoritmos', 'src')));
 var indexRouter = require("./SiteEstaticoAlgoritmos/src/routes/index");
 var usuarioRouter = require("./SiteEstaticoAlgoritmos/src/routes/usuarios");
 var medidas = require("./SiteEstaticoAlgoritmos/src/routes/medidas");
-
+var safraRoute = require('./SiteEstaticoAlgoritmos/src/routes/SafraRoute');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+
 
 
 app.use(cors());
@@ -30,6 +32,7 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/", medidas); 
+app.use('/', safraRoute);
 
 app.listen(PORTA_APP, function () {
     console.log(`
