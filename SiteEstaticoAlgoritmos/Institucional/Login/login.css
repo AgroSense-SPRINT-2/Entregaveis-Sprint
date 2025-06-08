@@ -123,3 +123,145 @@
   font-weight: 500;
   font-size: 20px;
 }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /*Faz com que padding e border não aumentem a largura/altura do elemento.*/
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  
+  body {
+    background-image: url(https://img.freepik.com/fotos-gratis/plantas-verdes-frescas-crescem-na-natureza-vibrante-gerada-pela-ia_188544-151450.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+
+  }
+
+ 
+  .container {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+  }
+  
+  .login_box{
+    display: flex;
+    background: #fff;
+    border-radius: 36px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  }
+  
+  .form_posição {
+    flex: 1; /* ocupar metade do espaço*/
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .logo_posição {
+    flex: 1;
+    background-color: #046236;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .logo-img {
+    width: 100%;
+  }
+  
+  .login_título {
+    color: #046236;
+    font-size: 24px;
+    margin-bottom: 30px;
+    font-weight: bold;
+  }
+  
+  input {
+    padding: 10px;
+    border-radius: 36px;
+    border: none;
+    background: #ddd;
+    margin-bottom: 15px;
+    width: 100%;
+    margin: 10px 0 5px;
+    font-size: 14px;
+  }
+  
+  .login_button {
+    background-color: #046236;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 36px;
+    font-size: 16px;
+    margin: 10px 0;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    
+    display: block;           /*  centralizando com margin */
+    margin: 20px auto 10px;   /* centralizando horizontalmente */
+  }
+  
+  .cadastro_texto {
+    font-size: 13px;
+    margin-top: 10px; /* top = parte de cima */
+    text-align: center;
+  }
+  
+  .cadastro_texto a {
+    color: #046236;
+    font-weight: bold;
+    text-decoration: none; /* sem o sublinhado no texto*/
+  }
+
+  .alerta_erro{
+  display: flex;
+  justify-content: flex-end;
+}
+  
+  .card_erro {
+  display: none;
+  background-color: #fff;
+  color: black;
+  width: 230px;
+  position: fixed;
+  border-radius: 20px;
+  border: #1aae0f 4px solid;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  margin-right: 40%;
+  margin-top: -500px;
+}
+
+.card_erro #mensagem_erro{
+  font-weight: 500;
+  font-size: 20px;
+}
+.loading-div {
+  display: none;
+  text-align: center;
+  margin: 10px auto;
+  width: 100%;
+}
+
+.loading-div img {
+  height: 50px;
+  width: 50px;
+  display: block;
+  margin: 0 auto;
+}
+
+#div_erros_login {
+  display: none
+}

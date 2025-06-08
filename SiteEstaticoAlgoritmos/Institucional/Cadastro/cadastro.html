@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastro - AgroSense</title>
   <link rel="stylesheet" href="cadastro.css">
-  <link rel="icon" href="../Assets/icone.png" >
+  <link rel="icon" href="../Assets/icone.png">
   <script src="/js/sessao.js"></script>
 </head>
 
@@ -36,14 +36,15 @@
           <input type="password" id="senha" placeholder="***">
         </div>
       </div>
-      <div id="div_aguardar" class="loading-div">
-              <img src="../Assets/" id="loading-gif" />
-            </div>
       <div class="alerta_erro">
         <div class="card_erro" id="cardErro">
           <span id="mensagem_erro"></span>
         </div>
       </div>
+      <div id="div_aguardar" class="loading-div">
+        <img src="../Assets/carregando.gif" id="loading-gif" />
+      </div>
+
       <div class="button">
         <button type="button" onclick="cadastrar()">Cadastrar</button>
         <a href="../Login/login.html">

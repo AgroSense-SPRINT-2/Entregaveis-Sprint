@@ -19,10 +19,14 @@
         Senha <input type="password" id="senha" class="input"> <br>
         <div id="resposta"></div>
         <button class="login_button" onclick="entrar()">Entrar</button>
+           <div id="div_aguardar" class="loading-div">
+        <img src="../Assets/carregando.gif" id="loading-gif" />
+      </div>
         <div class="alerta_erro">
         <div class="card_erro" id="cardErro">
           <span id="mensagem_erro"></span>
         </div>
+       
       </div>
         <p class="cadastro_texto">
           Não tem uma conta ainda? <a
@@ -38,8 +42,7 @@
       </div>
     </div>
   </div>
-  <div id="div_aguardar" style="display:none; /* estilos para loading */">
-  Carregando...
+
 </div>
 </body>
 </html>
