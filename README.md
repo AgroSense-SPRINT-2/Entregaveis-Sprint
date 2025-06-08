@@ -1,16 +1,54 @@
-<h1 align="center"> AgroSense - Entregáveis </h1>
-<h4 align="center">🚧 Projeto em Construção 🚧</h4>
+<h1 align="center">🌱💧 Sistema para Monitoramento de Umidade de Solo em Plantações de Feijão</h1>
 
-<p align="center">
-A AgroSense é uma empresa de tecnologia voltada para a área de agricultura e especialização em monitoramento na produção de feijões cariocas, desenvolvemos soluções para o melhor aproveitamento das safras durante o ano e a diminuição de prejuizos devido a secas e irrigações em excesso.
+
+<h2 align="center" style="border-bottom: 2px solid #3498db; padding-bottom: 10px;">🏢 Sobre a AgroSense</h2>
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/a853a316-2c97-4a9b-9675-851323a96bba"  style="margin-bottom: 20px;">
+</div>
+
+<p align="justify">
+  A <strong>AgroSense</strong> é uma startup de tecnologia agrícola fundada em 2023 como projeto de pesquisa da <strong>São Paulo Tech School</strong>. Especializada em IoT para agricultura familiar, desenvolvemos soluções acessíveis para otimização de recursos hídricos e aumento de produtividade.
 </p>
 
-<h4 align="center"> Visão de Negócio 💼</h4>
-<p align="center">
-<img loading="lazy" width='800' height='400' src="https://github.com/user-attachments/assets/5fd97c38-70bb-48ba-85a2-833e691b458e"/>
-</p>
+<h3>📜 Missão</h3>
+<blockquote>
+  "Democratizar o acesso à agricultura de precisão para pequenos e médios produtores, combinando tecnologia simples e baixo custo com impacto real na segurança alimentar brasileira."
+</blockquote>
 
-<h4 align="center"> Modelagem de Dados 💾</h4>
-<p align="center">
-<img loading="lazy" src="https://i.ibb.co/m5wjCKXk/imagem-2025-04-26-162518431.png"/>
-</p>
+
+<div align="center" style="margin: 30px 0; background: #f8f9fa; padding: 20px; border-radius: 10px;">
+  <h3>📈 Números que Motivam Nosso Trabalho</h3>
+  <table>
+    <tr>
+      <td align="center">
+        <strong>70%</strong><br>
+        da produção nacional<br>é da agricultura familiar
+      </td>
+      <td align="center">
+        <strong>40%</strong><br>
+        desperdício de água<br>em irrigação tradicional
+      </td>
+      <td align="center">
+        <strong>100%</strong><br>
+        aumento nas exportações<br>de feijão (2020-2021)
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+<h2>🛠 Tecnologias e Ferramentas</h2>
+[... resto do conteúdo anterior ...]
+
+
+
+<!-- Rodapé Institucional -->
+<div align="center" style="margin-top: 40px; padding: 20px; background: #f0f0f0; border-radius: 10px;">
+  <h3>🏛️ Apoio Institucional</h3>
+  <img src="https://via.placeholder.com/200x60?text=SPTech+School" alt="SPTech School" style="margin: 15px;">
+  <p>
+    Projeto desenvolvido no âmbito do programa de Pesquisa e Inovação da São Paulo Tech School<br>
+   
+  </p>
+</div>
