@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Área do Cliente</title>
   <link rel="stylesheet" href="cliente.css">
-  <link rel="icon" href="../Assets/icone.png" >
+  <link rel="icon" href="../Assets/icone.png">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 </head>
@@ -21,6 +21,7 @@
       <p>Bem-vindo, <strong id="nomeUsuario">Admin1234</strong></p>
     </div>
     <a href="../index.html">Início</a>
+    <a href="./Cliente.html"><b>Geral</b></a>
     <a href="./quadrante.html">Quadrantes</a>
     <a href="/index.html">Sair</a>
   </div>
@@ -28,37 +29,37 @@
     <section class="cards">
       <div class="card">
         <h3>Quadrantes Criticos</h3>
-        <p>5 - Quadrantes (A,B,C,D,E)</p>
+        <p id="quadrantesCriticos">5 - Quadrantes (A,B,C,D,E)</p>
         <small>Quadrantes em que a umidade se encontra abaixo de 20%.</small>
       </div>
 
       <div class="card">
         <h3>Quadrantes com Umidade ideal</h3>
-        <p style="color: orange;">3/5</p>
-        <small>Período seco consecutivo registrado.</small>
+        <p style="color: orange;" id="quadrantesIdeais">3/5</p>
+        <small>Quantidade de quadrantes dentro da umidade ideal em relação ao total de quadrantes.</small>
       </div>
 
       <div class="card">
         <h3>Sensor com falha</h3>
-        <p style="color: red;">2 unidades</p>
+        <p style="color: red;" id="sensoresFalhos">2 unidades</p>
         <small>Equipamentos sem sinal nas últimas 24h.</small>
       </div>
 
       <div class="card">
         <h3>Alertas</h3>
-        <p style="color: red; cursor: pointer;" id="btnAbrirModal">Alerta - Quadrante C 
-          <br> (clique para detalhes)</p>
+        <p style="color: red; cursor: pointer;" id="btnAbrirModal">Alerta - Quadrante C
+          <br> (clique para detalhes)
+        </p>
         <small>Umidade fora do padrão esperado.</small>
       </div>
 
       <div id="modalAlertas" class="modal">
-  <div class="modal-conteudo">
-    <span class="fechar" id="btnFecharModal">&times;</span>
-    <h2>Lista de Alertas</h2>
-    <ul id="listaAlertas">
-    </ul>
-  </div>
-</div>
+        <div class="modal-conteudo">
+          <span class="fechar" id="btnFecharModal">&times;</span>
+          <h2>Lista de Alertas</h2>
+          <div id="listaAlertas"></div>
+        </div>
+      </div>
 
 
     </section>
@@ -215,6 +216,12 @@
       type: 'line',
       data: dados,
       options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100
+          }
+        },
         plugins: {
           legend: {
             labels: {
@@ -321,6 +328,10 @@
   window.onload = () => {
     carregarGraficoSafra()
     obterDadosGrafico(fkSensor, idUsuario);
+    kpiQuadrantesCriticos();
+    kpiUmidadeIdeal();
+    kpiSensoresFalhos();
+    kpiAlertasSensores();
   };
   // Umidade atual — você pode puxar de API ou variável
   const umidadeAtual = 35; // Exemplo: pode vir de sensores
@@ -420,33 +431,154 @@
   window.onload = () => {
     carregarGraficoSafra();
     obterDadosGrafico(fkSensor, idUsuario);
+    kpiQuadrantesCriticos();
+    kpiUmidadeIdeal();
+    kpiSensoresFalhos();
+    kpiAlertasSensores();
   };
+
+  function kpiQuadrantesCriticos() {
+
+    fetch(`/quadrantesCriticos`, { cache: 'no-store' }).then(function (response) {
+      var vt_quadrantes = [];
+
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+          vt_quadrantes = resposta;
+
+          quadrantesCriticos.innerHTML = `${vt_quadrantes[0].quadrantesCriticos} - Quadrantes (${vt_quadrantes[0].nomeQuadrantes})`;
+
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
+
+  function kpiUmidadeIdeal() {
+
+    fetch(`/umidadeIdeal`, { cache: 'no-store' }).then(function (response) {
+      var vt_quadrantes = [];
+
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+          vt_quadrantes = resposta;
+
+          quadrantesIdeais.innerHTML = `${vt_quadrantes[0].quadrantesDentroFaixa} / ${vt_quadrantes[0].totalQuadrantes}`;
+
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
+
+  function kpiSensoresFalhos() {
+
+    fetch(`/sensoresFalhos`, { cache: 'no-store' }).then(function (response) {
+      var vt_sensores = [];
+
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+          vt_sensores = resposta;
+
+          sensoresFalhos.innerHTML = `${vt_sensores[0].Inativos} / ${vt_sensores[0].Total}`;
+
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
+
+  function kpiAlertasSensores() {
+
+    fetch(`/qtdAlertas`, { cache: 'no-store' }).then(function (response) {
+      var vt_alertas = [];
+
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+          vt_alertas = resposta;
+
+          if (vt_alertas[0].Alertas == 0) {
+            btnAbrirModal.innerHTML = `Sem alertas`
+          }
+          else {
+            btnAbrirModal.innerHTML = `${vt_alertas[0].Alertas} <br> (clique para detalhes)`;
+          }
+
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+
+  }
+
   const btnAbrirModal = document.getElementById('btnAbrirModal');
   const modal = document.getElementById('modalAlertas');
   const btnFecharModal = document.getElementById('btnFecharModal');
   const listaAlertas = document.getElementById('listaAlertas');
 
-  // Dados exemplo de alertas — você pode puxar do seu backend
-  const alertas = [
-    "Alerta no Quadrante C: Umidade crítica!",
-    "Alerta no Quadrante B: Temperatura elevada.",
-    "Alerta no Quadrante D: Sensor offline.",
-    "Alerta no Quadrante A: Nível de água baixo."
-  ];
+  function conteudoKpiAlerta() {
 
-  // Função para preencher a lista dentro do modal
-  function preencherAlertas() {
-    listaAlertas.innerHTML = ''; // limpa antes
-    alertas.forEach(alerta => {
-      const li = document.createElement('li');
-      li.textContent = alerta;
-      listaAlertas.appendChild(li);
-    });
+    fetch(`/contentModal`, { cache: 'no-store' }).then(function (response) {
+      var vt_alertas = [];
+
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+          vt_alertas = resposta;
+          listaAlertas.innerHTML = ``;
+          vt_alertas.reverse();
+
+          if (vt_alertas.length == 0) {
+            listaAlertas.innerHTML = 'Não há alertas para ser mostrado!';
+          }
+          else {
+            for (var i = vt_alertas.length - 1; i >= 0; i--) {
+              if (vt_alertas[i].UmidadeSolo < 20) {
+                listaAlertas.innerHTML += `${i + 1}° - Sensor ${vt_alertas[i].IdSensor} no Quadrante ${vt_alertas[i].Quadrante} com pouca umidade! <br>`
+              } else {
+                listaAlertas.innerHTML += `${i + 1}° - Sensor ${vt_alertas[i].IdSensor} no Quadrante ${vt_alertas[i].Quadrante} está muito úmido! <br>`
+              }
+            }
+          }
+
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+
   }
 
   // Abrir modal e preencher lista
   btnAbrirModal.addEventListener('click', () => {
-    preencherAlertas();
+    conteudoKpiAlerta();
     modal.style.display = 'block';
   });
 

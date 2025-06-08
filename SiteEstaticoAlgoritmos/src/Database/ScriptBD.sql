@@ -54,7 +54,7 @@ constraint SensorQuadrante foreign key(FkQuadrante) references Quadrante(IdQuadr
 create table Leitura (
 IdLeitura int primary key auto_increment,
 UmidadeSolo float,
-DtLeitura datetime,
+DtLeitura datetime default current_timestamp,
 FkSensor int,
 constraint LeituraSensor foreign key(FkSensor) references Sensor(IdSensor)
 );

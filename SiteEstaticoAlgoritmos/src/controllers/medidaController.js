@@ -39,7 +39,52 @@ function buscarMedidasEmTempoReal(req, res) {
     });
 }
 
+function quadrantesCriticos(req, res) {
+    medidaModel.quadrantesCriticos().then(function (resultado) {
+        res.status(200).json(resultado);
+    }).catch(function (erro) {
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
+function umidadeIdealQuadrantes(req, res) {
+    medidaModel.umidadeIdealQuadrantes().then(function (resultado) {
+        res.status(200).json(resultado);
+    }).catch(function (erro) {
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
+function buscarSensoresFalhos(req, res) {
+    medidaModel.buscarSensoresFalhos().then(function (resultado) {
+        res.status(200).json(resultado);
+    }).catch(function (erro) {
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
+function alertasSensores(req, res) {
+    medidaModel.alertasSensores().then(function (resultado) {
+        res.status(200).json(resultado);
+    }).catch(function (erro) {
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
+function alertasModal(req, res) {
+    medidaModel.alertasModal().then(function (resultado) {
+        res.status(200).json(resultado);
+    }).catch(function (erro) {
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
 module.exports = {
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
+    buscarMedidasEmTempoReal,
+    quadrantesCriticos,
+    umidadeIdealQuadrantes,
+    buscarSensoresFalhos,
+    alertasSensores,
+    alertasModal
 }
