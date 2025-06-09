@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Área do Cliente</title>
   <link rel="stylesheet" href="quadrante.css">
-  <link rel="icon" href="../Assets/icone.png" >
+  <link rel="icon" href="../Assets/icone.png">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 </head>
@@ -31,17 +31,13 @@
       <label for="seletorQuadrante" style="font-weight: bold; color: #36502c;">Selecionar Quadrante:</label>
       <select id="seletorQuadrante"
         style="padding: 8px 12px; border-radius: 5px; border: 1px solid #4F7942; margin-left: 10px; color: #4F7942;">
-        <option value="A" selected>Quadrante A</option>
-        <option value="B">Quadrante B</option>
-        <option value="C">Quadrante C</option>
-        <option value="D">Quadrante D</option>
       </select>
     </div>
 
     <section class="cards">
       <div class="card">
         <h3>Quadrante</h3>
-        <p>Quadrante A</p>
+        <p id="quadranteAtual">Quadrante A</p>
         <small>Quadrante selecionado para visualização</small>
       </div>
       <div class="card">
@@ -61,265 +57,339 @@
       </div>
     </section>
     <div class="faixa-umidade">
-      <div class="faixa seco">Seco (<20%)</div>
-      <div class="faixa ideal">Ideal (20%-60%)</div>
-      <div class="faixa umido">Úmido (>60%)</div>
-      <div id="indicador-umidade"></div>
+      <div class="faixa seco">Seco (< 20%) </div>
+          <div class="faixa ideal">Ideal (20%-60%)</div>
+          <div class="faixa umido">Úmido (>60%)</div>
+          <div id="indicador-umidade"></div>
+      </div>
+
+      <section class="container-graficos-linha" style="margin: 40px;">
+        <div class="grafico-item">
+          <h3>Histórico de Umidade na Última Semana</h3>
+          <canvas id="graficoLinha"></canvas>
+        </div>
+
+
+        <div class="grafico-item">
+          <h3>Umidade Atual por Sensor</h3>
+          <canvas id="graficoBarras"></canvas>
+        </div>
+
+      </section>
     </div>
 
-    <section class="container-graficos-linha" style="margin: 40px;">
-      <div class="grafico-item">
-        <h3>Histórico de Umidade na Última Semana</h3>
-        <canvas id="graficoLinha"></canvas>
-      </div>
+    <script>
+      const seletorQuadrante = document.getElementById('seletorQuadrante');
+      const quadranteAtual = document.getElementById('quadranteAtual');
+      const elUmidadeCard = document.querySelector('.cards .card:nth-child(2) p');
+      const elAlertasCard = document.querySelector('.cards .card:nth-child(4) p');
+      const ctxLinha = document.getElementById('graficoLinha').getContext('2d');
+      let myChart = null;
+      let updateInterval;
 
-
-      <div class="grafico-item">
-        <h3>Umidade Atual por Sensor</h3>
-        <canvas id="graficoBarras"></canvas>
-      </div>
-
-    </section>
-  </div>
-
-  <script>
-    document.getElementById('seletorQuadrante').addEventListener('change', function () {
-      const quadranteSelecionado = this.value;
-      alert('Quadrante selecionado: ' + quadranteSelecionado);
-      // atualizarDashboard quando o quadrante for selecionado um exemplo;
-    });
-    // Gráfico de Linha coloquei por semana
-    const ctxLinha = document.getElementById('graficoLinha').getContext('2d');
-    const graficoLinha = new Chart(ctxLinha, {
-      type: 'line',
-      data: {
-        labels: ['01/06', '02/06', '03/06', '04/06', '05/06', '06/06', '07/06'],
-        datasets: [{
-          label: 'Umidade (%)',
-          data: [35, 38, 40, 37, 42, 39, 40],
-          borderColor: 'blue',
-          backgroundColor: 'rgba(0, 0, 255, 0.1)',
-          fill: true,
-          tension: 0.3
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            display: true
-          },
-          datalabels: {
-            display: false
-          }
-        },
-        scales: {
-          y: {
-            min: 0,
-            max: 100,
-            title: {
-              display: true,
-              text: 'Umidade (%)'
-            }
-          },
-          x: {
-            title: {
-              display: true,
-              text: 'Data'
-            }
-          }
-        }
-      },
-      plugins: [ChartDataLabels]
-    });
-
-     // Variáveis globais
-  let graficoBarras;
-  let tempoAtualizacao;
-  const sensorPrincipal = 1; // Sensor focado como você pediu
-  const idUsuario = sessionStorage.ID_USUARIO;
-
-  
-  window.onload = function() {
-    
-    document.getElementById('nomeUsuario').textContent = sessionStorage.NOME_USUARIO;
-    
-    
-    buscarDadosSensores();
-    
-    // Atualiza a cada 5 segundos
-    tempoAtualizacao = setInterval(buscarDadosSensores, 5000);
-  };
-
-  
-  function buscarDadosSensores() {
-    
-    if (tempoAtualizacao) {
-      clearTimeout(tempoAtualizacao);
-    }
-
-    
-    Promise.all([
-      buscarDadosSensor(1),
-      buscarDadosSensor(2),
-      buscarDadosSensor(3)
-    ]).then(function(dadosTodosSensores) {
-      console.log('Dados recebidos:', dadosTodosSensores);
-      
-      // Prepara os dados para o gráfico
-      var nomesSensores = ['Sensor 1', 'Sensor 2', 'Sensor 3'];
-      var valoresUmidade = [];
-      var coresBarras = [];
-      
-      for (var i = 0; i < dadosTodosSensores.length; i++) {
-        if (dadosTodosSensores[i].length > 0) {
-          valoresUmidade.push(dadosTodosSensores[i][0].UmidadeSolo);
-        } else {
-          valoresUmidade.push(0);
-        }
-        
-        
-        if (valoresUmidade[i] < 20) {
-          coresBarras.push('red');
-        } else if (valoresUmidade[i] > 60) {
-          coresBarras.push('blue');
-        } else {
-          coresBarras.push('#4F7942');
-        }
-      }
-      
-      // Atualiza ou cria o gráfico
-      if (graficoBarras) {
-        atualizarGraficoBarras(nomesSensores, valoresUmidade, coresBarras);
-      } else {
-        criarGraficoBarras(nomesSensores, valoresUmidade, coresBarras);
-      }
-      
-     
-      atualizarCards(valoresUmidade);
-      
-      // Agenda próxima atualização
-      tempoAtualizacao = setTimeout(buscarDadosSensores, 5000);
-    }).catch(function(erro) {
-      console.error('Erro ao buscar dados:', erro);
-      tempoAtualizacao = setTimeout(buscarDadosSensores, 5000);
-    });
-  }
-
-  // Função para buscar dados de um sensor específico
-  function buscarDadosSensor(idSensor) {
-    return fetch('/leituras-real/' + idSensor, { cache: 'no-store' })
-      .then(function(resposta) {
-        if (resposta.ok) {
-          return resposta.json();
-        } else {
-          return [];
-        }
+      document.addEventListener('DOMContentLoaded', () => {
+        listarQuadrantes();
+        seletorQuadrante.addEventListener('change', onQuadranteChange);
       });
-  }
 
-  // Função para criar o gráfico pela primeira vez
-  function criarGraficoBarras(labels, dados, cores) {
-    var ctx = document.getElementById('graficoBarras').getContext('2d');
-    
-    graficoBarras = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: 'Umidade (%)',
-          data: dados,
-          backgroundColor: cores,
-          borderColor: '#36502c',
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true,
-            max: 100,
-            title: {
-              display: true,
-              text: 'Umidade (%)'
+      function listarQuadrantes() {
+        fetch('/quadrante/listar', { cache: 'no-store' })
+          .then(r => r.ok ? r.json() : Promise.reject(r.statusText))
+          .then(quadrantes => {
+            seletorQuadrante.innerHTML = '';
+            quadrantes.forEach(q => {
+              const opt = document.createElement('option');
+              opt.value = q.IdQuadrante;
+              opt.textContent = q.quadrante;
+              seletorQuadrante.appendChild(opt);
+            });
+            if (quadrantes.length) {
+              seletorQuadrante.value = quadrantes[0].IdQuadrante;
+              onQuadranteChange();
+            }
+          })
+          .catch(err => console.error('Erro ao listar quadrantes:', err));
+      }
+
+      function onQuadranteChange() {
+        clearInterval(updateInterval);
+        const id = seletorQuadrante.value;
+        quadranteAtual.textContent = seletorQuadrante.options[seletorQuadrante.selectedIndex].text;
+        atualizarKpiSensores(id);
+        atualizarKpiUmidadeEAlertas(id);
+        plotarGraficoLinha(id);
+      }
+
+      function atualizarKpiSensores(idQuadrante) {
+        fetch(`/quadrante/ativos/${idQuadrante}`, { cache: 'no-store' })
+          .then(r => r.ok ? r.json() : Promise.reject(r.statusText))
+          .then(({ sensoresAtivos, totalSensores }) => {
+            const el = document.querySelector('.card:nth-child(3) p');
+            el.textContent = `${sensoresAtivos}/${totalSensores}`;
+            el.style.color = sensoresAtivos < totalSensores ? 'red' : 'green';
+          })
+          .catch(err => console.error('Erro no KPI sensores:', err));
+      }
+
+      function atualizarKpiUmidadeEAlertas(id) {
+        fetch(`/quadrante/leituras-real/${id}`)
+          .then(r => r.ok ? r.json() : [])
+          .then(data => {
+            if (data.length === 0) return;
+            const valores = data.map(r => r.dado || r.Umidade);
+            const media = (valores.reduce((a, b) => a + b, 0) / valores.length).toFixed(1);
+            elUmidadeCard.textContent = `${media}%`;
+            elUmidadeCard.style.color = media < 20 ? 'red' : media > 60 ? 'blue' : 'rgb(210,210,36)';
+            const alertas = valores.filter(v => v < 20 || v > 60).length;
+            elAlertasCard.textContent = alertas;
+            elAlertasCard.style.color = alertas > 0 ? 'red' : 'green';
+          })
+          .catch(console.error);
+      }
+
+      function plotarGraficoLinha(id) {
+        fetch(`/quadrante/leituras/${id}`)
+          .then(r => r.ok ? r.json() : Promise.reject(r.status))
+          .then(data => {
+            const registros = data.reverse();
+            const labels = registros.map(r => r.momento_grafico);
+            const valores = registros.map(r => r.Umidade);
+            if (myChart) myChart.destroy();
+            myChart = new Chart(ctxLinha, {
+              type: 'line',
+              data: {
+                labels,
+                datasets: [{
+                  label: 'Umidade (%)',
+                  data: valores,
+                  fill: false,
+                  tension: 0.1
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                    max: 100,
+                    title: {
+                      display: true,
+                      text: '%'
+                    }
+                  }
+                }
+              }
+            });
+            updateInterval = setInterval(() => atualizarGrafico(id), 5000);
+          })
+          .catch(console.error);
+      }
+
+      function atualizarGrafico(id) {
+        fetch(`/quadrante/leituras-real/${id}`)
+          .then(r => r.ok ? r.json() : Promise.reject(r.status))
+          .then(data => {
+            if (!data.length) return;
+            const ultimo = data[0];
+            const hora = ultimo.momento_grafico || ultimo.data;
+            const valor = ultimo.dado || ultimo.Umidade;
+            const { labels, datasets } = myChart.data;
+            if (labels[labels.length - 1] !== hora) {
+              labels.shift(); labels.push(hora);
+              datasets[0].data.shift(); datasets[0].data.push(valor);
+              myChart.update();
+            }
+            atualizarKpiUmidadeEAlertas(id);
+          })
+          .catch(console.error);
+      }
+
+      // Variáveis globais
+      let graficoBarras;
+      let tempoAtualizacao;
+      const sensorPrincipal = 1; // Sensor focado como você pediu
+      const idUsuario = sessionStorage.ID_USUARIO;
+
+
+      window.onload = function () {
+
+        document.getElementById('nomeUsuario').textContent = sessionStorage.NOME_USUARIO;
+
+
+        buscarDadosSensores();
+
+        // Atualiza a cada 5 segundos
+        tempoAtualizacao = setInterval(buscarDadosSensores, 5000);
+      };
+
+
+      function buscarDadosSensores() {
+
+        if (tempoAtualizacao) {
+          clearTimeout(tempoAtualizacao);
+        }
+
+
+        Promise.all([
+          buscarDadosSensor(1),
+          buscarDadosSensor(2),
+          buscarDadosSensor(3)
+        ]).then(function (dadosTodosSensores) {
+          console.log('Dados recebidos:', dadosTodosSensores);
+
+          // Prepara os dados para o gráfico
+          var nomesSensores = ['Sensor 1', 'Sensor 2', 'Sensor 3'];
+          var valoresUmidade = [];
+          var coresBarras = [];
+
+          for (var i = 0; i < dadosTodosSensores.length; i++) {
+            if (dadosTodosSensores[i].length > 0) {
+              valoresUmidade.push(dadosTodosSensores[i][0].UmidadeSolo);
+            } else {
+              valoresUmidade.push(0);
+            }
+
+
+            if (valoresUmidade[i] < 20) {
+              coresBarras.push('red');
+            } else if (valoresUmidade[i] > 60) {
+              coresBarras.push('blue');
+            } else {
+              coresBarras.push('#4F7942');
             }
           }
+
+          // Atualiza ou cria o gráfico
+          if (graficoBarras) {
+            atualizarGraficoBarras(nomesSensores, valoresUmidade, coresBarras);
+          } else {
+            criarGraficoBarras(nomesSensores, valoresUmidade, coresBarras);
+          }
+
+
+          atualizarCards(valoresUmidade);
+
+          // Agenda próxima atualização
+          tempoAtualizacao = setTimeout(buscarDadosSensores, 5000);
+        }).catch(function (erro) {
+          console.error('Erro ao buscar dados:', erro);
+          tempoAtualizacao = setTimeout(buscarDadosSensores, 5000);
+        });
+      }
+
+      // Função para buscar dados de um sensor específico
+      function buscarDadosSensor(idSensor) {
+        return fetch('/leituras-real/' + idSensor, { cache: 'no-store' })
+          .then(function (resposta) {
+            if (resposta.ok) {
+              return resposta.json();
+            } else {
+              return [];
+            }
+          });
+      }
+
+      // Função para criar o gráfico pela primeira vez
+      function criarGraficoBarras(labels, dados, cores) {
+        var ctx = document.getElementById('graficoBarras').getContext('2d');
+
+        graficoBarras = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Umidade (%)',
+              data: dados,
+              backgroundColor: cores,
+              borderColor: '#36502c',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100,
+                title: {
+                  display: true,
+                  text: 'Umidade (%)'
+                }
+              }
+            }
+          }
+        });
+      }
+
+      // Função para atualizar o gráfico existente
+      function atualizarGraficoBarras(labels, dados, cores) {
+        graficoBarras.data.labels = labels;
+        graficoBarras.data.datasets[0].data = dados;
+        graficoBarras.data.datasets[0].backgroundColor = cores;
+        graficoBarras.update();
+      }
+
+      function atualizarCards(dadosUmidade) {
+        // Calcula a média de umidade
+        var soma = 0;
+        for (var i = 0; i < dadosUmidade.length; i++) {
+          soma += dadosUmidade[i];
         }
+        var media = soma / dadosUmidade.length;
+
+        // Atualiza o card de umidade
+        var elementoUmidade = document.querySelector('.card:nth-child(2) p');
+        elementoUmidade.textContent = media.toFixed(1) + '%';
+
+
+        if (media < 20) {
+          elementoUmidade.style.color = 'red';
+        } else if (media > 60) {
+          elementoUmidade.style.color = 'blue';
+        } else {
+          elementoUmidade.style.color = 'rgb(210, 210, 36)';
+        }
+
+        // Conta quantos sensores estão com problema
+        var alertas = 0;
+        for (var j = 0; j < dadosUmidade.length; j++) {
+          if (dadosUmidade[j] < 20 || dadosUmidade[j] > 60) {
+            alertas++;
+          }
+        }
+
+        // Atualiza o card de alertas
+        var elementoAlertas = document.querySelector('.card:nth-child(4) p');
+        elementoAlertas.textContent = alertas;
+        elementoAlertas.style.color = alertas > 0 ? 'red' : 'green';
+
+
+        moverIndicadorUmidade(media);
       }
-    });
-  }
 
-  // Função para atualizar o gráfico existente
-  function atualizarGraficoBarras(labels, dados, cores) {
-    graficoBarras.data.labels = labels;
-    graficoBarras.data.datasets[0].data = dados;
-    graficoBarras.data.datasets[0].backgroundColor = cores;
-    graficoBarras.update();
-  }
+      // Função para mover o indicador de umidade
+      function moverIndicadorUmidade(umidade) {
+        var faixa = document.querySelector(".faixa-umidade");
+        var indicador = document.getElementById("indicador-umidade");
 
-  function atualizarCards(dadosUmidade) {
-    // Calcula a média de umidade
-    var soma = 0;
-    for (var i = 0; i < dadosUmidade.length; i++) {
-      soma += dadosUmidade[i];
-    }
-    var media = soma / dadosUmidade.length;
-    
-    // Atualiza o card de umidade
-    var elementoUmidade = document.querySelector('.card:nth-child(2) p');
-    elementoUmidade.textContent = media.toFixed(1) + '%';
-    
-    
-    if (media < 20) {
-      elementoUmidade.style.color = 'red';
-    } else if (media > 60) {
-      elementoUmidade.style.color = 'blue';
-    } else {
-      elementoUmidade.style.color = 'rgb(210, 210, 36)';
-    }
-    
-    // Conta quantos sensores estão com problema
-    var alertas = 0;
-    for (var j = 0; j < dadosUmidade.length; j++) {
-      if (dadosUmidade[j] < 20 || dadosUmidade[j] > 60) {
-        alertas++;
+
+        if (umidade < 0) {
+          umidade = 0;
+        } else if (umidade > 100) {
+          umidade = 100;
+        }
+
+        // Calcula a posição
+        var posicao = (umidade / 100) * faixa.offsetWidth;
+        indicador.style.left = (posicao - 8) + 'px';
       }
-    }
-    
-    // Atualiza o card de alertas
-    var elementoAlertas = document.querySelector('.card:nth-child(4) p');
-    elementoAlertas.textContent = alertas;
-    elementoAlertas.style.color = alertas > 0 ? 'red' : 'green';
-    
-    
-    moverIndicadorUmidade(media);
-  }
 
-  // Função para mover o indicador de umidade
-  function moverIndicadorUmidade(umidade) {
-    var faixa = document.querySelector(".faixa-umidade");
-    var indicador = document.getElementById("indicador-umidade");
-    
-
-    if (umidade < 0) {
-      umidade = 0;
-    } else if (umidade > 100) {
-      umidade = 100;
-    }
-    
-    // Calcula a posição
-    var posicao = (umidade / 100) * faixa.offsetWidth;
-    indicador.style.left = (posicao - 8) + 'px';
-  }
-
-  // Quando muda o quadrante selecionado
-  document.getElementById('seletorQuadrante').addEventListener('change', function() {
-    var quadrante = this.value;
-    console.log('Mudou para quadrante: ' + quadrante);
-    buscarDadosSensores();
-  });
-  </script>
+      // Quando muda o quadrante selecionado
+      document.getElementById('seletorQuadrante').addEventListener('change', function () {
+        var quadrante = this.value;
+        console.log('Mudou para quadrante: ' + quadrante);
+        buscarDadosSensores();
+      });
+    </script>
 </body>
 
 </html>

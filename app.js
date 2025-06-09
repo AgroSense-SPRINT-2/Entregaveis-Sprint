@@ -20,6 +20,7 @@ var indexRouter = require("./SiteEstaticoAlgoritmos/src/routes/index");
 var usuarioRouter = require("./SiteEstaticoAlgoritmos/src/routes/usuarios");
 var medidas = require("./SiteEstaticoAlgoritmos/src/routes/medidas");
 var safraRoute = require('./SiteEstaticoAlgoritmos/src/routes/SafraRoute');
+var quadranteRouter = require('./SiteEstaticoAlgoritmos/src/routes/quadrante');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -33,6 +34,8 @@ app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/", medidas); 
 app.use('/', safraRoute);
+app.use('/quadrante', quadranteRouter);
+
 
 app.listen(PORTA_APP, function () {
     console.log(`
