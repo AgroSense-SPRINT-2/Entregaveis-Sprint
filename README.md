@@ -8,7 +8,7 @@
 </div>
 
 <p align="justify">
-  A <strong>AgroSense</strong> é uma startup de tecnologia agrícola fundada em 2023 como projeto de pesquisa da <strong>São Paulo Tech School</strong>. Especializada em IoT para agricultura familiar, desenvolvemos soluções acessíveis para otimização de recursos hídricos e aumento de produtividade.
+  A <strong>AgroSense</strong> é uma startup de tecnologia agrícola fundada em 2025 como projeto de pesquisa da <strong>São Paulo Tech School</strong>. Especializada em IoT para agricultura familiar, desenvolvemos soluções acessíveis para otimização de recursos hídricos e aumento de produtividade.
 </p>
 
 <h3>📜 Missão</h3>
