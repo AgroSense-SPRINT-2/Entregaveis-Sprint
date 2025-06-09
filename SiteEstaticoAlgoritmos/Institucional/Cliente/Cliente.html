@@ -448,8 +448,11 @@
 
           vt_quadrantes = resposta;
 
-          quadrantesCriticos.innerHTML = `${vt_quadrantes[0].quadrantesCriticos} - Quadrantes (${vt_quadrantes[0].nomeQuadrantes})`;
-
+          if (vt_quadrantes.length == 0) {
+            quadrantesCriticos.innerHTML = `Sem quadrantes críticos`
+          } else {
+            quadrantesCriticos.innerHTML = `${vt_quadrantes[0].quadrantesCriticos} - Quadrantes (${vt_quadrantes[0].nomeQuadrantes})`;
+          }
         });
       } else {
         console.error('Nenhum dado encontrado ou erro na API');
