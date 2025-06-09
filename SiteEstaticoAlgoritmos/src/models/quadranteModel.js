@@ -24,7 +24,7 @@ function buscarUltimasMedidasQuadrante(idQuadrante) {
     var instrucaoSql = `SELECT ROUND(avg(UmidadeSolo), 1) as Umidade, 
     date_format(DtLeitura, '%H:%i:%s') as momento_grafico 
     FROM Leitura
-    JOIN sensor ON fkSensor = idSensor
+    JOIN Sensor ON fkSensor = idSensor
     JOIN Quadrante ON fkQuadrante = idQuadrante
     WHERE fkQuadrante = ${idQuadrante}
     GROUP BY DtLeitura, UmidadeSolo
@@ -39,7 +39,7 @@ function buscarMedidasEmTempoRealQuadrante(idQuadrante) {
     var instrucaoSql = `SELECT ROUND(avg(UmidadeSolo), 1) as dado, 
     date_format(DtLeitura, '%H:%i:%s') as momento_grafico 
     FROM Leitura
-    JOIN sensor ON fkSensor = idSensor
+    JOIN Sensor ON fkSensor = idSensor
     JOIN Quadrante ON fkQuadrante = idQuadrante
     WHERE fkQuadrante = ${idQuadrante}
     GROUP BY DtLeitura, UmidadeSolo

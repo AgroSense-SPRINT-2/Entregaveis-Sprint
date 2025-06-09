@@ -14,7 +14,7 @@ var PORTA_APP = process.env.APP_PORT;
 var HOST_APP = process.env.APP_HOST;
 
 var app = express();
-app.use(express.static(path.join(__dirname, "SiteEstaticoAlgoritmos", "institucional")));
+app.use(express.static(path.join(__dirname, "SiteEstaticoAlgoritmos", "Institucional")));
 app.use(express.static(path.join(__dirname, 'SiteEstaticoAlgoritmos', 'src')));
 var indexRouter = require("./SiteEstaticoAlgoritmos/src/routes/index");
 var usuarioRouter = require("./SiteEstaticoAlgoritmos/src/routes/usuarios");
